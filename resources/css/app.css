@@ -1,0 +1,16 @@
+@import '@unocss/reset/tailwind.css';
+@import "uno.css";
+
+@keyframes logo {
+    0% {
+        transform: scale(200);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.logo {
+    width: 30vw;
+    animation: logo 1s ease-out;
+}
