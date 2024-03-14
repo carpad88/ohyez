@@ -28,6 +28,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->registration()
+            ->registrationRouteSlug('sign-up')
+            ->profile(isSimple: false)
+            ->brandLogo(asset('img/ohyez-logo.svg'))
+            ->brandLogoHeight('3rem')
             ->colors([
                 'primary' => Color::Amber,
             ])
