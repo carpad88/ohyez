@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -26,5 +27,9 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Model::unguard();
+
+        Select::configureUsing(function (Select $entry): void {
+            $entry->native(false);
+        });
     }
 }
