@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
                 ]);
             });
 
-        \App\Models\Message::factory(10)->create();
+        \App\Models\Message::factory(10)->create([
+            'event_type_id' => rand(1, 3),
+        ]);
     }
 }
