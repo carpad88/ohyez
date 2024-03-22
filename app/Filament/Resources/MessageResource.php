@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\EventType;
 use App\Filament\Resources\MessageResource\Pages;
 use App\Models\Message;
 use Filament\Forms;
@@ -11,13 +12,14 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Str;
 
 class MessageResource extends Resource
 {
     protected static ?string $model = Message::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?int $navigationSort = 2;
 
     public static function getModelLabel(): string
     {
@@ -29,13 +31,18 @@ class MessageResource extends Resource
         return trans_choice('ohyez.message', 2);
     }
 
+    public static function getNavigationGroup(): ?string
+    {
+        return trans_choice('ohyez.content', 2);
+    }
+
     public static function form(Form $form): Form
     {
         return $form
             ->columns(1)
             ->schema([
-                Forms\Components\Select::make('event_type_id')
-                    ->relationship('eventType', 'name')
+                Forms\Components\Select::make('event_type')
+                    ->options(EventType::class)
                     ->required(),
                 Forms\Components\Textarea::make('content')
                     ->rows(6)
@@ -47,9 +54,9 @@ class MessageResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('eventType.name')
+                Tables\Columns\TextColumn::make('event_type')
                     ->badge()
-                    ->formatStateUsing(fn ($state) => Str::ucwords($state))
+                    ->formatStateUsing(fn ($state) => __('ohyez.'.$state))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('content')
                     ->wrap(),

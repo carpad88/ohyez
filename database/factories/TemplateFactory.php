@@ -2,30 +2,27 @@
 
 namespace Database\Factories;
 
-use App\Models\EventType;
+use App\Models\Template;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 
-class EventTypeFactory extends Factory
+class TemplateFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = EventType::class;
+    protected $model = Template::class;
 
     /**
      * Define the model's default state.
      */
     public function definition(): array
     {
-        $option = Arr::random(['wedding', 'xv', 'birthday']);
-
         return [
-            'name' => $option,
-            'code' => $option,
-            'sections' => ['ceremony' => true],
+            'name' => fake()->sentence(),
+            'event_type' => fake()->randomElement(['wedding', 'xv', 'birthday']),
+            'view' => 'template',
         ];
     }
 }

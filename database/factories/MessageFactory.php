@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\EventType;
 use App\Models\Message;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -21,8 +20,8 @@ class MessageFactory extends Factory
     public function definition(): array
     {
         return [
-            'event_type_id' => EventType::factory(),
-            'content' => $this->faker->paragraphs(2, true),
+            'event_type' => fake()->randomElement(['wedding', 'xv', 'birthday']),
+            'content' => $this->faker->paragraphs(1, true),
         ];
     }
 }

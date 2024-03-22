@@ -19,6 +19,6 @@ class Message extends Model
 
     public function eventType(): BelongsTo
     {
-        return $this->belongsTo(EventType::class);
+        return $this->belongsTo(Template::class);
     }
 }

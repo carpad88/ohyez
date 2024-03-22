@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('template_id')->constrained('templates');
             $table->string('event_type');
-            $table->text('content');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->date('date');
+            $table->json('content');
             $table->auditFields();
             $table->timestamps();
             $table->softDeletes();
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('events');
     }
 };

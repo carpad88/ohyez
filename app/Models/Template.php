@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EventType extends Model
+class Template extends Model
 {
     use CrudBy, HasFactory, SoftDeletes;
 
@@ -22,10 +22,5 @@ class EventType extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
-    }
-
-    public function messages(): HasMany
-    {
-        return $this->hasMany(Message::class);
     }
 }

@@ -18,17 +18,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        collect(['wedding', 'xv', 'birthday'])
-            ->each(function ($name) {
-                \App\Models\EventType::factory()->create([
-                    'name' => $name,
-                    'code' => $name,
-                    'sections' => ['ceremony' => true],
-                ]);
-            });
+        \App\Models\Template::factory(5)->create();
 
-        \App\Models\Message::factory(10)->create([
-            'event_type_id' => rand(1, 3),
-        ]);
+        \App\Models\Message::factory(5)->create();
     }
 }

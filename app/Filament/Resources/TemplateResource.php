@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EventTypeResource\Pages;
-use App\Models\EventType;
+use App\Filament\Resources\TemplateResource\Pages;
+use App\Models\Template;
+use App\Settings\GeneralSettings;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,20 +13,25 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class EventTypeResource extends Resource
+class TemplateResource extends Resource
 {
-    protected static ?string $model = EventType::class;
+    protected static ?string $model = Template::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getModelLabel(): string
     {
-        return trans_choice('ohyez.eventType', 1);
+        return trans_choice('ohyez.template', 1);
     }
 
     public static function getPluralModelLabel(): string
     {
-        return trans_choice('ohyez.eventType', 2);
+        return trans_choice('ohyez.template', 2);
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return trans_choice('ohyez.content', 2);
     }
 
     public static function form(Form $form): Form
@@ -35,9 +41,13 @@ class EventTypeResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required(),
-                Forms\Components\TextInput::make('code')
+                Forms\Components\Select::make('event_type')
+                    ->options(collect(app(GeneralSettings::class)->event_types)
+                        ->mapWithKeys(fn ($item) => [$item => __('ohyez.'.$item)])
+                    )
                     ->required(),
-                Forms\Components\KeyValue::make('sections')
+                Forms\Components\TextInput::make('view')
+                    ->default('ohyez::templates.default')
                     ->required(),
             ]);
     }
@@ -46,9 +56,10 @@ class EventTypeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('code')
+                Tables\Columns\TextColumn::make('event_type')
+                    ->formatStateUsing(fn ($state) => __('ohyez.'.$state))
                     ->badge(),
+                Tables\Columns\TextColumn::make('name'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -71,7 +82,7 @@ class EventTypeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageEventTypes::route('/'),
+            'index' => Pages\ManageTemplates::route('/'),
         ];
     }
 
