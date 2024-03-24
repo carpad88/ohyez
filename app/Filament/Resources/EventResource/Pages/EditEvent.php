@@ -13,6 +13,10 @@ class EditEvent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('header_save')
+                ->label('Guardar cambios')
+                ->button()
+                ->action('save'),
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),

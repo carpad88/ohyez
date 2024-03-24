@@ -6,6 +6,7 @@ use App\Enums\EventType;
 use App\Filament\Forms\WeddingForm;
 use App\Filament\Forms\XVForm;
 use App\Filament\Resources\EventResource\Pages;
+use App\Filament\Resources\EventResource\RelationManagers\InvitationsRelationManager;
 use App\Models\Event;
 use App\Settings\GeneralSettings;
 use Filament\Forms;
@@ -148,7 +149,7 @@ class EventResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            InvitationsRelationManager::class,
         ];
     }
 
