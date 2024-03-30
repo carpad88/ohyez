@@ -1,14 +1,18 @@
-import {defineConfig, presetUno} from 'unocss'
+import {defineConfig, presetIcons} from 'unocss'
 
 export default defineConfig({
+    envMode: 'dev',
     cli: {
         entry: {
             patterns: ['resources/views/**/*.blade.php'],
             outFile: 'resources/css/uno.css',
         },
     },
-    envMode: 'dev',
     presets: [
-        presetUno()
+        presetIcons({
+            extraProperties: {
+                display: 'inline-block',
+            },
+        }),
     ]
 })
