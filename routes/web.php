@@ -18,6 +18,10 @@ Route::group(['middleware' => EventHasExpired::class], function () {
         ->middleware(RedirectIfInvitationAuthenticated::class)
         ->name('invitation.login');
 
+    Route::get('events/{event}/{invitation:code}/download', [EventController::class, 'downloadTickets'])
+        ->middleware(InvitationIsAuthenticated::class)
+        ->name('event.download');
+
     Route::get('events/{event}/{invitation:code}', [EventController::class, 'index'])
         ->middleware(InvitationIsAuthenticated::class)
         ->name('event.index');

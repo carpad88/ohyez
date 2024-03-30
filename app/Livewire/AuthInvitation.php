@@ -57,7 +57,7 @@ class AuthInvitation extends Component implements HasForms
 
             $this->form->fill();
 
-            return;
+            return null;
         }
 
         request()->session()->put('invitation_code', $this->invitation->code);
