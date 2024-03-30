@@ -17,4 +17,10 @@ return [
     'event' => 'Event|Events',
 
     'template' => 'Template|Templates',
+
+    'invitation' => [
+        'pending' => 'Pending',
+        'confirmed' => 'Confirmed',
+        'declined' => 'Declined',
+    ],
 ];

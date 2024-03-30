@@ -26,6 +26,7 @@ class XVForm
                     Forms\Components\Section::make('Mensaje de bienvenida')
                         ->columns(3)
                         ->collapsible()
+                        ->collapsed(fn ($operation) => $operation == 'edit')
                         ->schema([
                             Forms\Components\ToggleButtons::make('welcome.visible')
                                 ->label('¿Mostrar mensaje de bienvenida?')
@@ -50,6 +51,7 @@ class XVForm
                     Forms\Components\Section::make('Padres')
                         ->columns(4)
                         ->collapsible()
+                        ->collapsed(fn ($operation) => $operation == 'edit')
                         ->schema([
                             Forms\Components\ToggleButtons::make('parents.visible')
                                 ->label('¿Mostrar nombres de los padres?')
@@ -74,6 +76,7 @@ class XVForm
                     Forms\Components\Section::make('Padrinos')
                         ->columns(4)
                         ->collapsible()
+                        ->collapsed(fn ($operation) => $operation == 'edit')
                         ->schema([
                             Forms\Components\ToggleButtons::make('godparents.visible')
                                 ->label('¿Mostrar nombres de los padres?')

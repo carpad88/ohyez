@@ -40,7 +40,7 @@ class InvitationsRelationManager extends RelationManager
                                 'md' => 1,
                             ])
                             ->numeric()
-//                    ->length(10)
+                            ->length(10)
                             ->required(),
                         Forms\Components\TextInput::make('table')
                             ->label('Mesa')
@@ -66,18 +66,20 @@ class InvitationsRelationManager extends RelationManager
                             )
                             ->schema(fn ($operation) => $operation == 'edit'
                                 ? [
-                                    Forms\Components\Fieldset::make()
+                                    Forms\Components\Group::make()
+                                        ->columnSpan('full')
                                         ->columns(3)
                                         ->schema([
                                             Forms\Components\TextInput::make('name')
-                                                ->label('Nombre')
+                                                ->label('')
                                                 ->columnSpan(2)
                                                 ->live(onBlur: true)
                                                 ->required()
+                                                ->markAsRequired(false)
                                                 ->maxLength(255),
                                             Forms\Components\ToggleButtons::make('confirmed')
                                                 ->visible(fn ($operation) => $operation == 'edit')
-                                                ->label('¿Confirmado?')
+                                                ->label('')
                                                 ->boolean()
                                                 ->grouped(),
                                         ]),
@@ -134,6 +136,7 @@ class InvitationsRelationManager extends RelationManager
             ->headerActions([
                 Tables\Actions\CreateAction::make()
                     ->modalWidth('xl')
+                    ->slideOver()
                     ->mutateFormDataUsing(function (array $data): array {
                         $uuid = str()->uuid()->toString();
                         $data['code'] = $uuid;
@@ -144,6 +147,7 @@ class InvitationsRelationManager extends RelationManager
                             ->map(fn ($name) => [
                                 'name' => str($name)->title()->toString(),
                                 'confirmed' => null,
+                                'id' => str()->random(4),
                             ])
                             ->toArray();
 
@@ -153,12 +157,15 @@ class InvitationsRelationManager extends RelationManager
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->modalWidth('xl')
+                    ->closeModalByClickingAway(false)
+                    ->slideOver()
                     ->mutateFormDataUsing(function (array $data): array {
                         $data['family'] = str($data['family'])->title();
                         $data['guests'] = collect($data['guests'])
-                            ->map(fn ($guest) => [
+                            ->map(fn ($guest, $index) => [
                                 'name' => str($guest['name'])->title(),
                                 'confirmed' => $guest['confirmed'] ?? null,
+                                'id' => $guest['id'] ?? str()->random(4),
                             ])
                             ->toArray();
 

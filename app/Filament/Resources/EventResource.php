@@ -83,7 +83,9 @@ class EventResource extends Resource
                         ->columns(3)
                         ->schema([
                             Forms\Components\Select::make('template_id')
-                                ->relationship('template', 'name')
+                                ->relationship('template', 'name',
+                                    modifyQueryUsing: fn (Builder $query, Forms\Get $get) => $query->where('event_type', $get('event_type'))
+                                )
                                 ->required(),
                             Forms\Components\Select::make('content.design.typography')
                                 ->label('Tipografía')

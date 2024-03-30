@@ -17,4 +17,10 @@ return [
     'event' => 'Evento|Eventos',
 
     'template' => 'Plantilla|Plantillas',
+
+    'invitation' => [
+        'pending' => 'Pendiente',
+        'confirmed' => 'Confirmada',
+        'declined' => 'Declinada',
+    ],
 ];

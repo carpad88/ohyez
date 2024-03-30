@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\InvitationStatus;
 use App\Traits\CrudBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,7 @@ class Invitation extends Model
         return [
             'checkedIn' => 'datetime',
             'guests' => 'array',
+            'status' => InvitationStatus::class,
         ];
     }
 
