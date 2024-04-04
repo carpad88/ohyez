@@ -40,11 +40,12 @@ class ShowQrCode extends Component implements HasActions, HasForms
                 ]))
                 ->openUrlInNewTab()
             )
-            ->modalContent(fn ($action) => view('components.qr-code', [
+            ->modalContent(fn ($action) => view('components.show-qr', [
                 'qr' => QrCode::size(200)
                     ->eye('circle')
                     ->style('dot', 0.95)
                     ->generate($this->invitation->code),
+                'invitation' => $this->invitation,
                 'action' => $action,
             ]));
     }

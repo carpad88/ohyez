@@ -10,6 +10,7 @@ export default defineConfig({
     },
     presets: [
         presetIcons({
+            cdn: 'https://esm.sh/',
             extraProperties: {
                 display: 'inline-block',
             },

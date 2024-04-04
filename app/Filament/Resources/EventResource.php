@@ -8,10 +8,12 @@ use App\Filament\Forms\XVForm;
 use App\Filament\Resources\EventResource\Pages;
 use App\Filament\Resources\EventResource\RelationManagers\InvitationsRelationManager;
 use App\Models\Event;
+use App\Models\Template;
 use App\Settings\GeneralSettings;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -83,10 +85,10 @@ class EventResource extends Resource
                         ->columns(3)
                         ->schema([
                             Forms\Components\Select::make('template_id')
-                                ->relationship('template', 'name',
-                                    modifyQueryUsing: fn (Builder $query, Forms\Get $get) => $query->where('event_type', $get('event_type'))
-                                )
-                                ->required(),
+                                ->options(fn (Forms\Get $get): array => Template::whereEventType($get('event_type'))
+                                    ->pluck('name', 'id')
+                                    ->toArray()
+                                ),
                             Forms\Components\Select::make('content.design.typography')
                                 ->label('Tipografía')
                                 ->options([
@@ -138,6 +140,7 @@ class EventResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -146,6 +149,12 @@ class EventResource extends Resource
                     Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([]);
     }
 
     public static function getRelations(): array
@@ -160,6 +169,7 @@ class EventResource extends Resource
         return [
             'index' => Pages\ListEvents::route('/'),
             'create' => Pages\CreateEvent::route('/create'),
+            'view' => Pages\ViewEvent::route('/{record}/attendance'),
             'edit' => Pages\EditEvent::route('/{record}/edit'),
         ];
     }

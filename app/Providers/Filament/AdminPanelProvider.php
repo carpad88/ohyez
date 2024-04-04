@@ -34,6 +34,7 @@ class AdminPanelProvider extends PanelProvider
             ->profile(isSimple: false)
             ->brandLogo(asset('img/ohyez-logo.svg'))
             ->brandLogoHeight('3rem')
+            ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Indigo,
             ])
