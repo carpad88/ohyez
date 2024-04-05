@@ -19,6 +19,11 @@ class ManageGeneralSettings extends SettingsPage
 
     protected static ?string $navigationGroup = 'Configuraciones';
 
+    public static function canAccess(): bool
+    {
+        return auth()->user()->hasRole('super_admin');
+    }
+
     public function form(Form $form): Form
     {
         return $form
