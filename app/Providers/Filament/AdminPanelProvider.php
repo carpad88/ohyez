@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -34,6 +35,7 @@ class AdminPanelProvider extends PanelProvider
             ->profile(isSimple: false)
             ->brandLogo(asset('img/ohyez-logo.svg'))
             ->brandLogoHeight('3rem')
+            ->defaultThemeMode(ThemeMode::Light)
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->colors([
                 'primary' => Color::Indigo,
