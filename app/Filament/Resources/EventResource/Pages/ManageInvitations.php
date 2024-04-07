@@ -85,6 +85,7 @@ class ManageInvitations extends ManageRelatedRecords
                 Group::make('table')
                     ->label('Mesa'),
             ])
+            ->defaultSort('family')
             ->columns([
                 Tables\Columns\Layout\Grid::make([
                     'sm' => 1,
@@ -153,6 +154,12 @@ class ManageInvitations extends ManageRelatedRecords
                     ->requiresConfirmation()
                     ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Pending])),
                 Tables\Actions\ActionGroup::make([
+                    Tables\Actions\Action::make('confirm')
+                        ->visible(fn ($record) => $record->status === InvitationStatus::Pending)
+                        ->label('Marcar como confirmada')
+                        ->icon('heroicon-o-check-circle')
+                        ->requiresConfirmation()
+                        ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Confirmed])),
                     Tables\Actions\EditAction::make()
                         ->modalWidth('xl')
                         ->closeModalByClickingAway(false)

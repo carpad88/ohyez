@@ -60,6 +60,7 @@ class ManageAttendance extends ManageRelatedRecords
                 Group::make('table')
                     ->label('Mesa'),
             ])
+            ->defaultSort('family')
             ->columns([
                 Tables\Columns\Layout\Grid::make([
                     'sm' => 1,
