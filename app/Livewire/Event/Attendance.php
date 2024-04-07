@@ -2,59 +2,16 @@
 
 namespace App\Livewire\Event;
 
-use App\Enums\InvitationStatus;
-use App\Models\Event;
 use App\Models\Invitation;
-use Filament\Forms\Concerns\InteractsWithForms;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
-use Filament\Tables;
-use Filament\Tables\Concerns\InteractsWithTable;
-use Filament\Tables\Contracts\HasTable;
-use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Livewire\Component;
 
-class Attendance extends Component implements HasForms, HasTable
+class Attendance extends Component
 {
-    use InteractsWithForms;
-    use InteractsWithTable;
-
-    public Event $event;
-
     public ?Invitation $invitation;
 
     public $checkedIn = true;
-
-    public function table(Table $table): Table
-    {
-        return $table
-            ->relationship(
-                fn (): HasMany => $this->event->invitations()
-                    ->where('status', '=', InvitationStatus::Confirmed)
-                    ->when($this->checkedIn,
-                        fn ($query) => $query->whereNotNull('checkedIn'),
-                        fn ($query) => $query->whereNull('checkedIn')
-                    )
-            )
-            ->inverseRelationship('invitations')
-            ->columns([
-                Tables\Columns\TextColumn::make('family')
-                    ->searchable(),
-            ])
-            ->filters([
-                //
-            ])
-            ->actions([
-                //
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    //
-                ]),
-            ]);
-    }
 
     public function validateQRCode($uuid): void
     {
@@ -84,6 +41,7 @@ class Attendance extends Component implements HasForms, HasTable
         ]);
 
         $this->sendNotification('Check-in exitoso', 'La invitación ya quedo registrada', 'success');
+        $this->dispatch('checkInCompleted');
     }
 
     private function sendNotification($title, $body, $type): void

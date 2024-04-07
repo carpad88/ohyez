@@ -13,6 +13,10 @@ Route::get('/', function () {
 
 Route::redirect('/login', '/admin/login')->name('login');
 
+Route::get('/events/{event}/preview', [EventController::class, 'preview'])
+    ->middleware('auth')
+    ->name('event.preview');
+
 Route::group(['middleware' => EventHasExpired::class], function () {
     Route::get('/invitation/{invitation:code}', AuthInvitation::class)
         ->middleware(RedirectIfInvitationAuthenticated::class)

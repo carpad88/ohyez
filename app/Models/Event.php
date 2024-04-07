@@ -37,4 +37,28 @@ class Event extends Model
     {
         return $this->hasMany(\App\Models\Invitation::class, 'event_id');
     }
+
+    public function invitationsCount($status = null): int
+    {
+        if ($status) {
+            return $this->invitations
+                ->filter(fn (Invitation $invitation) => $invitation->status === $status)
+                ->count();
+        }
+
+        return $this->invitations->count();
+    }
+
+    public function guestsCount(): int
+    {
+        return $this->invitations
+            ->reduce(fn (int $carry, Invitation $invitation) => $carry + count($invitation->guests), 0);
+    }
+
+    public function guestsConfirmed(): int
+    {
+        return $this->invitations
+            ->reduce(fn (int $carry, Invitation $invitation) => $carry + collect($invitation->guests)
+                ->filter(fn ($guest) => $guest['confirmed'])->count(), 0);
+    }
 }

@@ -40,6 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Indigo,
             ])
+            ->topNavigation()
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label(fn (): string => trans('ohyez.content')),

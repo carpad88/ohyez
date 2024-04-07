@@ -6,7 +6,6 @@ use App\Enums\EventType;
 use App\Filament\Forms\WeddingForm;
 use App\Filament\Forms\XVForm;
 use App\Filament\Resources\EventResource\Pages;
-use App\Filament\Resources\EventResource\RelationManagers\InvitationsRelationManager;
 use App\Models\Event;
 use App\Models\Template;
 use App\Settings\GeneralSettings;
@@ -14,6 +13,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Infolists\Infolist;
+use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -24,7 +24,9 @@ class EventResource extends Resource
 {
     protected static ?string $model = Event::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-cake';
+
+    protected static ?string $activeNavigationIcon = 'heroicon-c-cake';
 
     public static function getModelLabel(): string
     {
@@ -115,32 +117,60 @@ class EventResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $user = auth()->user();
+
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->when(
+                $user->hasRole('super_admin'),
+                fn ($query) => $query,
+                fn ($query) => $query->whereUserId($user->id)
+            ))
             ->columns([
+                Tables\Columns\TextColumn::make('event_type')
+                    ->label('Tipo de evento')
+                    ->badge(EventType::class)
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Evento')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('date')
+                    ->label('Fecha')
+                    ->date()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('host.name')
+                    ->label('Anfitrión')
                     ->description(fn ($record) => $record->host->email)
                     ->toggleable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('event_type')
-                    ->badge(EventType::class)
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('date')
-                    ->date()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('title')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('slug')
+                    ->toggleable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('template.name')
+                    ->label('Plantilla')
+                    ->sortable()
                     ->searchable(),
-
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('preview')
+                    ->icon('heroicon-c-arrow-top-right-on-square')
+                    ->iconButton(),
+                Tables\Actions\EditAction::make()
+                    ->icon('heroicon-c-pencil')
+                    ->iconButton(),
+                Tables\Actions\Action::make('invitations')
+                    ->label('Invitaciones')
+                    ->icon('heroicon-c-rectangle-stack')
+                    ->iconButton()
+                    ->url(fn ($record) => EventResource::getUrl('invitations', ['record' => $record])),
+                Tables\Actions\Action::make('attendance')
+                    ->label('Asistencia')
+                    ->icon('heroicon-c-qr-code')
+                    ->iconButton()
+                    ->url(fn ($record) => EventResource::getUrl('attendance', ['record' => $record])),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -159,9 +189,7 @@ class EventResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            InvitationsRelationManager::class,
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -169,8 +197,9 @@ class EventResource extends Resource
         return [
             'index' => Pages\ListEvents::route('/'),
             'create' => Pages\CreateEvent::route('/create'),
-            'view' => Pages\ViewEvent::route('/{record}/attendance'),
             'edit' => Pages\EditEvent::route('/{record}/edit'),
+            'invitations' => Pages\ManageInvitations::route('/{record}/invitations'),
+            'attendance' => Pages\ManageAttendance::route('/{record}/attendance'),
         ];
     }
 
@@ -180,5 +209,14 @@ class EventResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\EditEvent::class,
+            Pages\ManageInvitations::class,
+            Pages\ManageAttendance::class,
+        ]);
     }
 }

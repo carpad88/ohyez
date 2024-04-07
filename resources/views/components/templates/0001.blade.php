@@ -5,7 +5,7 @@
         {{ $event->title }}
     </h1>
     <h2 class="text-xl">
-        {{ $invitation->family }}
+        {{ $invitation->family ?? 'Familia' }}
     </h2>
 
     @livewire('confirm-invitation', ['invitation' => $invitation])

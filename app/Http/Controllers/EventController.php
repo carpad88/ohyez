@@ -9,7 +9,6 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EventController
 {
-    // add index method
     public function index(Event $event, Invitation $invitation)
     {
         $template = 'templates.'.$event->template->view;
@@ -25,5 +24,13 @@ class EventController
             ->setPaper([0, 0, 375, 590]);
 
         return $pdf->stream('tickets.pdf');
+    }
+
+    public function preview(Event $event)
+    {
+        $template = 'templates.'.$event->template->view;
+        $invitation = new Invitation();
+
+        return view('event.index', compact('event', 'invitation', 'template'));
     }
 }

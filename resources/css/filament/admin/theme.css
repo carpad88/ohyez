@@ -15,3 +15,7 @@
 .where, .\? {
     animation: __un_qm 0.5s ease-in-out alternate infinite;
 }
+
+.fi-page-sub-navigation-sidebar {
+    width: 12rem;
+}

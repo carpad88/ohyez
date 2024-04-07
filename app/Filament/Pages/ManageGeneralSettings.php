@@ -21,7 +21,7 @@ class ManageGeneralSettings extends SettingsPage
 
     public static function canAccess(): bool
     {
-        return auth()->user()->hasRole('super_admin');
+        return auth()->user()->can('page_ManageGeneralSettings');
     }
 
     public function form(Form $form): Form

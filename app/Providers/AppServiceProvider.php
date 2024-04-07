@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use Filament\Forms\Components\Select;
+use Filament\Forms;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
+use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -28,8 +29,12 @@ class AppServiceProvider extends ServiceProvider
 
         Model::unguard();
 
-        Select::configureUsing(function (Select $entry): void {
+        Forms\Components\Select::configureUsing(function (Forms\Components\Select $entry): void {
             $entry->native(false);
+        });
+
+        Tables\Filters\SelectFilter::configureUsing(function (Tables\Filters\SelectFilter $filter): void {
+            $filter->native(false);
         });
 
         FilamentAsset::register([
@@ -37,5 +42,6 @@ class AppServiceProvider extends ServiceProvider
             Js::make('qr-scanner-worker', asset('js/qr-scanner-worker.min.js'))
                 ->module(),
         ]);
+
     }
 }

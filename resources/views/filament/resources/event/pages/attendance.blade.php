@@ -1,3 +1,7 @@
 <x-filament-panels::page>
-    <livewire:event.attendance :event="$record" />
+    <x-filament-panels::resources.tabs />
+
+    {{ $this->table }}
+
+    <livewire:event.attendance />
 </x-filament-panels::page>
