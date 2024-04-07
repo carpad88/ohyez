@@ -92,18 +92,21 @@ class ManageAttendance extends ManageRelatedRecords
 
                         Tables\Columns\TextColumn::make('guests')
                             ->grow(false)
-                            ->state(fn (Invitation $record) => count($record->guests).' personas')
+                            ->state(fn (Invitation $record) => collect($record->guests)
+                                    ->filter(fn (array $guest) => $guest['confirmed'])->count().' personas')
                             ->color('warning')
                             ->badge(),
                         Tables\Columns\TextColumn::make('guests')
                             ->state(fn (Invitation $record) => collect($record->guests)
-                                ->map(fn (array $guest) => $guest['name']))
+                                ->filter(fn (array $guest) => $guest['confirmed'])
+                                ->map(fn (array $guest) => $guest['name'])
+                            )
                             ->bulleted()
                             ->expandableLimitedList()
                             ->limitList(),
                     ]),
             ])
-            ->paginated([9, 18, 36, 72])
+            ->paginated([12, 24, 48, 96])
             ->contentGrid([
                 'sm' => 2,
                 'lg' => 3,
