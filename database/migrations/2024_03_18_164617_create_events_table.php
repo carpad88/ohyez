@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->date('date');
+            $table->time('time');
             $table->json('content');
             $table->auditFields();
             $table->timestamps();

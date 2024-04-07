@@ -65,7 +65,14 @@ class EventResource extends Resource
                                     ->fill()
                                 ),
                             Forms\Components\DatePicker::make('date')
+                                ->native(false)
                                 ->default(now()->format('Y-m-d'))
+                                ->required(),
+                            Forms\Components\TimePicker::make('time')
+                                ->native(false)
+                                ->default(now())
+                                ->minutesStep(15)
+                                ->seconds(false)
                                 ->required(),
                             Forms\Components\TextInput::make('title')
                                 ->default(now()->format('h-i-s'))

@@ -5,7 +5,9 @@ namespace App\Filament\Resources\EventResource\Pages;
 use App\Enums\InvitationStatus;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\InvitationResource;
+use App\Models\Event;
 use App\Models\Invitation;
+use Carbon\Carbon;
 use Filament\Actions;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -93,7 +95,8 @@ class ManageAttendance extends ManageRelatedRecords
                         Tables\Columns\TextColumn::make('guests')
                             ->grow(false)
                             ->state(fn (Invitation $record) => collect($record->guests)
-                                    ->filter(fn (array $guest) => $guest['confirmed'])->count().' personas')
+                                ->filter(fn (array $guest) => $guest['confirmed'])
+                                ->count().' personas')
                             ->color('warning')
                             ->badge(),
                         Tables\Columns\TextColumn::make('guests')
@@ -114,6 +117,11 @@ class ManageAttendance extends ManageRelatedRecords
             ])
             ->actions([
                 Tables\Actions\Action::make('checkIn')
+                    ->disabled(function (Invitation $record) {
+                        $eventDateTime = Carbon::parse($record->event->date->format('Y-m-d').' '.$record->event->time);
+
+                        return now()->lessThan($eventDateTime);
+                    })
                     ->visible(fn (Invitation $record) => $record->checkedIn === null)
                     ->label('Check In')
                     ->icon('heroicon-o-qr-code')
@@ -138,6 +146,11 @@ class ManageAttendance extends ManageRelatedRecords
     {
         return [
             Actions\Action::make('scan')
+                ->disabled(function (Event $record) {
+                    $eventDateTime = Carbon::parse($record->date->format('Y-m-d').' '.$record->time);
+
+                    return now()->lessThan($eventDateTime);
+                })
                 ->label('Check In')
                 ->icon('heroicon-o-qr-code')
                 ->size(ActionSize::ExtraLarge)
