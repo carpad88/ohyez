@@ -18,7 +18,7 @@ class EventController
 
     public function downloadTickets(Event $event, Invitation $invitation)
     {
-        $qr = base64_encode(QrCode::size(150)->generate($invitation->code));
+        $qr = base64_encode(QrCode::size(200)->generate($invitation->code));
 
         $pdf = Pdf::loadView('event.tickets', compact('event', 'invitation', 'qr'))
             ->setPaper([0, 0, 375, 590]);
@@ -29,8 +29,7 @@ class EventController
     public function preview(Event $event)
     {
         $template = 'templates.'.$event->template->view;
-        $invitation = new Invitation();
 
-        return view('event.index', compact('event', 'invitation', 'template'));
+        return view('event.index', compact('event', 'template'));
     }
 }

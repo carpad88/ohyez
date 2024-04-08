@@ -27,6 +27,10 @@ class ConfirmInvitation extends Component implements HasActions, HasForms
     public function confirm(): Action
     {
         return Action::make('confirm')
+            ->outlined()
+            ->size('xl')
+            ->icon('heroicon-o-user-group')
+            ->extraAttributes(['class' => 'py-4 px-6 mt-8'])
             ->visible($this->invitation->status === InvitationStatus::Pending)
             ->modalHeading('Confirmar asistencia')
             ->modalWidth('sm')

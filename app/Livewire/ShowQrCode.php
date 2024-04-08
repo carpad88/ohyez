@@ -29,11 +29,17 @@ class ShowQrCode extends Component implements HasActions, HasForms
     public function showQrCode(): Action
     {
         return Action::make('showQrCode')
+            ->outlined()
+            ->color('danger')
+            ->size('xl')
+            ->icon('heroicon-o-ticket')
+            ->extraAttributes(['class' => 'py-4 px-6 mt-8'])
             ->label('Ver boletos')
             ->visible($this->invitation->status === InvitationStatus::Confirmed)
             ->modalWidth('sm')
             ->modalHeading($this->invitation->family)
             ->modalSubmitAction(fn () => Action::make('download')
+                ->label('Descargar')
                 ->url(fn () => route('event.download', [
                     'event' => $this->invitation->event->id,
                     'invitation' => $this->invitation->code,
@@ -43,7 +49,7 @@ class ShowQrCode extends Component implements HasActions, HasForms
             ->modalContent(fn ($action) => view('components.show-qr', [
                 'qr' => QrCode::size(200)
                     ->eye('circle')
-                    ->style('dot', 0.95)
+                    ->style('dot', 0.99)
                     ->generate($this->invitation->code),
                 'invitation' => $this->invitation,
                 'action' => $action,

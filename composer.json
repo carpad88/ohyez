@@ -17,6 +17,7 @@
         "hasan-ahani/filament-otp-input": "^1.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "log1x/laravel-webfonts": "^1.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-settings": "^3.3"
     },

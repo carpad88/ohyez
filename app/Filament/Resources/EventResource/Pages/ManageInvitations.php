@@ -132,19 +132,22 @@ class ManageInvitations extends ManageRelatedRecords
                     ->icon('heroicon-o-paper-airplane')
                     ->label('Compartir')
                     ->url(function (Invitation $record): string {
-                        //                        $fullMessage = config('app.url').'/invitation/'.$record->code."\n\n";
-                        //                        $fullMessage .= 'Hola, te comparto la invitación para mi celebración de XV años.'."\n\n";
-                        //                        $fullMessage .= 'Tu código de acceso es:'."\n\n".'*'.self::passwordFromUUID($record->code).'*';
-                        //
-                        //                        $encodedMessage = urlencode($fullMessage);
-                        //
-                        //                        return 'https://wa.me/52'.$record->phone.'?text='.$encodedMessage;
-                        return route('invitation.login',
-                            [
-                                'invitation' => $record->code,
-                                'password' => self::passwordFromUUID($record->code),
-                            ]
-                        );
+                        if (app()->environment('local')) {
+                            return route('invitation.login',
+                                [
+                                    'invitation' => $record->code,
+                                    'password' => self::passwordFromUUID($record->code),
+                                ]
+                            );
+                        }
+
+                        $fullMessage = config('app.url').'/invitation/'.$record->code."\n\n";
+                        $fullMessage .= 'Hola, te comparto la invitación para mi celebración de XV años.'."\n\n";
+                        $fullMessage .= 'Tu código de acceso es:'."\n\n".'*'.self::passwordFromUUID($record->code).'*';
+
+                        $encodedMessage = urlencode($fullMessage);
+
+                        return 'https://wa.me/52'.$record->phone.'?text='.$encodedMessage;
                     })
                     ->openUrlInNewTab(),
                 Tables\Actions\Action::make('pending')

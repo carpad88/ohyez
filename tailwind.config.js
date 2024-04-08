@@ -10,7 +10,15 @@ export default {
         extend: {
             screens: {
                 'sm': '480px',
-            }
+            },
+            fontFamily: {
+                display: [
+                    '"Bricolage Grotesque", serif',
+                ],
+                sans: [
+                    'Inter, serif',
+                ],
+            },
         }
     }
 }
