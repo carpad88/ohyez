@@ -23,7 +23,7 @@ class Attendance extends Component
             return;
         }
 
-        if ($this->invitation->event->date->isPast()) {
+        if ($this->invitation->event->date->addDays(2)->isPast()) {
             $this->sendNotification('Evento pasado', 'La invitación que intentas escanear es de un evento que ya pasó.', 'warning');
 
             return;
