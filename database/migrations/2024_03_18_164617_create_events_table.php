@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('uuid')->unique();
+            $table->string('password');
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('template_id')->constrained('templates');
             $table->string('event_type');

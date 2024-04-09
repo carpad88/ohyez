@@ -17,7 +17,9 @@ class EventHasExpired
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->invitation->event->date->isPast()) {
+        $event = $request->event ?? $request->invitation->event;
+
+        if ($event->date->addDays(2)->isPast()) {
             $request->session()->flush();
             Cookie::queue(Cookie::forget('invitation_authenticated'));
 

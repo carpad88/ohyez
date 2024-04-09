@@ -4,6 +4,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Middleware\EventHasExpired;
 use App\Http\Middleware\InvitationIsAuthenticated;
 use App\Http\Middleware\RedirectIfInvitationAuthenticated;
+use App\Livewire\AuthEvent;
 use App\Livewire\AuthInvitation;
 use Illuminate\Support\Facades\Route;
 
@@ -22,11 +23,14 @@ Route::group(['middleware' => EventHasExpired::class], function () {
         ->middleware(RedirectIfInvitationAuthenticated::class)
         ->name('invitation.login');
 
-    Route::get('events/{event}/{invitation:code}/download', [EventController::class, 'downloadTickets'])
+    Route::get('/events/{event}/login', AuthEvent::class)
+        ->name('event.login');
+
+    Route::get('/events/{event}/{invitation:code}/download', [EventController::class, 'downloadTickets'])
         ->middleware(InvitationIsAuthenticated::class)
         ->name('event.download');
 
-    Route::get('events/{event}/{invitation:code}', [EventController::class, 'index'])
+    Route::get('/events/{event}/{invitation:code}', [EventController::class, 'index'])
         ->middleware(InvitationIsAuthenticated::class)
         ->name('event.index');
 });

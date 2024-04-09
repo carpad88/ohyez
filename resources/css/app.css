@@ -39,6 +39,13 @@
     font-weight: bold;
 }
 
+.fi-otp-input-container {
+    gap: 1rem;
+}
+
+.fi-otp-input {
+    @apply px-0 py-1.5;
+}
 
 /****************************************************
 Styles for template 0001
