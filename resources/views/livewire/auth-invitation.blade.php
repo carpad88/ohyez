@@ -1,4 +1,17 @@
 <div class="min-h-screen grid grid-cols-[1fr_auto_1fr] grid-rows-[1fr_5rem] p-8 bg-rose-100">
+    @push('meta')
+        <meta name="title" content="Mis XV años :: Renata">
+        <meta name="description" content="Invitación para la fiesta de XV años de Renata">
+        <meta property="og:title" content="Mis XV años :: Renata">
+        <meta property="og:description" content="Invitación para la fiesta de XV años de Renata">
+        <meta property="og:image" content="{{ config('app.url') }}/img/og-xv-renata.jpg">
+        <meta property="og:url" content="{{ config('app.url') }}">
+        <meta name="twitter:title" content="Mis XV años :: Renata">
+        <meta name="twitter:description" content="Invitación para la fiesta de XV años de Renata">
+        <meta name="twitter:image" content="{{ config('app.url') }}/img/og-xv-renata.jpg">
+        <meta name="twitter:card" content="summary">
+    @endpush
+
     <div class="flex flex-col items-center justify-center col-start-2">
         <div class="w-72 h-72 rounded-full">
             <svg id="b" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
