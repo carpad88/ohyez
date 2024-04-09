@@ -34,6 +34,11 @@ class ManageAttendance extends ManageRelatedRecords
 
     protected $listeners = ['checkInCompleted' => '$refresh'];
 
+    public static function canAccess(array $parameters = []): bool
+    {
+        return true;
+    }
+
     public function getBreadcrumbs(): array
     {
         if (auth()->user()->hasRole('super_admin')) {
