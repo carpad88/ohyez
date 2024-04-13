@@ -18,6 +18,10 @@ Route::get('/events/{event}/preview', [EventController::class, 'preview'])
     ->middleware('auth')
     ->name('event.preview');
 
+Route::get('/events/{event}/invitations/download', [EventController::class, 'downloadInvitations'])
+    ->middleware('auth')
+    ->name('event.invitations');
+
 Route::group(['middleware' => EventHasExpired::class], function () {
     Route::get('/invitation/{invitation:code}', AuthInvitation::class)
         ->middleware(RedirectIfInvitationAuthenticated::class)

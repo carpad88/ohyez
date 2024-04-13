@@ -151,6 +151,14 @@ class ManageAttendance extends ManageRelatedRecords
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('download')
+                ->label('Descargar lista')
+                ->icon('heroicon-o-document-arrow-down')
+                ->size(ActionSize::ExtraLarge)
+                ->url(fn () => route('event.invitations', [
+                    'event' => $this->record->id,
+                ]))
+                ->openUrlInNewTab(),
             Actions\Action::make('scan')
                 ->disabled(function (Event $record) {
                     $eventDateTime = Carbon::parse($record->date->format('Y-m-d').' '.$record->time);
