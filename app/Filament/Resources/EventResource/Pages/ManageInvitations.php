@@ -163,6 +163,12 @@ class ManageInvitations extends ManageRelatedRecords
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
                         ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Confirmed])),
+                    Tables\Actions\Action::make('decline')
+                        ->visible(fn ($record) => $record->status === InvitationStatus::Pending)
+                        ->label('Marcar como declinada')
+                        ->icon('heroicon-o-x-mark')
+                        ->requiresConfirmation()
+                        ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Declined])),
                     Tables\Actions\EditAction::make()
                         ->modalWidth('xl')
                         ->closeModalByClickingAway(false)
