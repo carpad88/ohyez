@@ -63,9 +63,9 @@
                 <img src="{{ public_path('img/ohyez-logo.svg') }}" alt="Ohyez Logo" height="60">
             </td>
 
-            <td style="font-weight: lighter; padding-bottom: 12px;" align="right">
-                www.ohyez.app
-            </td>
+          <td style="font-weight: lighter; padding-bottom: 12px;" align="right">
+            www.ohyez.app
+          </td>
         </tr>
         </tbody>
     </table>
@@ -73,45 +73,54 @@
 
 <!-- Body -->
 <div>
-    <div style="font-size: 20px; color: #6d6d6d; line-height: 1; font-weight: 200;">
-        <span>{{ $event->date->format("d/m/Y") }}</span> –
-        <span>{{ \Carbon\Carbon::parse($event->time)->format('H:i') }}</span>
+  <div style="font-size: 20px; color: #6d6d6d; line-height: 1; font-weight: 200;">
+    <span>{{ $event->date->format("d/m/Y") }}</span> –
+    <span>{{ \Carbon\Carbon::parse($event->time)->format('H:i') }}</span>
+  </div>
+
+  <h1 style="font-size: 48px; font-weight: lighter; margin-bottom: 30px">{{ $event->title }}</h1>
+
+  @foreach($tables as $table => $invitations)
+    <div style="margin-bottom: 32px">
+      <table cellpadding="3">
+        <thead>
+        <tr style="background-color: #fce7f3;">
+          <th colspan="3" align="left" style="font-weight: 700; font-size: 18px;">
+            Mesa {{ $table }}
+            <span style="color: #848484; font-size: 12px; font-weight: lighter">({{
+                            $invitations->map(fn($invitation) => collect($invitation->guests)
+                                                                                ->filter(fn($guest) => $guest['confirmed'])
+                                                                                ->count())
+                                                                                ->sum()
+                            }} personas)
+                        </span>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($invitations as $invitation)
+          <tr style="border-bottom: 1px solid #fbcfe8; ">
+            <td align="center" width="20">
+              <div style="width: 20px; height: 20px; border: 1px solid #898989; border-radius: 4px">
+              </div>
+            </td>
+            <td>
+              <h3 style="font-family: 'Bricolage Grotesque', serif; font-size: 13px">
+                {{ $invitation->family }}
+              </h3>
+              <p style="color: #848484; font-size: 11px">
+                {{ collect($invitation->guests)->filter(fn($g) => $g['confirmed'])->map(fn ($i)=> $i['name'])->join(', ') }}
+              </p>
+            </td>
+            <td width="60" style="font-weight: 600;">
+              {{ collect($invitation->guests)->filter(fn($g) => $g['confirmed'])->count() }} personas
+            </td>
+          </tr>
+        @endforeach
+        </tbody>
+      </table>
     </div>
-
-    <h1 style="font-size: 48px; font-weight: lighter; margin-bottom: 30px">{{ $event->title }}</h1>
-
-    @foreach($tables as $table => $invitations)
-        <div style="margin-bottom: 32px">
-            <table cellpadding="3">
-                <thead>
-                <tr style="background-color: #fce7f3;">
-                    <th colspan="3" align="left" style="font-weight: 700; font-size: 18px;">Mesa {{ $table }}</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($invitations as $invitation)
-                    <tr style="border-bottom: 1px solid #fbcfe8; ">
-                        <td align="center" width="20">
-                            <div style="width: 20px; height: 20px; border: 1px solid #898989; border-radius: 4px">
-                            </div>
-                        </td>
-                        <td>
-                            <h3 style="font-family: 'Bricolage Grotesque', serif; font-size: 13px">
-                                {{ $invitation->family }}
-                            </h3>
-                            <p style="color: #848484; font-size: 11px">
-                                {{ collect($invitation->guests)->filter(fn($g) => $g['confirmed'])->map(fn ($i)=> $i['name'])->join(', ') }}
-                            </p>
-                        </td>
-                        <td width="60" style="font-weight: 600;">
-                            {{ collect($invitation->guests)->filter(fn($g) => $g['confirmed'])->count() }} personas
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endforeach
+  @endforeach
 </div>
 
 <script type="text/php">
