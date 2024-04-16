@@ -5,6 +5,7 @@ namespace App\Livewire\Event;
 use App\Models\Invitation;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Attendance extends Component
@@ -12,6 +13,12 @@ class Attendance extends Component
     public ?Invitation $invitation;
 
     public $checkedIn = true;
+
+    #[On('resetInvitation')]
+    public function resetInvitation(): void
+    {
+        $this->invitation = null;
+    }
 
     public function validateQRCode($uuid): void
     {

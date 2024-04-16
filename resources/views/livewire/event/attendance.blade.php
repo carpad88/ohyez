@@ -1,4 +1,8 @@
-<x-filament::modal id="qr-scanner" :close-by-clicking-away="false">
+<x-filament::modal
+    id="qr-scanner"
+    :close-by-clicking-away="false"
+    @close-modal="$dispatch('resetInvitation')"
+>
     <x-slot name="heading">
         Check In de Invitados
     </x-slot>
@@ -50,24 +54,29 @@
         @endif
 
         @if($invitation)
-            <h2>Mesa {{ $invitation->table }}</h2>
-            <div>
-                Familia: {{ $invitation?->family }}
+            <div class="text-center">
+                <h2 class="text-5xl font-extralight">MESA {{ $invitation->table }}</h2>
+
+                <div class="text-2xl font-bold mt-8 text-indigo-500">
+                    {{ $invitation?->family }}
+                </div>
+
+                <div class="font-medium mb-6 text-lg text-gray-600">
+                    {{ count($invitation?->guests) }} personas
+                </div>
+
+                <ul class="flex justify-center gap-4 flex-wrap mb-12">
+                    @foreach($invitation->guests as $guest)
+                        <li class="text-sm border border-indigo-300 px-1 py-0.5 rounded-md bg-indigo-100">
+                            {{ $guest['name'] }}
+                        </li>
+                    @endforeach
+                </ul>
+
+                <x-filament::button wire:click="checkIn" class="w-full">
+                    Confirmar
+                </x-filament::button>
             </div>
-
-            <div>
-                Personas: {{ count($invitation?->guests) }}
-            </div>
-
-            <ul>
-                @foreach($invitation->guests as $guest)
-                    <li>{{ $guest['name'] }}</li>
-                @endforeach
-            </ul>
-
-            <x-filament::button wire:click="checkIn">
-                Confirmar
-            </x-filament::button>
         @endif
     </div>
 </x-filament::modal>
