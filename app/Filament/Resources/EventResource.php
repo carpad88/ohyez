@@ -65,8 +65,10 @@ class EventResource extends Resource
                                     ->fill()
                                 ),
                             Forms\Components\DatePicker::make('date')
+                                ->disabled(fn($operation) => $operation === 'edit')
                                 ->native(false)
                                 ->default(now()->format('Y-m-d'))
+                                ->minDate(now()->format('Y-m-d'))
                                 ->required(),
                             Forms\Components\TimePicker::make('time')
                                 ->native(false)
