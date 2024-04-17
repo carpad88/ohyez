@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Carbon\Carbon;
 use Closure;
 use Filament\Notifications\Notification;
 use Illuminate\Http\Request;
@@ -19,7 +20,9 @@ class EventHasExpired
     {
         $event = $request->event ?? $request->invitation->event;
 
-        if ($event->date->addDays(2)->isPast()) {
+        $expirationDate = Carbon::parse($event->date->format('Y-m-d').' '.$event->time)->addDays(2);
+
+        if ($expirationDate->isPast()) {
             $request->session()->flush();
             Cookie::queue(Cookie::forget('invitation_authenticated'));
 

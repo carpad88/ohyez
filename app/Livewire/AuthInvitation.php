@@ -65,7 +65,7 @@ class AuthInvitation extends Component implements HasForms
 
         $event = $this->invitation->event;
 
-        $expirationDate = Carbon::parse($event->date->format('Y-m-d').' '.$event->time)->addDay();
+        $expirationDate = Carbon::parse($event->date->format('Y-m-d').' '.$event->time)->addDays(2);
         $minutesUntilExpiration = Carbon::now()->diffInMinutes($expirationDate);
         Cookie::queue('invitation_authenticated', true, $minutesUntilExpiration);
 
