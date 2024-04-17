@@ -345,7 +345,7 @@
         </h4>
 
         <div class="mt-16 grid grid-cols-9 gap-y-8 text-2xl font-light">
-            <div class="border-r-2 border-rose-300 border-dotted row-span-6 translate-x-10 mt-4"></div>
+            <div class="border-r-2 border-rose-300 border-dotted row-span-7 translate-x-10 mt-4"></div>
 
             <div class="col-start-2 col-span-7 flex items-center space-x-2 z-10">
                 <div>
@@ -419,9 +419,22 @@
                 <div class="text-left">
                     <div class="flex items-center space-x-1">
                         <span class="i-mdi-clock-time-ten-outline size-5"></span>
-                        <p class="text-lg">12:00 pm</p>
+                        <p class="text-lg">12:00 am</p>
                     </div>
                     <p>Pastel</p>
+                </div>
+            </div>
+
+            <div class="col-start-2 col-span-7 flex items-center space-x-2 z-10">
+                <div class="w-20">
+                    <img src="{{asset('/icons/icon-bye.svg')}}" alt="" class="w-20">
+                </div>
+                <div class="text-left">
+                    <div class="flex items-center space-x-1">
+                        <span class="i-mdi-clock-time-two-outline size-5"></span>
+                        <p class="text-lg">2:00 am</p>
+                    </div>
+                    <p class="fle">Nos despedimos</p>
                 </div>
             </div>
         </div>
