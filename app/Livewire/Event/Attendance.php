@@ -3,6 +3,7 @@
 namespace App\Livewire\Event;
 
 use App\Models\Invitation;
+use Carbon\Carbon;
 use Filament\Notifications\Notification;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
@@ -43,6 +44,19 @@ class Attendance extends Component
 
     public function checkIn(): void
     {
+        $event = $this->invitation->event;
+        $eventDateTime = Carbon::parse($event->date->format('Y-m-d').' '.$event->time);
+
+        if (now()->lessThan($eventDateTime)) {
+            $this->sendNotification(
+                'Simulación de check-in exitoso.',
+                'El evento aún no inicia, por lo que este check-in es simulado.',
+                'warning'
+            );
+
+            return;
+        }
+
         $this->invitation->update([
             'checkedIn' => now(),
         ]);
@@ -59,7 +73,7 @@ class Attendance extends Component
             ->$type()
             ->send();
 
-        $this->invitation = null;
+        $this->resetInvitation();
     }
 
     public function render(): View

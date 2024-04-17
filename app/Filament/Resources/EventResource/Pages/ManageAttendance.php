@@ -5,7 +5,6 @@ namespace App\Filament\Resources\EventResource\Pages;
 use App\Enums\InvitationStatus;
 use App\Filament\Resources\EventResource;
 use App\Filament\Resources\InvitationResource;
-use App\Models\Event;
 use App\Models\Invitation;
 use Carbon\Carbon;
 use Filament\Actions;
@@ -123,11 +122,6 @@ class ManageAttendance extends ManageRelatedRecords
             ])
             ->actions([
                 Tables\Actions\Action::make('checkIn')
-                    ->disabled(function (Invitation $record) {
-                        $eventDateTime = Carbon::parse($record->event->date->format('Y-m-d').' '.$record->event->time);
-
-                        return now()->lessThan($eventDateTime);
-                    })
                     ->visible(fn (Invitation $record) => $record->checkedIn === null)
                     ->label('Check In')
                     ->icon('heroicon-o-qr-code')
@@ -136,6 +130,18 @@ class ManageAttendance extends ManageRelatedRecords
                     ->modalHeading('Check-in sin escaneo de QR')
                     ->modalDescription('¿Estás seguro registrar la asistencia de esta invitación sin escanear el QR?')
                     ->action(function (Invitation $record) {
+                        $eventDateTime = Carbon::parse($record->event->date->format('Y-m-d').' '.$record->event->time);
+
+                        if (now()->lessThan($eventDateTime)) {
+                            Notification::make()
+                                ->title('Simulación de check-in exitoso')
+                                ->body('El evento aún no inicia, por lo que este check-in es simulado.')
+                                ->success()
+                                ->send();
+
+                            return;
+                        }
+
                         $record->update(['checkedIn' => now()]);
                         $this->dispatch('checkInCompleted');
 
@@ -160,11 +166,6 @@ class ManageAttendance extends ManageRelatedRecords
                 ]))
                 ->openUrlInNewTab(),
             Actions\Action::make('scan')
-                ->disabled(function (Event $record) {
-                    $eventDateTime = Carbon::parse($record->date->format('Y-m-d').' '.$record->time);
-
-                    return now()->lessThan($eventDateTime);
-                })
                 ->label('Check In')
                 ->icon('heroicon-o-qr-code')
                 ->size(ActionSize::ExtraLarge)
