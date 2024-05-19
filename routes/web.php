@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::redirect('/login', '/admin/login')->name('login');
+Route::redirect('/admin/login', '/login')->name('login');
 
 Route::get('/events/{event}/preview', [EventController::class, 'preview'])
     ->middleware('auth')
