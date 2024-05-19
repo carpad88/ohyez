@@ -2,7 +2,6 @@
 
 namespace App\Http\Responses;
 
-use Filament\Facades\Filament;
 use Illuminate\Http\RedirectResponse;
 use Livewire\Features\SupportRedirects\Redirector;
 

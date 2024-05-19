@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Forms;
+use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Tables;

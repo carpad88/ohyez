@@ -29,6 +29,8 @@ class AppPanelProvider extends PanelProvider
             ->path('')
             ->login()
             ->registration()
+            ->emailVerification()
+            ->passwordReset()
             ->profile(isSimple: false)
             ->brandLogo(asset('img/ohyez-logo.svg'))
             ->brandLogoHeight('3rem')
