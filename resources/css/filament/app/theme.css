@@ -1,0 +1,22 @@
+@import '/vendor/filament/filament/resources/css/theme.css';
+
+@config 'tailwind.config.js';
+
+
+@keyframes __un_qm {
+    0% {
+        box-shadow: inset 4px 4px #ff1e90, inset -4px -4px #ff1e90
+    }
+    100% {
+        box-shadow: inset 8px 8px #3399ff, inset -8px -8px #3399ff
+    }
+}
+
+.where, .\? {
+    animation: __un_qm 0.5s ease-in-out alternate infinite;
+}
+
+
+.fi-topbar > nav {
+    @apply bg-indigo-900;
+}
