@@ -13,16 +13,19 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->unique();
-            $table->string('password');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('template_id')->constrained('templates');
-            $table->string('event_type');
+            $table->foreignIdFor(\App\Models\User::class);
+            $table->string('code')->unique()->index();
+            $table->string('tier');
             $table->string('title');
-            $table->string('slug')->unique();
-            $table->date('date');
-            $table->time('time');
-            $table->json('content');
+            $table->uuid();
+            $table->string('password');
+
+            $table->foreignIdFor(\App\Models\Template::class)->nullable();
+            $table->string('event_type')->nullable();
+            $table->string('slug')->nullable()->unique();
+            $table->date('date')->nullable();
+            $table->time('time')->nullable();
+            $table->json('content')->nullable();
             $table->auditFields();
             $table->timestamps();
             $table->softDeletes();

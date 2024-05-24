@@ -15,6 +15,7 @@
         "filament/filament": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
         "hasan-ahani/filament-otp-input": "^1.0",
+        "laravel/cashier": "^15.3",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
         "log1x/laravel-webfonts": "^1.0",
@@ -43,7 +44,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/Helpers/EventHelpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": [

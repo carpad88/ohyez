@@ -20,3 +20,7 @@
 .fi-topbar > nav {
     @apply bg-indigo-900;
 }
+
+.fi-page-sub-navigation-sidebar {
+    @apply bg-white px-2 rounded-lg;
+}

@@ -7,14 +7,16 @@ use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 {
-    use HasFactory, HasPanelShield, HasRoles, Notifiable, softDeletes;
+    use Billable, HasFactory, HasPanelShield, HasRoles, Notifiable, softDeletes;
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,5 +52,15 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         }
 
         return false;
+    }
+
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class);
     }
 }

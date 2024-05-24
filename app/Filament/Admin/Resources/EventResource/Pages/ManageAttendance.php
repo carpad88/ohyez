@@ -23,7 +23,7 @@ class ManageAttendance extends ManageRelatedRecords
 {
     protected static string $resource = EventResource::class;
 
-    protected static string $view = 'filament.resources.event.pages.attendance';
+    protected static string $view = 'filament.admin.resources.event.pages.attendance';
 
     protected static string $relationship = 'invitations';
 

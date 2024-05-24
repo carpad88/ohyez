@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\EventController;
 use App\Http\Middleware\EventHasExpired;
 use App\Http\Middleware\InvitationIsAuthenticated;
@@ -13,6 +14,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::redirect('/admin/login', '/login')->name('login');
+
+Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout-success');
+Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout-cancel');
 
 Route::get('/events/{event}/preview', [EventController::class, 'preview'])
     ->middleware('auth')
