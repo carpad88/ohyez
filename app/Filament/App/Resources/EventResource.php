@@ -4,9 +4,9 @@ namespace App\Filament\App\Resources;
 
 use App\Filament\App\Resources\EventResource\Pages;
 use App\Models\Event;
+use App\Settings\GeneralSettings;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Navigation\NavigationItem;
 use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -31,16 +31,42 @@ class EventResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->extraAttributes([
+                'class' => 'max-w-3xl',
+            ])
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required(),
-//                Forms\Components\Textarea::make('description')
-//                    ->rows(6)
-//                    ->required(),
-//                Forms\Components\DateTimePicker::make('start_date')
-//                    ->required(),
-//                Forms\Components\DateTimePicker::make('end_date')
-//                    ->required(),
+                Forms\Components\Section::make('Información del evento')
+                    ->description('Elige el tipo de evento y proporciona los detalles necesarios.')
+                    ->columns()
+                    ->schema([
+                        Forms\Components\Select::make('event_type')
+                            ->label(trans_choice('ohyez.eventType', 1))
+                            ->required()
+                            ->options(collect(app(GeneralSettings::class)->event_types)
+                                ->mapWithKeys(fn ($item) => [$item => __('ohyez.'.$item)])
+                            ),
+                        Forms\Components\TextInput::make('title')
+                            ->label('Título del evento')
+                            ->required(),
+                    ]),
+
+                Forms\Components\Section::make()
+                    ->columns()
+                    ->schema([
+                        Forms\Components\DatePicker::make('date')
+                            ->label('Fecha')
+                            ->native(false)
+                            ->default(now()->format('Y-m-d'))
+                            ->minDate(now()->format('Y-m-d'))
+                            ->required(),
+                        Forms\Components\TimePicker::make('time')
+                            ->label('Hora')
+                            ->native(false)
+                            ->default('12:00')
+                            ->seconds(false)
+                            ->required(),
+                    ]),
+
             ]);
     }
 
@@ -78,6 +104,8 @@ class EventResource extends Resource
         return [
             'index' => Pages\ListEvents::route('/'),
             'edit' => Pages\EditEvent::route('/{record}/edit'),
+            'edit-template' => Pages\EditEventTemplate::route('/{record}/edit/template'),
+            'edit-cover' => Pages\EditEventCover::route('/{record}/edit/cover'),
         ];
     }
 
@@ -85,6 +113,8 @@ class EventResource extends Resource
     {
         return $page->generateNavigationItems([
             Pages\EditEvent::class,
+            Pages\EditEventCover::class,
+            Pages\EditEventTemplate::class,
         ]);
     }
 }

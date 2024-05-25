@@ -13,7 +13,7 @@ class EditEvent extends EditRecord
 
     protected static ?string $title = 'Detalles del evento';
 
-    protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $navigationIcon = 'heroicon-c-pencil';
 
     protected function getHeaderActions(): array
     {

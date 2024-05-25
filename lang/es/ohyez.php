@@ -10,7 +10,7 @@ return [
     'eventType' => 'Tipo de Evento|Tipos de Evento',
     'wedding' => 'Boda',
     'birthday' => 'Cumpleaños',
-    'xv' => 'XV',
+    'xv' => 'XV años',
 
     'message' => 'Mensaje|Mensajes',
 

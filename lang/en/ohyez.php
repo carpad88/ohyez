@@ -10,7 +10,7 @@ return [
     'eventType' => 'Event Type|Event Types',
     'wedding' => 'Wedding',
     'birthday' => 'Birthday',
-    'xv' => 'XV',
+    'xv' => 'XV years old',
 
     'message' => 'Message|Messages',
 
