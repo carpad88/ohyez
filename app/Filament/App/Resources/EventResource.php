@@ -107,6 +107,7 @@ class EventResource extends Resource
             'edit-template' => Pages\EditEventTemplate::route('/{record}/edit/template'),
             'edit-cover' => Pages\EditEventCover::route('/{record}/edit/cover'),
             'edit-mentions' => Pages\EditEventMentions::route('/{record}/edit/mentions'),
+            'edit-locations' => Pages\EditEventLocations::route('/{record}/edit/locations'),
         ];
     }
 
@@ -117,6 +118,7 @@ class EventResource extends Resource
             Pages\EditEventTemplate::class,
             Pages\EditEventCover::class,
             Pages\EditEventMentions::class,
+            Pages\EditEventLocations::class,
         ]);
     }
 }

@@ -14,6 +14,10 @@ class Event extends Model
 {
     use CrudBy, HasFactory, SoftDeletes;
 
+    protected $appends = [
+        'receptionLocation',
+    ];
+
     protected function casts(): array
     {
         return [
@@ -60,5 +64,18 @@ class Event extends Model
         return $this->invitations
             ->reduce(fn (int $carry, Invitation $invitation) => $carry + collect($invitation->guests)
                 ->filter(fn ($guest) => $guest['confirmed'])->count(), 0);
+    }
+
+    public function getReceptionLocationAttribute(): array
+    {
+        return [
+            'lat' => (float) $this->content['locations']['receptionLocation']['lat'],
+            'lng' => (float) $this->content['locations']['receptionLocation']['lng'],
+        ];
+    }
+
+    public static function getComputedLocation(): string
+    {
+        return 'receptionLocation';
     }
 }
