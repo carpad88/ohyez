@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('event_type');
             $table->string('view');
+            $table->string('cover');
             $table->auditFields();
             $table->softDeletes();
             $table->timestamps();

@@ -42,7 +42,7 @@ class ManageGeneralSettings extends SettingsPage
                 Forms\Components\Section::make('Planes')
                     ->columnSpan(1)
                     ->schema([
-                        Forms\Components\Repeater::make('plans')
+                        Forms\Components\Repeater::make('tiers')
                             ->columns(2)
                             ->label('')
                             ->collapsible()
