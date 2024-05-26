@@ -106,6 +106,7 @@ class EventResource extends Resource
             'edit' => Pages\EditEvent::route('/{record}/edit'),
             'edit-template' => Pages\EditEventTemplate::route('/{record}/edit/template'),
             'edit-cover' => Pages\EditEventCover::route('/{record}/edit/cover'),
+            'edit-mentions' => Pages\EditEventMentions::route('/{record}/edit/mentions'),
         ];
     }
 
@@ -113,8 +114,9 @@ class EventResource extends Resource
     {
         return $page->generateNavigationItems([
             Pages\EditEvent::class,
-            Pages\EditEventCover::class,
             Pages\EditEventTemplate::class,
+            Pages\EditEventCover::class,
+            Pages\EditEventMentions::class,
         ]);
     }
 }
