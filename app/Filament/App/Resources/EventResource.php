@@ -112,6 +112,7 @@ class EventResource extends Resource
             'edit-program' => Pages\EditEventProgram::route('/{record}/edit/program'),
             'edit-socials' => Pages\EditEventSocials::route('/{record}/edit/socials'),
             'edit-presents' => Pages\EditEventPresents::route('/{record}/edit/presents'),
+            'edit-gallery' => Pages\EditEventGallery::route('/{record}/edit/gallery'),
         ];
     }
 
@@ -127,6 +128,7 @@ class EventResource extends Resource
             Pages\EditEventProgram::class,
             Pages\EditEventSocials::class,
             Pages\EditEventPresents::class,
+            Pages\EditEventGallery::class,
         ]);
     }
 }
