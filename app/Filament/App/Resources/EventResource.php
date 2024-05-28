@@ -110,6 +110,7 @@ class EventResource extends Resource
             'edit-locations' => Pages\EditEventLocations::route('/{record}/edit/locations'),
             'edit-dressCode' => Pages\EditEventDressCode::route('/{record}/edit/dress-code'),
             'edit-program' => Pages\EditEventProgram::route('/{record}/edit/program'),
+            'edit-socials' => Pages\EditEventSocials::route('/{record}/edit/socials'),
         ];
     }
 
@@ -123,6 +124,7 @@ class EventResource extends Resource
             Pages\EditEventLocations::class,
             Pages\EditEventDressCode::class,
             Pages\EditEventProgram::class,
+            Pages\EditEventSocials::class,
         ]);
     }
 }

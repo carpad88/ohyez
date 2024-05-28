@@ -2,9 +2,6 @@
 
 namespace App\Filament\App\Resources\EventResource\Pages;
 
-use App\Enums\EventType;
-use App\Models\Event;
-use App\Models\Message;
 use Filament\Forms;
 use Filament\Forms\Form;
 
