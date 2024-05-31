@@ -48,11 +48,7 @@ class EventResource extends Resource
                         Forms\Components\TextInput::make('title')
                             ->label('Título del evento')
                             ->required(),
-                    ]),
 
-                Forms\Components\Section::make()
-                    ->columns()
-                    ->schema([
                         Forms\Components\DatePicker::make('date')
                             ->label('Fecha')
                             ->native(false)
@@ -66,7 +62,6 @@ class EventResource extends Resource
                             ->seconds(false)
                             ->required(),
                     ]),
-
             ]);
     }
 
@@ -115,6 +110,7 @@ class EventResource extends Resource
             'edit-gallery' => Pages\EditEventGallery::route('/{record}/edit/gallery'),
             'edit-recommendations' => Pages\EditEventRecommendations::route('/{record}/edit/recommendations'),
             'edit-faqs' => Pages\EditEventFaqs::route('/{record}/edit/faqs'),
+            'invitations' => Pages\ManageInvitations::route('/{record}/invitations'),
         ];
     }
 
@@ -133,6 +129,7 @@ class EventResource extends Resource
             Pages\EditEventGallery::class,
             Pages\EditEventRecommendations::class,
             Pages\EditEventFaqs::class,
+            Pages\ManageInvitations::class,
         ]);
     }
 }

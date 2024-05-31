@@ -7,6 +7,7 @@ use App\Traits\CrudBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Invitation extends Model
@@ -20,8 +21,6 @@ class Invitation extends Model
     protected function casts(): array
     {
         return [
-            'checkedIn' => 'datetime',
-            'guests' => 'array',
             'status' => InvitationStatus::class,
         ];
     }
@@ -29,5 +28,10 @@ class Invitation extends Model
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
+    }
+
+    public function guests(): HasMany
+    {
+        return $this->hasMany(Guest::class);
     }
 }

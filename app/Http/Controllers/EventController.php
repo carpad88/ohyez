@@ -10,8 +10,9 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EventController
 {
-    public function index(Event $event, Invitation $invitation)
+    public function index(Invitation $invitation)
     {
+        $event = $invitation->event;
         $template = 'templates.'.$event->template->view;
 
         return view('event.index', compact('event', 'invitation', 'template'));
@@ -34,16 +35,16 @@ class EventController
         return view('event.index', compact('event', 'template'));
     }
 
-    public function downloadInvitations(Event $event)
+    public function downloadInvitationsList(Event $event)
     {
-        $eventWithInvitations = Event::with([
-            'invitations' => fn ($query) => $query->where('status', InvitationStatus::Confirmed)
-                ->orderBy('table')
-                ->orderBy('family')
-                ->select('id', 'event_id', 'family', 'table', 'guests'),
-        ])->find($event->id);
-
-        $tables = $eventWithInvitations->invitations->groupBy('table');
+        $tables = Invitation::where('event_id', $event->id)
+            ->where('status', InvitationStatus::Confirmed)
+            ->join('guests', 'invitations.id', '=', 'guests.invitation_id')
+            ->select(['invitations.family', 'guests.name', 'guests.table'])
+            ->orderBy('guests.table')
+            ->orderBy('invitations.family')
+            ->get()
+            ->groupBy('table');
 
         $pdf = Pdf::loadView('event.invitations', compact('event', 'tables'))
             ->setOption(['fontDir' => sys_get_temp_dir(), 'isPhpEnabled' => true])

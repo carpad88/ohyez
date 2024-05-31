@@ -19,12 +19,12 @@ class InvitationIsAuthenticated
         if (
             ! $request->session()->has('invitation_code') ||
             ! Cookie::get('invitation_authenticated') ||
-            $request->session()->get('invitation_code') !== $request->invitation->code
+            $request->session()->get('invitation_code') !== $request->invitation->uuid
         ) {
             $request->session()->flush();
             Cookie::queue(Cookie::forget('invitation_authenticated'));
 
-            return redirect()->route('invitation.login', ['invitation' => $request->invitation->code]);
+            return redirect()->route('invitation.login', ['invitation' => $request->invitation->uuid]);
         }
 
         return $next($request);

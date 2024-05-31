@@ -9,9 +9,7 @@ use App\Livewire\AuthEvent;
 use App\Livewire\AuthInvitation;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::view('/', 'welcome')->name('home');
 
 Route::redirect('/admin/login', '/login')->name('login');
 
@@ -19,27 +17,25 @@ Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout-success');
 Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout-cancel');
 
-Route::get('/events/{event}/preview', [EventController::class, 'preview'])
-    ->middleware('auth')
-    ->name('event.preview');
+Route::group(['middleware' => 'auth', 'prefix' => '/events'], function () {
+    Route::get('/{event}/preview', [EventController::class, 'preview'])->name('event.preview');
+    Route::get('/{event}/invitations-list/download', [EventController::class, 'downloadInvitationsList'])
+        ->name('event.invitations-list-pdf');
 
-Route::get('/events/{event}/invitations/download', [EventController::class, 'downloadInvitations'])
-    ->middleware('auth')
-    ->name('event.invitations');
+    // check assistance
+    //    Route::get('/{event:code}/login', AuthEvent::class)->name('event.login');
+});
 
 Route::group(['middleware' => EventHasExpired::class], function () {
-    Route::get('/invitation/{invitation:code}', AuthInvitation::class)
+    Route::get('/invitations/{invitation:uuid}/login', AuthInvitation::class)
         ->middleware(RedirectIfInvitationAuthenticated::class)
         ->name('invitation.login');
 
-    Route::get('/events/{event}/login', AuthEvent::class)
-        ->name('event.login');
+    //    Route::get('/invitations/{invitation:uuid}/download', [EventController::class, 'downloadTickets'])
+    //        ->middleware(InvitationIsAuthenticated::class)
+    //        ->name('event.download');
 
-    Route::get('/events/{event}/{invitation:code}/download', [EventController::class, 'downloadTickets'])
+    Route::get('/invitations/{invitation:uuid}', [EventController::class, 'index'])
         ->middleware(InvitationIsAuthenticated::class)
-        ->name('event.download');
-
-    Route::get('/events/{event}/{invitation:code}', [EventController::class, 'index'])
-        ->middleware(InvitationIsAuthenticated::class)
-        ->name('event.index');
+        ->name('invitation.view');
 });

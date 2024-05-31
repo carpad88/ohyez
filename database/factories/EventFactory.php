@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Template;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class EventFactory extends Factory
@@ -26,15 +27,17 @@ class EventFactory extends Factory
 
         return [
             'user_id' => User::factory(),
-            'event_type' => fake()->randomElement(['wedding', 'xv', 'birthday']),
+            'code' => str()->random(6),
+            'tier' => fake()->randomElement(['basic', 'medium', 'pro']),
             'title' => $name,
+            'uuid' => str()->uuid()->toString(),
+            'password' => Hash::make('12345'),
+            'template_id' => Template::factory(),
+            'event_type' => fake()->randomElement(['wedding', 'xv', 'birthday']),
             'slug' => Str::slug($name),
             'date' => fake()->dateTimeBetween('now', '+6 months')->format('Y-m-d'),
-            'template' => Template::factory(),
-            'content' => [
-                'welcome' => fake()->sentence(3),
-                'description' => fake()->paragraphs(1, true),
-            ],
+            'time' => fake()->time('H:i'),
+            'content' => createEmptyEvent(),
         ];
     }
 }

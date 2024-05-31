@@ -92,18 +92,7 @@
                             label="Invitaciones"
                             tag="a"
                             class="border border-indigo-500"
-                            href="{{ App\Filament\App\Resources\EventResource::getUrl('edit', ['record' => $record]) }}"
-                        />
-                    @endcan
-
-                    @can('update_invitation')
-                        <x-filament::icon-button
-                            icon="heroicon-c-qr-code"
-                            size="xl"
-                            label="Previsualizar"
-                            tag="a"
-                            class="border border-indigo-500"
-                            href="{{ App\Filament\App\Resources\EventResource::getUrl('edit', ['record' => $record]) }}"
+                            href="{{ App\Filament\App\Resources\EventResource::getUrl('invitations', ['record' => $record]) }}"
                         />
                     @endcan
                 </div>
@@ -135,22 +124,11 @@
                     @can('view_any_invitation')
                         <x-filament::button
                             outlined="true"
-                            href="{{ App\Filament\App\Resources\EventResource::getUrl('edit', ['record' => $record]) }}"
+                            href="{{ App\Filament\App\Resources\EventResource::getUrl('invitations', ['record' => $record]) }}"
                             icon="heroicon-c-rectangle-stack"
                             tag="a"
                         >
                             Invitaciones
-                        </x-filament::button>
-                    @endcan
-
-                    @can('update_invitation')
-                        <x-filament::button
-                            outlined="true"
-                            href="{{ App\Filament\App\Resources\EventResource::getUrl('edit', ['record' => $record]) }}"
-                            icon="heroicon-c-qr-code"
-                            tag="a"
-                        >
-                            Asistencia
                         </x-filament::button>
                     @endcan
                 </div>

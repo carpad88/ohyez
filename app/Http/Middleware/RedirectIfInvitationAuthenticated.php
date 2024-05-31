@@ -19,11 +19,10 @@ class RedirectIfInvitationAuthenticated
         if (
             $request->session()->has('invitation_code') &&
             Cookie::get('invitation_authenticated') &&
-            $request->session()->get('invitation_code') === $request->invitation->code
+            $request->session()->get('invitation_code') === $request->invitation->uuid
         ) {
-            return redirect()->route('event.index', [
-                'event' => $request->invitation->event->id,
-                'invitation' => $request->invitation->code,
+            return redirect()->route('invitation.view', [
+                'invitation' => $request->invitation->uuid,
             ]);
         }
 

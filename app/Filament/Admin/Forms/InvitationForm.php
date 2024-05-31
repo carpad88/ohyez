@@ -11,10 +11,8 @@ class InvitationForm
         return [
             Forms\Components\Grid::make()
                 ->columnSpan('full')
-                ->columns([
-                    'sm' => 1,
-                    'md' => 2,
-                ])->schema([
+                ->columns(3)
+                ->schema([
                     Forms\Components\TextInput::make('family')
                         ->label('Familia')
                         ->columnSpan('full')
@@ -22,19 +20,18 @@ class InvitationForm
                         ->maxLength(255),
                     Forms\Components\TextInput::make('phone')
                         ->label('Número de celular')
-                        ->columnSpan([
-                            'sm' => 2,
-                            'md' => 1,
-                        ])
                         ->numeric()
                         ->length(10)
                         ->required(),
-                    Forms\Components\TextInput::make('table')
-                        ->label('Mesa')
-                        ->numeric(),
+                    Forms\Components\TextInput::make('email')
+                        ->columnSpan(2)
+                        ->label('Correo electrónico')
+                        ->email(),
 
                     Forms\Components\Repeater::make('guests')
+                        ->relationship('guests')
                         ->label('Lista de invitados')
+                        ->addActionLabel('Agregar invitado')
                         ->columnSpan('full')
                         ->columns(3)
                         ->required()
@@ -57,15 +54,15 @@ class InvitationForm
                                 ->columns(3)
                                 ->schema([
                                     Forms\Components\TextInput::make('name')
-                                        ->label('')
+                                        ->hiddenLabel()
                                         ->columnSpan(2)
                                         ->live(onBlur: true)
                                         ->required()
-                                        ->markAsRequired(false)
                                         ->maxLength(255),
                                     Forms\Components\ToggleButtons::make('confirmed')
                                         ->visible(fn ($operation) => $operation == 'edit')
-                                        ->label('')
+                                        ->hiddenLabel()
+                                        ->default(false)
                                         ->boolean()
                                         ->grouped(),
                                 ]),

@@ -538,13 +538,7 @@
                     ¡Gracias por confirmar tu asistencia!
                 </p>
 
-                <p v-if="!allowDownload" class="mt-4 text-rose-400">
-                    No olvides descargar tus boletos<br>
-                    a <b>partir del 5 de abril de 2024</b><br>
-                    y presentarlos en la entrada el día <br>del evento.
-                </p>
-
-                <p v-else class="mt-4 text-rose-400">
+                <p class="mt-4 text-rose-400">
                     No olvides descargar tus boletos<br>
                     y presentarlos en la entrada el día<br>
                     del evento.

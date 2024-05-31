@@ -60,7 +60,7 @@ class AuthInvitation extends Component implements HasForms
             return null;
         }
 
-        request()->session()->put('invitation_code', $this->invitation->code);
+        request()->session()->put('invitation_code', $this->invitation->uuid);
         request()->session()->save();
 
         $event = $this->invitation->event;
@@ -69,9 +69,8 @@ class AuthInvitation extends Component implements HasForms
         $minutesUntilExpiration = Carbon::now()->diffInMinutes($expirationDate);
         Cookie::queue('invitation_authenticated', true, $minutesUntilExpiration);
 
-        return redirect()->route('event.index', [
-            'event' => $event->id,
-            'invitation' => $this->invitation->code,
+        return redirect()->route('invitation.view', [
+            'invitation' => $this->invitation->uuid,
         ]);
     }
 

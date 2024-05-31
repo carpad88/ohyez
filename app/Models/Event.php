@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
@@ -40,6 +41,11 @@ class Event extends Model
     public function invitations(): HasMany
     {
         return $this->hasMany(\App\Models\Invitation::class, 'event_id');
+    }
+
+    public function guests(): HasManyThrough
+    {
+        return $this->hasManyThrough(Guest::class, Invitation::class);
     }
 
     public function invitationsCount($status = null): int
