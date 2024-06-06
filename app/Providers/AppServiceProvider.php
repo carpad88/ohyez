@@ -50,6 +50,7 @@ class AppServiceProvider extends ServiceProvider
             Js::make('qr-scanner', asset('js/qr-scanner.umd.min.js')),
             Js::make('qr-scanner-worker', asset('js/qr-scanner-worker.min.js'))
                 ->module(),
+            Js::make('alpine-sort', 'https://cdn.jsdelivr.net/npm/@alpinejs/sort@3.x.x/dist/cdn.min.js'),
         ]);
 
     }

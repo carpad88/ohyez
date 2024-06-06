@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Invitation::class);
             $table->string('name');
             $table->boolean('confirmed')->default(false);
-            $table->unsignedSmallInteger('table')->nullable();
+            $table->unsignedSmallInteger('table')->default(0);
             $table->timestamp('checkedIn')->nullable();
             $table->auditFields();
             $table->timestamps();

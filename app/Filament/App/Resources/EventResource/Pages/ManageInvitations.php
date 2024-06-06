@@ -26,7 +26,7 @@ class ManageInvitations extends ManageRelatedRecords
 
     protected static ?string $title = 'Invitaciones';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-c-rectangle-stack';
 
     protected static ?string $navigationGroup = 'Administrar invitaciones';
 

@@ -111,6 +111,7 @@ class EventResource extends Resource
             'edit-recommendations' => Pages\EditEventRecommendations::route('/{record}/edit/recommendations'),
             'edit-faqs' => Pages\EditEventFaqs::route('/{record}/edit/faqs'),
             'invitations' => Pages\ManageInvitations::route('/{record}/invitations'),
+            'tables' => Pages\ManageTables::route('/{record}/tables'),
         ];
     }
 
@@ -130,6 +131,7 @@ class EventResource extends Resource
             Pages\EditEventRecommendations::class,
             Pages\EditEventFaqs::class,
             Pages\ManageInvitations::class,
+            Pages\ManageTables::class,
         ]);
     }
 }

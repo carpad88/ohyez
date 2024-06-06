@@ -19,7 +19,7 @@ class GuestFactory extends Factory
     {
         return [
             'invitation_id' => Invitation::factory(),
-            'name' => $this->faker->name,
+            'name' => $this->faker->firstName,
             'confirmed' => $this->faker->boolean,
             'table' => $this->faker->numberBetween(1, 10),
             'checkedIn' => $this->faker->dateTimeThisYear,
