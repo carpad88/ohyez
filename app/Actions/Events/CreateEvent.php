@@ -25,6 +25,7 @@ class CreateEvent
                 'title' => 'Mi evento',
                 'uuid' => $uuid,
                 'password' => Hash::make(passwordFromUUID($uuid)),
+                'content' => createEmptyEvent(),
             ]);
     }
 }
