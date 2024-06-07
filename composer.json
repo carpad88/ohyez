@@ -13,6 +13,7 @@
         "barryvdh/laravel-dompdf": "^2.1",
         "bezhansalleh/filament-shield": "^3.2",
         "cheesegrits/filament-google-maps": "^3.0",
+        "codeat3/blade-phosphor-icons": "^2.0",
         "filament/filament": "^3.2",
         "filament/spatie-laravel-settings-plugin": "^3.2",
         "hasan-ahani/filament-otp-input": "^1.0",

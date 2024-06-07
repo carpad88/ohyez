@@ -16,7 +16,7 @@ class ManageTables extends EditEventRecord
 
     protected static ?string $title = 'Administrar mesas';
 
-    protected static ?string $navigationIcon = 'heroicon-c-arrows-up-down';
+    protected static ?string $navigationIcon = 'phosphor-list-numbers-duotone';
 
     protected static ?string $navigationGroup = 'Administrar invitaciones';
 

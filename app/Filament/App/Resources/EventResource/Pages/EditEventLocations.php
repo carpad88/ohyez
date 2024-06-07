@@ -10,7 +10,7 @@ class EditEventLocations extends EditEventRecord
 {
     protected static ?string $title = 'Ubicaciones';
 
-    protected static ?string $navigationIcon = 'heroicon-c-map';
+    protected static ?string $navigationIcon = 'phosphor-map-pin-area-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

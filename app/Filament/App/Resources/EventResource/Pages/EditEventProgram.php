@@ -9,7 +9,7 @@ class EditEventProgram extends EditEventRecord
 {
     protected static ?string $title = 'Programa';
 
-    protected static ?string $navigationIcon = 'heroicon-c-clock';
+    protected static ?string $navigationIcon = 'phosphor-clock-countdown-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
@@ -51,6 +52,10 @@ class AppServiceProvider extends ServiceProvider
             Js::make('qr-scanner-worker', asset('js/qr-scanner-worker.min.js'))
                 ->module(),
             Js::make('alpine-sort', 'https://cdn.jsdelivr.net/npm/@alpinejs/sort@3.x.x/dist/cdn.min.js'),
+        ]);
+
+        FilamentIcon::register([
+            'panels::sidebar.group.collapse-button' => 'phosphor-caret-up-duotone',
         ]);
 
     }

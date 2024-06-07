@@ -9,7 +9,7 @@ class EditEventPresents extends EditEventRecord
 {
     protected static ?string $title = 'Mesas de regalos';
 
-    protected static ?string $navigationIcon = 'heroicon-c-gift';
+    protected static ?string $navigationIcon = 'phosphor-gift-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

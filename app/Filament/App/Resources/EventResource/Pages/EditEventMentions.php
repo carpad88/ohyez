@@ -11,7 +11,7 @@ class EditEventMentions extends EditEventRecord
 {
     protected static ?string $title = 'Menciones y agradecimientos';
 
-    protected static ?string $navigationIcon = 'heroicon-c-user-group';
+    protected static ?string $navigationIcon = 'phosphor-users-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

@@ -10,7 +10,7 @@ class EditEventGallery extends EditEventRecord
 {
     protected static ?string $title = 'Galería de fotos';
 
-    protected static ?string $navigationIcon = 'heroicon-c-camera';
+    protected static ?string $navigationIcon = 'phosphor-camera-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

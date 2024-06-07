@@ -9,7 +9,7 @@ class EditEventDressCode extends EditEventRecord
 {
     protected static ?string $title = 'Código de vestimenta';
 
-    protected static ?string $navigationIcon = 'heroicon-c-swatch';
+    protected static ?string $navigationIcon = 'phosphor-dress-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

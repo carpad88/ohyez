@@ -9,7 +9,7 @@ class EditEventRecommendations extends EditEventRecord
 {
     protected static ?string $title = 'Recomendaciones';
 
-    protected static ?string $navigationIcon = 'heroicon-c-hand-thumb-up';
+    protected static ?string $navigationIcon = 'phosphor-thumbs-up-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

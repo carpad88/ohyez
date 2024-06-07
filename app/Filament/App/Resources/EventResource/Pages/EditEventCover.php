@@ -12,7 +12,7 @@ class EditEventCover extends EditEventRecord
 {
     protected static ?string $title = 'Portada';
 
-    protected static ?string $navigationIcon = 'heroicon-c-photo';
+    protected static ?string $navigationIcon = 'phosphor-image-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

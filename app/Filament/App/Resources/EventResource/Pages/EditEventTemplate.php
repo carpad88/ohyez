@@ -10,7 +10,7 @@ class EditEventTemplate extends EditEventRecord
 {
     protected static ?string $title = 'Plantilla de invitación';
 
-    protected static ?string $navigationIcon = 'heroicon-c-squares-2x2';
+    protected static ?string $navigationIcon = 'phosphor-stack-duotone';
 
     public function form(Form $form): Form
     {

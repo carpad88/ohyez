@@ -9,7 +9,7 @@ class EditEventFaqs extends EditEventRecord
 {
     protected static ?string $title = 'Preguntas frecuentes';
 
-    protected static ?string $navigationIcon = 'heroicon-c-question-mark-circle';
+    protected static ?string $navigationIcon = 'phosphor-question-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 

@@ -9,7 +9,7 @@ class EditEventSocials extends EditEventRecord
 {
     protected static ?string $title = 'Redes sociales';
 
-    protected static ?string $navigationIcon = 'heroicon-c-rectangle-group';
+    protected static ?string $navigationIcon = 'phosphor-share-network-duotone';
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 
