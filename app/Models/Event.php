@@ -8,11 +8,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
     use CrudBy, HasFactory, SoftDeletes;
+
+    protected $appends = [
+        'receptionLocation',
+    ];
 
     protected function casts(): array
     {
@@ -38,6 +43,11 @@ class Event extends Model
         return $this->hasMany(\App\Models\Invitation::class, 'event_id');
     }
 
+    public function guests(): HasManyThrough
+    {
+        return $this->hasManyThrough(Guest::class, Invitation::class);
+    }
+
     public function invitationsCount($status = null): int
     {
         if ($status) {
@@ -60,5 +70,18 @@ class Event extends Model
         return $this->invitations
             ->reduce(fn (int $carry, Invitation $invitation) => $carry + collect($invitation->guests)
                 ->filter(fn ($guest) => $guest['confirmed'])->count(), 0);
+    }
+
+    public function getReceptionLocationAttribute(): array
+    {
+        return [
+            'lat' => (float) $this->content['locations']['receptionLocation']['lat'],
+            'lng' => (float) $this->content['locations']['receptionLocation']['lng'],
+        ];
+    }
+
+    public static function getComputedLocation(): string
+    {
+        return 'receptionLocation';
     }
 }

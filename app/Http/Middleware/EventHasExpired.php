@@ -18,7 +18,7 @@ class EventHasExpired
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $event = $request->event ?? $request->invitation->event;
+        $event = $request->invitation->event;
 
         $expirationDate = Carbon::parse($event->date->format('Y-m-d').' '.$event->time)->addDays(2);
 

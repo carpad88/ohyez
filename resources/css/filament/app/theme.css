@@ -1,4 +1,5 @@
 @import '/vendor/filament/filament/resources/css/theme.css';
+@import 'uno.css';
 
 @config 'tailwind.config.js';
 
@@ -16,7 +17,14 @@
     animation: __un_qm 0.5s ease-in-out alternate infinite;
 }
 
-
 .fi-topbar > nav {
     @apply bg-indigo-900;
+}
+
+.fi-page-sub-navigation-sidebar {
+    @apply bg-white p-3 rounded-lg self-start;
+}
+
+.template-card input[type="radio"]:checked + div {
+    @apply border-indigo-900 border-4;
 }

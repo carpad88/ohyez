@@ -5,8 +5,9 @@ namespace Database\Factories;
 use App\Models\Event;
 use App\Models\Invitation;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
-class InvitationsFactory extends Factory
+class InvitationFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
@@ -22,13 +23,12 @@ class InvitationsFactory extends Factory
     {
         return [
             'event_id' => Event::factory(),
-            'code' => $this->faker->uuid(),
+            'uuid' => str()->uuid()->toString(),
+            'password' => Hash::make('12345'),
             'status' => $this->faker->randomElement(['pending', 'confirmed', 'declined']),
-            'checkedIn' => $this->faker->dateTime(),
-            'family' => $this->faker->word(),
-            'phone' => $this->faker->phoneNumber(),
-            'table' => $this->faker->numberBetween(-10000, 10000),
-            'guests' => '{}',
+            'family' => $this->faker->lastName(),
+            'phone' => $this->faker->numberBetween(1000000000, 9999999999), // generate a phone number with 10 digits
+            'email' => $this->faker->email(),
         ];
     }
 }

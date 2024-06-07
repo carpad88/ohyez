@@ -21,7 +21,8 @@ class TemplateFactory extends Factory
     {
         return [
             'name' => fake()->sentence(),
-            'event_type' => fake()->randomElement(['wedding', 'xv', 'birthday']),
+            'event_type' => fake()->randomElement(['wedding', 'xv']),
+            'cover' => fake()->imageUrl(),
             'view' => 'template',
         ];
     }

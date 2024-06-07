@@ -54,25 +54,25 @@ class EventResource extends Resource
                                 ->live()
                                 ->required()
                                 ->afterStateUpdated(fn (Select $component) => $component
-                                    ->getContainer()
-                                    ->getParentComponent()
-                                    ->getContainer()
-                                    ->getComponents()[1]
-                                    ->getContainer()
-                                    ->getComponent('dynamicTypeFields')
-                                    ->getChildComponentContainer()
-                                    ->fill()
+                                    //                                    ->getContainer()
+                                    //                                    ->getParentComponent()
+                                    //                                    ->getContainer()
+                                    //                                    ->getComponents()[1]
+                                    //                                    ->getContainer()
+                                    //                                    ->getComponent('dynamicTypeFields')
+                                    //                                    ->getChildComponentContainer()
+                                    //                                    ->fill()
                                 ),
-                            Forms\Components\DatePicker::make('date')
-                                ->disabled(fn ($operation) => $operation === 'edit')
-                                ->native(false)
-                                ->default(now()->format('Y-m-d'))
-                                ->minDate(now()->format('Y-m-d'))
-                                ->required(),
+                            //                            Forms\Components\DatePicker::make('date')
+                            //                                ->disabled(fn ($operation) => $operation === 'edit')
+                            //                                ->native(false)
+                            //                                ->default(now()->format('Y-m-d'))
+                            //                                ->minDate(now()->format('Y-m-d'))
+                            //                                ->required(),
                             Forms\Components\TimePicker::make('time')
                                 ->native(false)
-                                ->default(now())
-                                ->minutesStep(15)
+                                ->default('12:00')
+//                                ->minutesStep(15)
                                 ->seconds(false)
                                 ->required(),
                             Forms\Components\TextInput::make('title')
@@ -80,45 +80,45 @@ class EventResource extends Resource
                                 ->required()
                                 ->maxLength(255),
                         ]),
-                    Forms\Components\Wizard\Step::make('Información de la Invitación')
-                        ->schema([
-                            Forms\Components\Group::make()
-                                ->key('dynamicTypeFields')
-                                ->schema(fn (Forms\Get $get) => match ($get('event_type')) {
-                                    'wedding' => WeddingForm::getFields(),
-                                    'xv' => XVForm::getFields(),
-                                    default => [],
-                                }),
-                        ]),
+                    //                    Forms\Components\Wizard\Step::make('Información de la Invitación')
+                    //                        ->schema([
+                    //                            Forms\Components\Group::make()
+                    //                                ->key('dynamicTypeFields')
+                    //                                ->schema(fn (Forms\Get $get) => match ($get('event_type')) {
+                    //                                    'wedding' => WeddingForm::getFields(),
+                    //                                    'xv' => XVForm::getFields(),
+                    //                                    default => [],
+                    //                                }),
+                    //                        ]),
 
-                    Forms\Components\Wizard\Step::make('Diseño de la Invitación')
-                        ->columns(3)
-                        ->schema([
-                            Forms\Components\Select::make('template_id')
-                                ->options(fn (Forms\Get $get): array => Template::whereEventType($get('event_type'))
-                                    ->pluck('name', 'id')
-                                    ->toArray()
-                                ),
-                            Forms\Components\Select::make('content.design.typography')
-                                ->label('Tipografía')
-                                ->options([
-                                    'sans-serif' => 'Sans-serif',
-                                    'serif' => 'Serif',
-                                    'monospace' => 'Monospace',
-                                ])
-                                ->required(),
-                            Forms\Components\Select::make('content.design.color')
-                                ->label('Tipografía')
-                                ->options([
-                                    'black' => 'Black',
-                                    'white' => 'White',
-                                    'gray' => 'Gray',
-                                    'red' => 'Red',
-                                    'blue' => 'Blue',
-                                    'green' => 'Green',
-                                ])
-                                ->required(),
-                        ]),
+                    //                    Forms\Components\Wizard\Step::make('Diseño de la Invitación')
+                    //                        ->columns(3)
+                    //                        ->schema([
+                    //                            Forms\Components\Select::make('template_id')
+                    //                                ->options(fn (Forms\Get $get): array => Template::whereEventType($get('event_type'))
+                    //                                    ->pluck('name', 'id')
+                    //                                    ->toArray()
+                    //                                ),
+                    //                            Forms\Components\Select::make('content.design.typography')
+                    //                                ->label('Tipografía')
+                    //                                ->options([
+                    //                                    'sans-serif' => 'Sans-serif',
+                    //                                    'serif' => 'Serif',
+                    //                                    'monospace' => 'Monospace',
+                    //                                ])
+                    //                                ->required(),
+                    //                            Forms\Components\Select::make('content.design.color')
+                    //                                ->label('Tipografía')
+                    //                                ->options([
+                    //                                    'black' => 'Black',
+                    //                                    'white' => 'White',
+                    //                                    'gray' => 'Gray',
+                    //                                    'red' => 'Red',
+                    //                                    'blue' => 'Blue',
+                    //                                    'green' => 'Green',
+                    //                                ])
+                    //                                ->required(),
+                    //                        ]),
                 ]),
             ]);
     }
