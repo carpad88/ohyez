@@ -56,6 +56,16 @@ class AppServiceProvider extends ServiceProvider
 
         FilamentIcon::register([
             'panels::sidebar.group.collapse-button' => 'phosphor-caret-up-duotone',
+            'panels::user-menu.profile-item' => 'phosphor-user-circle-duotone',
+            'panels::user-menu.logout-button' => 'phosphor-sign-out-duotone',
+            'panels::theme-switcher.light-button' => 'phosphor-sun-dim-duotone',
+            'panels::theme-switcher.dark-button' => 'phosphor-moon-duotone',
+            'panels::theme-switcher.system-button' => 'phosphor-desktop-duotone',
+            'actions::action-group' => 'phosphor-dots-three-outline-vertical-duotone',
+            'actions::edit-action' => 'phosphor-pencil-duotone',
+            'actions::delete-action' => 'phosphor-trash-duotone',
+            'actions::force-delete-action' => 'phosphor-trash-duotone',
+            'actions::restore-action' => 'phosphor-arrow-u-up-left-duotone',
         ]);
 
     }

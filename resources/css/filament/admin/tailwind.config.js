@@ -5,6 +5,8 @@ export default {
     content: [
         './app/Filament/admin/**/*.php',
         './resources/views/filament/admin/**/*.blade.php',
+        './resources/views/filament/app/forms/components/templates.blade.php',
+        './resources/views/filament/app/resources/event-resource/pages/manage-tables.blade.php',
         './resources/views/livewire/**/*.blade.php',
         './vendor/filament/**/*.blade.php',
     ],

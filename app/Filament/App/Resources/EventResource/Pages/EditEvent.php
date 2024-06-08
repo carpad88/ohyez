@@ -18,7 +18,10 @@ class EditEvent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\Action::make('save')
+                ->label('Guardar cambios')
+                ->button()
+                ->action('save'),
         ];
     }
 

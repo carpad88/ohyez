@@ -12,7 +12,7 @@ class ManageTables extends EditEventRecord
 {
     protected static string $resource = EventResource::class;
 
-    protected static string $view = 'filament.app.resources.even-resource.pages.manage-tables';
+    protected static string $view = 'filament.app.resources.event-resource.pages.manage-tables';
 
     protected static ?string $title = 'Administrar mesas';
 

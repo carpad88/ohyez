@@ -59,17 +59,9 @@ class Event extends Model
         return $this->invitations->count();
     }
 
-    public function guestsCount(): int
-    {
-        return $this->invitations
-            ->reduce(fn (int $carry, Invitation $invitation) => $carry + count($invitation->guests), 0);
-    }
-
     public function guestsConfirmed(): int
     {
-        return $this->invitations
-            ->reduce(fn (int $carry, Invitation $invitation) => $carry + collect($invitation->guests)
-                ->filter(fn ($guest) => $guest['confirmed'])->count(), 0);
+        return $this->guests->where('confirmed', true)->count();
     }
 
     public function getReceptionLocationAttribute(): array

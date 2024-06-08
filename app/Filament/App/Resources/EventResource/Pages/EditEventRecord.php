@@ -3,6 +3,7 @@
 namespace App\Filament\App\Resources\EventResource\Pages;
 
 use App\Filament\App\Resources\EventResource;
+use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Filament\Support\Enums\MaxWidth;
 
@@ -26,6 +27,16 @@ abstract class EditEventRecord extends EditRecord
                 ...$this->getRecord()->content,
                 ...$data['content'],
             ],
+        ];
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\Action::make('save')
+                ->label('Guardar cambios')
+                ->button()
+                ->action('save'),
         ];
     }
 }

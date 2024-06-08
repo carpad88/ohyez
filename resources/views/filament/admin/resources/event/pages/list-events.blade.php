@@ -54,7 +54,7 @@
 
                 <div class="grid sm:grid-cols-2 text-gray-500 mt-4 mb-8 text-lg">
                     <div>
-                        <p><b>{{ $record->guestsCount() }}</b> Personas Invitadas</p>
+                        <p><b>{{ $record->guests->count() }}</b> Personas Invitadas</p>
                     </div>
 
                     <div>

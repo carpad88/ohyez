@@ -42,7 +42,7 @@ class CheckoutController extends Controller
             return redirect(EventResource::getUrl());
         }
 
-        $event = $createEvent->handle($session->metadata['tier']);
+        $event = $createEvent->handle(['tier' => $session->metadata['tier']]);
 
         $createPayment->handle($session, $event);
 

@@ -16,6 +16,20 @@
     animation: __un_qm 0.5s ease-in-out alternate infinite;
 }
 
+.fi-sidebar {
+    max-width: 16rem;
+    border-right: 1px solid #eaeaea;
+}
+
+.fi-sidebar-nav {
+    @apply bg-white dark:bg-gray-900;
+}
+
 .fi-page-sub-navigation-sidebar {
-    width: 12rem;
+    width: 16rem;
+    @apply bg-white dark:bg-gray-900 p-3 rounded-lg self-start;
+}
+
+.template-card input[type="radio"]:checked + div {
+    @apply border-indigo-900 border-4;
 }

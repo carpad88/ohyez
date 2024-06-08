@@ -26,7 +26,7 @@ class ManageInvitations extends ManageRelatedRecords
 
     protected static ?string $title = 'Invitaciones';
 
-    protected static ?string $navigationIcon = 'phosphor-users-four-duotone';
+    protected static ?string $navigationIcon = 'phosphor-envelope-open-duotone';
 
     protected static ?string $navigationGroup = 'Administrar invitaciones';
 
