@@ -16,7 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('event_type');
             $table->string('view');
-            $table->string('cover');
+            $table->string('cover')->nullable();
+            $table->boolean('is_public')->default(true);
+            $table->boolean('is_active')->default(true);
+            $table->json('settings')->nullable();
             $table->auditFields();
             $table->softDeletes();
             $table->timestamps();

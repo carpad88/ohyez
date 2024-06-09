@@ -53,8 +53,9 @@ class EditEventCover extends EditEventRecord
                     ->columns()
                     ->schema([
                         Forms\Components\FileUpload::make('logo')
-                            ->label('Logotipo')
+                            ->disk('events')
                             ->directory(fn (Event $record) => $record->code)
+                            ->label('Logotipo')
                             ->image()
                             ->imageEditor(),
                         Forms\Components\FileUpload::make('music')

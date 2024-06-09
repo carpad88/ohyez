@@ -44,6 +44,21 @@ return [
             'throw' => false,
         ],
 
+        'templates' => [
+            'driver' => 'local',
+            'root' => storage_path('app/templates'),
+            'url' => env('APP_URL').'/templates',
+            'throw' => false,
+        ],
+
+        'events' => [
+            'driver' => 'local',
+            'root' => storage_path('app/events'),
+            'url' => env('APP_URL').'/gallery',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -55,6 +70,18 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
+
+        //        's3-templates' => [
+        //            'driver' => 'scoped',
+        //            'disk' => 's3',
+        //            'prefix' => 'templates',
+        //        ],
+        //
+        //        's3-events' => [
+        //            'driver' => 'scoped',
+        //            'disk' => 's3',
+        //            'prefix' => 'events',
+        //        ],
 
     ],
 
@@ -71,6 +98,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('templates') => storage_path('app/templates'),
+        public_path('gallery') => storage_path('app/events'),
     ],
 
 ];

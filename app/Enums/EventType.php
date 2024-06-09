@@ -9,14 +9,12 @@ enum EventType: string implements HasColor, HasLabel
 {
     case Wedding = 'wedding';
     case XV = 'xv';
-    case Birthday = 'birthday';
 
     public function getLabel(): ?string
     {
         return match ($this) {
             self::Wedding => __('ohyez.wedding'),
             self::XV => __('ohyez.xv'),
-            self::Birthday => __('ohyez.birthday'),
         };
     }
 
@@ -25,7 +23,6 @@ enum EventType: string implements HasColor, HasLabel
         return match ($this) {
             self::Wedding => 'info',
             self::XV => 'warning',
-            self::Birthday => 'gray',
         };
     }
 }

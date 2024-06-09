@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Template extends Model
 {
@@ -19,8 +20,26 @@ class Template extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::updating(function ($template) {
+            if ($template->isDirty('cover') && ! empty($template->getOriginal('cover'))) {
+                Storage::disk('templates')->delete($template->getOriginal('cover'));
+            }
+        });
+    }
+
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
+    }
+
+    public function coverUrl(): ?string
+    {
+        if (empty($this->cover)) {
+            return null;
+        }
+
+        return Storage::disk('templates')->url($this->cover);
     }
 }

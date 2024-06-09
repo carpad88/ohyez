@@ -66,6 +66,8 @@ class AppServiceProvider extends ServiceProvider
             'actions::delete-action' => 'phosphor-trash-duotone',
             'actions::force-delete-action' => 'phosphor-trash-duotone',
             'actions::restore-action' => 'phosphor-arrow-u-up-left-duotone',
+            'tables::columns.icon-column.false' => 'phosphor-x-circle',
+            'tables::columns.icon-column.true' => 'phosphor-check-circle',
         ]);
 
     }
