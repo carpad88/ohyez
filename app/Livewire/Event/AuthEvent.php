@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Event;
 
 use App\Models\Event;
 use Filament\Facades\Filament;
@@ -74,6 +74,6 @@ class AuthEvent extends Component implements HasForms
     #[Layout('components.layouts.invitation')]
     public function render()
     {
-        return view('livewire.auth-event');
+        return view('livewire.event.auth-event');
     }
 }

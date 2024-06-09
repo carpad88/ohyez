@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Invitation;
 
 use App\Enums\InvitationStatus;
 use App\Models\Invitation;
@@ -23,7 +23,7 @@ class ShowQrCode extends Component implements HasActions, HasForms
 
     public function render()
     {
-        return view('livewire.show-qr-code');
+        return view('livewire.invitation.show-qr-code');
     }
 
     public function showQrCode(): Action

@@ -526,7 +526,7 @@
                     Es muy importante para mí contar con tu confirmación lo antes posible.
                 </p>
 
-                @livewire('confirm-invitation', ['invitation' => $invitation])
+                @livewire('invitation.confirm', ['invitation' => $invitation])
             @endif
 
             @if($invitation->status->value == 'confirmed')
@@ -543,7 +543,7 @@
                     y presentarlos en la entrada el día<br>
                     del evento.
                 </p>
-                @livewire('show-qr-code', ['invitation' => $invitation])
+                @livewire('invitation.show-qr-code', ['invitation' => $invitation])
             @endif
         </section>
     @else

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Invitation;
 
 use App\Models\Invitation;
 use Carbon\Carbon;
@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-class AuthInvitation extends Component implements HasForms
+class Authenticate extends Component implements HasForms
 {
     use InteractsWithForms;
 
@@ -77,6 +77,6 @@ class AuthInvitation extends Component implements HasForms
     #[Layout('components.layouts.invitation')]
     public function render()
     {
-        return view('livewire.auth-invitation');
+        return view('livewire.invitation.login');
     }
 }
