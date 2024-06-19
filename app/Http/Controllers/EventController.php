@@ -11,9 +11,8 @@ class EventController
 {
     public function preview(Event $event)
     {
-        $template = 'templates.'.$event->template->view;
-
-        return view('invitation.index', compact('event', 'template'));
+        $invitation = null;
+        return view('templates.'.$event->template->view, compact('event', 'invitation'));
     }
 
     public function downloadInvitationsList(Event $event)

@@ -11,9 +11,8 @@ class InvitationController
     public function view(Invitation $invitation)
     {
         $event = $invitation->event;
-        $template = 'templates.'.$event->template->view;
 
-        return view('invitation.index', compact('event', 'invitation', 'template'));
+        return view('templates.'.$event->template->view, compact('event', 'invitation'));
     }
 
     public function downloadTickets(Invitation $invitation)

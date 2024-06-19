@@ -32,14 +32,11 @@ function createEmptyEvent(): array
             'groom' => null,
             'fifteen' => null,
         ],
-        'logo' => null,
-        'music' => null,
         'welcome' => [
             'message' => null,
             'visible' => true,
             'message_search' => null,
         ],
-        'counter' => true,
         'mentions' => [
             'parents' => [
                 'bride' => [
@@ -68,22 +65,16 @@ function createEmptyEvent(): array
                     ],
                 ],
             ],
-            'godparents' => [
-                'male' => null,
-                'female' => null,
-                'visible' => true,
-            ],
         ],
         'locations' => [
             'ceremony' => [
                 'name' => null,
                 'address' => null,
-                'visibility' => false,
+                'visible' => false,
             ],
             'reception' => [
                 'name' => null,
                 'address' => null,
-                'visibility' => true,
             ],
             'ceremonyLocation' => [
                 'lat' => 19.432631022767044,
@@ -95,54 +86,72 @@ function createEmptyEvent(): array
             ],
         ],
         'dressCode' => [
+            'visible' => true,
             'code' => null,
             'colors' => [
                 'items' => [],
-                'visibility' => true,
+                'visible' => true,
             ],
         ],
         'program' => [
+            'visible' => true,
             'items' => [
                 [
-                    'url' => null,
-                    'item' => null,
+                    'time' => null,
+                    'name' => null,
                 ],
             ],
         ],
         'socials' => [
-            [
-                'red' => null,
-                'url' => null,
-                'hashtag' => null,
+            'visible' => true,
+            'items' => [
+                [
+                    'red' => null,
+                    'url' => null,
+                    'hashtag' => null,
+                ],
             ],
         ],
         'presents' => [
-            'items' => [
-                [
-                    'url' => null,
-                    'item' => null,
+            'tables' => [
+                'visible' => false,
+                'items' => [
+                    [
+                        'url' => null,
+                        'name' => null,
+                    ],
                 ],
             ],
             'account' => [
+                'visible' => false,
                 'bank' => null,
                 'card' => null,
                 'beneficiary' => null,
             ],
             'envelope' => false,
         ],
-        'gallery' => [],
+        'gallery' => [
+            'visible' => true,
+            'items' => [],
+        ],
         'recommendations' => [
-            [
-                'map' => null,
-                'name' => null,
-                'place' => null,
-                'address' => null,
+            'visible' => true,
+            'items' => [
+                [
+                    'map' => null,
+                    'name' => null,
+                    'place' => null,
+                    'address' => null,
+                ],
             ],
         ],
         'faqs' => [
-            [
-                'answer' => null,
-                'question' => null,
+            'visible' => true,
+            'items' => [
+                [
+                    'answer' => null,
+                    'question' => null,
+                ],
             ],
         ],
     ];

@@ -21,13 +21,18 @@ class EditEventProgram extends EditEventRecord
                     ->description('Agrega las actividades con horario para el evento.')
                     ->statePath('content')
                     ->schema([
+                        Forms\Components\Toggle::make('program.visible')
+                            ->label('¿Mostrar programa del evento?')
+                            ->live(),
+
                         Forms\Components\Repeater::make('program.items')
                             ->hiddenLabel()
+                            ->visible(fn (Forms\Get $get) => $get('program.visible'))
                             ->columns()
                             ->itemLabel(fn (array $state): ?string => $state['item'] ?? null)
                             ->collapsible()
                             ->schema([
-                                Forms\Components\TextInput::make('item')
+                                Forms\Components\TextInput::make('name')
                                     ->label('Actividad')
                                     ->live()
                                     ->required(),

@@ -25,6 +25,9 @@ return new class extends Migration
             $table->string('slug')->nullable()->unique();
             $table->date('date')->nullable();
             $table->time('time')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('music')->nullable();
+            $table->boolean('counter')->default(true);
             $table->json('content')->nullable();
             $table->auditFields();
             $table->timestamps();

@@ -19,10 +19,16 @@ class EditEventRecommendations extends EditEventRecord
             ->schema([
                 Forms\Components\Section::make('Recomendaciones para tus invitados')
                     ->description('Agrega recomendaciones de lugares como hoteles, estéticas, restaurantes, etcétera.')
-                    ->statePath('content')
+                    ->statePath('content.recommendations')
                     ->schema([
-                        Forms\Components\Repeater::make('recommendations')
+                        Forms\Components\Toggle::make('visible')
+                            ->columnSpan(2)
+                            ->label('¿Mostrar recomendaciones?')
+                            ->live(),
+
+                        Forms\Components\Repeater::make('items')
                             ->hiddenLabel()
+                            ->visible(fn (Forms\Get $get) => $get('visible'))
                             ->addActionLabel('Agregar recomendación')
                             ->columns()
                             ->itemLabel(fn (array $state): ?string => str($state['name'])->title() ?? null)

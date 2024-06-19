@@ -21,8 +21,13 @@ class EditEventSocials extends EditEventRecord
                     ->description('Agrega vínculos a tus redes sociales.')
                     ->statePath('content')
                     ->schema([
-                        Forms\Components\Repeater::make('socials')
+                        Forms\Components\Toggle::make('socials.visible')
+                            ->label('¿Mostrar vínculos a redes sociales?')
+                            ->live(),
+
+                        Forms\Components\Repeater::make('socials.items')
                             ->hiddenLabel()
+                            ->visible(fn (Forms\Get $get) => $get('socials.visible'))
                             ->columns()
                             ->itemLabel(fn (array $state): ?string => str($state['red'])->title() ?? null)
                             ->maxItems(3)

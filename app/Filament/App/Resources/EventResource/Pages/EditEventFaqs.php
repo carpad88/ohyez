@@ -19,10 +19,16 @@ class EditEventFaqs extends EditEventRecord
             ->schema([
                 Forms\Components\Section::make('Preguntas frecuentes de tus invitados')
                     ->description('Anticipa posibles preguntas de tus invitados y dales una respuesta por adelantado.')
-                    ->statePath('content')
+                    ->statePath('content.faqs')
                     ->schema([
-                        Forms\Components\Repeater::make('faqs')
+                        Forms\Components\Toggle::make('visible')
+                            ->columnSpan(2)
+                            ->label('¿Mostrar preguntas frecuentes?')
+                            ->live(),
+
+                        Forms\Components\Repeater::make('items')
                             ->hiddenLabel()
+                            ->visible(fn (Forms\Get $get) => $get('visible'))
                             ->addActionLabel('Agregar pregunta')
                             ->columns(1)
                             ->itemLabel(fn (array $state): ?string => str($state['question'])->title() ?? null)
