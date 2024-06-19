@@ -23,17 +23,25 @@ class EditEventGallery extends EditEventRecord
             ->schema([
                 Forms\Components\Section::make('Imágenes para mostar en la galería')
                     ->description('Agrega las imágenes que quieras mostrar en la gallería.')
-                    ->statePath('content')
+                    ->statePath('content.gallery')
                     ->columns()
                     ->collapsible()
                     ->schema([
-                        Forms\Components\FileUpload::make('gallery')
+                        Forms\Components\Toggle::make('visible')
+                            ->columnSpan(2)
+                            ->label('¿Mostrar galería de fotos?')
+                            ->live(),
+
+                        Forms\Components\FileUpload::make('items')
+                            ->disk('events')
+                            ->directory(fn (Event $record) => $record->code)
                             ->hiddenLabel()
+                            ->visible(fn (Forms\Get $get) => $get('visible'))
                             ->columnSpan(2)
                             ->panelLayout('grid')
                             ->multiple()
+                            ->maxFiles(5)
                             ->reorderable()
-                            ->directory(fn (Event $record) => $record->code)
                             ->image()
                             ->imageEditor()
                             ->appendFiles()

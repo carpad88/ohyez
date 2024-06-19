@@ -94,7 +94,7 @@ class EditEventMentions extends EditEventRecord
                     ->collapsible()
                     ->schema([
                         Forms\Components\Toggle::make('special.visible')
-                            ->label('¿Mostrar nombres de los padrinos?')
+                            ->label('¿Mostrar menciones especiales?')
                             ->live(),
                         Forms\Components\Repeater::make('special.relatives')
                             ->hiddenLabel()

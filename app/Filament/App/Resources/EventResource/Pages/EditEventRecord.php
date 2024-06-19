@@ -22,10 +22,14 @@ abstract class EditEventRecord extends EditRecord
             return $data;
         }
 
+        $newContent = $data['content'];
+        unset($data['content']);
+
         return [
+            ...$data,
             'content' => [
                 ...$this->getRecord()->content,
-                ...$data['content'],
+                ...$newContent,
             ],
         ];
     }

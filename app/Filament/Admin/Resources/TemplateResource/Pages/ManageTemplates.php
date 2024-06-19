@@ -14,7 +14,7 @@ class ManageTemplates extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
-                ->modalWidth('xl'),
+                ->modalWidth('md'),
         ];
     }
 }

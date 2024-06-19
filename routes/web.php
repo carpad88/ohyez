@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Middleware\EventHasExpired;
 use App\Http\Middleware\InvitationIsAuthenticated;
 use App\Http\Middleware\RedirectIfInvitationAuthenticated;
-use App\Livewire\AuthEvent;
-use App\Livewire\AuthInvitation;
+use App\Livewire\Invitation\Authenticate;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
@@ -27,15 +27,15 @@ Route::group(['middleware' => 'auth', 'prefix' => '/events'], function () {
 });
 
 Route::group(['middleware' => EventHasExpired::class], function () {
-    Route::get('/invitations/{invitation:uuid}/login', AuthInvitation::class)
+    Route::get('/invitations/{invitation:uuid}/login', Authenticate::class)
         ->middleware(RedirectIfInvitationAuthenticated::class)
         ->name('invitation.login');
 
-    //    Route::get('/invitations/{invitation:uuid}/download', [EventController::class, 'downloadTickets'])
+    //    Route::get('/invitations/{invitation:uuid}/download', [InvitationController::class, 'downloadTickets'])
     //        ->middleware(InvitationIsAuthenticated::class)
     //        ->name('event.download');
 
-    Route::get('/invitations/{invitation:uuid}', [EventController::class, 'index'])
+    Route::get('/invitations/{invitation:uuid}', [InvitationController::class, 'view'])
         ->middleware(InvitationIsAuthenticated::class)
         ->name('invitation.view');
 });

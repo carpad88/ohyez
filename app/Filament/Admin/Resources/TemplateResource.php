@@ -16,7 +16,7 @@ class TemplateResource extends Resource
 {
     protected static ?string $model = Template::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'phosphor-blueprint-duotone';
 
     public static function getModelLabel(): string
     {
@@ -46,8 +46,24 @@ class TemplateResource extends Resource
                     )
                     ->required(),
                 Forms\Components\TextInput::make('view')
-                    ->default('ohyez::templates.default')
                     ->required(),
+                Forms\Components\Group::make()
+                    ->columns()
+                    ->schema([
+                        Forms\Components\ToggleButtons::make('is_public')
+                            ->boolean()
+                            ->grouped()
+                            ->default(true),
+                        Forms\Components\ToggleButtons::make('is_active')
+                            ->boolean()
+                            ->grouped()
+                            ->default(true),
+                    ]),
+                Forms\Components\FileUpload::make('cover')
+                    ->visibleOn('edit')
+                    ->disk('templates')
+                    ->directory(fn (Template $record) => $record->id)
+                    ->image(),
             ]);
     }
 
@@ -59,12 +75,25 @@ class TemplateResource extends Resource
                     ->formatStateUsing(fn ($state) => __('ohyez.'.$state))
                     ->badge(),
                 Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\IconColumn::make('is_public')
+                    ->alignCenter()
+                    ->boolean()
+                    ->trueIcon('phosphor-eye-duotone')
+                    ->falseIcon('phosphor-eye-closed-duotone')
+                    ->trueColor('primary')
+                    ->falseColor('gray'),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->alignCenter()
+                    ->boolean()
+                    ->trueColor('primary')
+                    ->falseColor('gray'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->modalWidth('md'),
+                Tables\Actions\EditAction::make()
+                    ->modalWidth('md'),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),

@@ -3,12 +3,11 @@
 namespace App\Filament\App\Resources\EventResource\Pages;
 
 use App\Enums\InvitationStatus;
-use App\Filament\Admin\Forms\InvitationForm;
 use App\Filament\App\Resources\EventResource;
 use App\Filament\App\Resources\InvitationResource;
 use App\Models\Invitation;
 use Filament\Actions;
-use Filament\Forms\Form;
+use Filament\Forms;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Support\Enums\FontWeight;
@@ -40,7 +39,7 @@ class ManageInvitations extends ManageRelatedRecords
         return [
             Actions\CreateAction::make()
                 ->model(Invitation::class)
-                ->form(InvitationForm::getFields())
+                ->form($this->getInvitationsFields())
                 ->label('Agregar invitación')
                 ->modalWidth('xl')
                 ->slideOver()
@@ -63,14 +62,6 @@ class ManageInvitations extends ManageRelatedRecords
                 ]))
                 ->openUrlInNewTab(),
         ];
-    }
-
-    public function form(Form $form): Form
-    {
-        return $form
-            ->schema(
-                InvitationForm::getFields()
-            );
     }
 
     public function table(Table $table): Table
@@ -127,9 +118,9 @@ class ManageInvitations extends ManageRelatedRecords
                             return route('invitation.login', ['invitation' => $record->uuid]);
                         }
 
-                        $fullMessage = config('app.url').'/event/'.$this->record->code.'/invitation/'.$record->code."\n\n";
+                        $fullMessage = config('app.url').'/invitations/'.$record->uuid."/login\n\n";
                         $fullMessage .= 'Hola, te comparto la invitación para mi celebración de XV años.'."\n\n";
-                        $fullMessage .= 'Tu código de acceso es:'."\n\n".'*'.passwordFromUUID($record->code).'*';
+                        $fullMessage .= 'Tu código de acceso es:'."\n\n".'*'.passwordFromUUID($record->uuid).'*';
 
                         $encodedMessage = urlencode($fullMessage);
 
@@ -198,6 +189,73 @@ class ManageInvitations extends ManageRelatedRecords
                     ->count()
                 )
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', InvitationStatus::Declined)),
+        ];
+    }
+
+    protected function getInvitationsFields(): array
+    {
+        return [
+            Forms\Components\Grid::make()
+                ->columnSpan('full')
+                ->columns(3)
+                ->schema([
+                    Forms\Components\TextInput::make('family')
+                        ->label('Familia')
+                        ->columnSpan('full')
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('phone')
+                        ->label('Número de celular')
+                        ->numeric()
+                        ->length(10)
+                        ->required(),
+                    Forms\Components\TextInput::make('email')
+                        ->columnSpan(2)
+                        ->label('Correo electrónico')
+                        ->email(),
+
+                    Forms\Components\Repeater::make('guests')
+                        ->relationship('guests')
+                        ->label('Lista de invitados')
+                        ->addActionLabel('Agregar invitado')
+                        ->columnSpan('full')
+                        ->columns(3)
+                        ->required()
+                        ->orderColumn(false)
+                        ->defaultItems(1)
+                        ->minItems(1)
+                        ->collapsible()
+                        ->collapsed()
+                        ->simple(fn ($operation) => $operation == 'create' ?
+                            Forms\Components\TextInput::make('name')
+                                ->label('Nombre')
+                                ->columnSpan(3)
+                                ->live(onBlur: true)
+                                ->required()
+                                ->maxLength(255) : null
+                        )
+                        ->schema(fn ($operation) => $operation == 'edit'
+                            ? [Forms\Components\Group::make()
+                                ->columnSpan('full')
+                                ->columns(3)
+                                ->schema([
+                                    Forms\Components\TextInput::make('name')
+                                        ->hiddenLabel()
+                                        ->columnSpan(2)
+                                        ->live(onBlur: true)
+                                        ->required()
+                                        ->maxLength(255),
+                                    Forms\Components\ToggleButtons::make('confirmed')
+                                        ->visible(fn ($operation) => $operation == 'edit')
+                                        ->hiddenLabel()
+                                        ->default(false)
+                                        ->boolean()
+                                        ->grouped(),
+                                ]),
+
+                            ] : []
+                        ),
+                ]),
         ];
     }
 }

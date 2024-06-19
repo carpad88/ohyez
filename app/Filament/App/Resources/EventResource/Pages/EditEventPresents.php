@@ -17,39 +17,24 @@ class EditEventPresents extends EditEventRecord
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Datos para depósito bancario')
-                    ->description('Agrega los datos para que tu regalo lo hagan por medio de un depósito.')
-                    ->statePath('content.presents.account')
-                    ->columns()
-                    ->collapsible()
-                    ->schema([
-                        Forms\Components\TextInput::make('bank')
-                            ->label('Nombre del banco')
-                            ->required(),
-                        Forms\Components\TextInput::make('card')
-                            ->label('Número de tarjeta')
-                            ->numeric()
-                            ->length(16)
-                            ->required(),
-                        Forms\Components\TextInput::make('beneficiary')
-                            ->label('Nombre del beneficiario')
-                            ->columnSpan(2)
-                            ->required(),
-
-                    ]),
-
                 Forms\Components\Section::make('Links a mesas de regalo')
                     ->description('Agrega los vínculos a tus mesas de regalos.')
-                    ->statePath('content')
+                    ->statePath('content.presents.tables')
                     ->collapsible()
                     ->schema([
-                        Forms\Components\Repeater::make('presents.items')
+                        Forms\Components\Toggle::make('visible')
+                            ->columnSpan(2)
+                            ->label('¿Mostrar vínculos a mesa de regalos?')
+                            ->live(),
+
+                        Forms\Components\Repeater::make('items')
                             ->hiddenLabel()
+                            ->visible(fn (Forms\Get $get) => $get('visible'))
                             ->columns(3)
-                            ->itemLabel(fn (array $state): ?string => str($state['item'])->title() ?? null)
+                            ->itemLabel(fn (array $state): ?string => str($state['name'])->title() ?? null)
                             ->collapsible()
                             ->schema([
-                                Forms\Components\TextInput::make('item')
+                                Forms\Components\TextInput::make('name')
                                     ->label('Tienda o lugar')
                                     ->live()
                                     ->required(),
@@ -61,6 +46,39 @@ class EditEventPresents extends EditEventRecord
                                     ->required(),
                             ])
                             ->required(),
+                    ]),
+
+                Forms\Components\Section::make('Datos para depósito bancario')
+                    ->description('Agrega los datos para que tu regalo lo hagan por medio de un depósito.')
+                    ->statePath('content.presents.account')
+                    ->columns()
+                    ->collapsible()
+                    ->schema([
+                        Forms\Components\Toggle::make('visible')
+                            ->columnSpan(2)
+                            ->label('¿Mostrar datos bancarios?')
+                            ->live(),
+
+                        Forms\Components\Group::make()
+                            ->visible(fn (Forms\Get $get) => $get('visible'))
+                            ->columnSpan(2)
+                            ->columns()
+                            ->schema([
+                                Forms\Components\TextInput::make('bank')
+                                    ->label('Nombre del banco')
+                                    ->required(),
+                                Forms\Components\TextInput::make('card')
+                                    ->label('Número de tarjeta')
+                                    ->numeric()
+                                    ->length(16)
+                                    ->required(),
+                                Forms\Components\TextInput::make('beneficiary')
+                                    ->label('Nombre del beneficiario')
+                                    ->columnSpan(2)
+                                    ->required(),
+                            ]),
+
+
                     ]),
 
                 Forms\Components\Section::make('Sección con mensaje para regalo o sobres')

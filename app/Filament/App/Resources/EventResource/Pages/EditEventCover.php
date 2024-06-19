@@ -49,12 +49,12 @@ class EditEventCover extends EditEventRecord
 
                 Forms\Components\Section::make('Archivos multimedia')
                     ->description('Puedes agregar archivos multimedia para personalizar la invitación.')
-                    ->statePath('content')
                     ->columns()
                     ->schema([
                         Forms\Components\FileUpload::make('logo')
-                            ->label('Logotipo')
+                            ->disk('events')
                             ->directory(fn (Event $record) => $record->code)
+                            ->label('Logotipo')
                             ->image()
                             ->imageEditor(),
                         Forms\Components\FileUpload::make('music')
@@ -93,7 +93,6 @@ class EditEventCover extends EditEventRecord
 
                 Forms\Components\Section::make('Cuenta regresiva')
                     ->description('Está sección muestra el tiempo que falta hasta el día del evento.')
-                    ->statePath('content')
                     ->schema([
                         Forms\Components\Toggle::make('counter')
                             ->label('¿Mostrar cuenta regresiva?'),

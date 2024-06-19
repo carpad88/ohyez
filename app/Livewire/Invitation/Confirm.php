@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Invitation;
 
 use App\Enums\InvitationStatus;
 use App\Models\Guest;
@@ -14,7 +14,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Livewire\Component;
 
-class ConfirmInvitation extends Component implements HasActions, HasForms
+class Confirm extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;
@@ -23,7 +23,7 @@ class ConfirmInvitation extends Component implements HasActions, HasForms
 
     public function render()
     {
-        return view('livewire.confirm-invitation');
+        return view('livewire.invitation.confirm');
     }
 
     public function confirm(): Action

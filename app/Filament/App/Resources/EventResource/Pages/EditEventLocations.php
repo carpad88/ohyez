@@ -60,12 +60,12 @@ class EditEventLocations extends EditEventRecord
                     ->statePath('content.locations')
                     ->columnSpan(1)
                     ->schema([
-                        Forms\Components\Toggle::make('ceremony.visibility')
+                        Forms\Components\Toggle::make('ceremony.visible')
                             ->label('¿Mostrar ubicación de la ceremonia?')
                             ->live(),
 
                         Forms\Components\Group::make()
-                            ->visible(fn (Forms\Get $get) => $get('ceremony.visibility'))
+                            ->visible(fn (Forms\Get $get) => $get('ceremony.visible'))
                             ->schema([
                                 Forms\Components\TextInput::make('ceremony.name')
                                     ->label('Nombre del lugar')
