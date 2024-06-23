@@ -23,12 +23,16 @@ class FeatureResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(1)
+            ->columns()
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre')
                     ->required(),
+                Forms\Components\TextInput::make('code')
+                    ->label('Código')
+                    ->required(),
                 Forms\Components\Textarea::make('description')
+                    ->columnSpan(2)
                     ->label('Descripción')
                     ->rows(5),
             ]);
@@ -38,6 +42,8 @@ class FeatureResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('code')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
                     ->sortable(),

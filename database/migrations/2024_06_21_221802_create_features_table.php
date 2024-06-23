@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('features', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique();
             $table->string('name');
-            $table->string('slug')->unique();
             $table->string('description')->nullable();
+            $table->tinyInteger('limit')->nullable();
             $table->auditFields();
             $table->timestamps();
             $table->softDeletes();

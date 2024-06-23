@@ -74,6 +74,7 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn ($query) => $query->orderBy('default_price_amount', 'asc'))
             ->columns([
                 Tables\Columns\IconColumn::make('active')
                     ->width('1%')

@@ -23,7 +23,7 @@ class TemplateFactory extends Factory
             'name' => fake()->sentence(),
             'event_type' => fake()->randomElement(['wedding', 'xv']),
             'cover' => fake()->imageUrl(),
-            'view' => 'template',
+            'view' => '0000',
         ];
     }
 }

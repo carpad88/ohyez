@@ -12,15 +12,6 @@ class Feature extends Model
 {
     use CrudBy, HasFactory, SoftDeletes;
 
-    protected static function boot(): void
-    {
-        parent::boot();
-
-        static::creating(function ($feature) {
-            $feature->slug = str()->slug($feature->name);
-        });
-    }
-
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class);

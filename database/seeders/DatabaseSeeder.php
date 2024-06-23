@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Actions\Stripe\SyncProducts;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;

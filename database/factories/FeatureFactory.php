@@ -18,6 +18,7 @@ class FeatureFactory extends Factory
     {
         return [
             'name' => $this->faker->country(),
+            'code' => $this->faker->unique()->countryCode,
             'description' => $this->faker->sentence,
         ];
     }
