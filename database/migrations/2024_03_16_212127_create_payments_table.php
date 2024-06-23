@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(Event::class);
+            $table->foreignIdFor(\App\Models\Product::class);
             $table->integer('amount');
             $table->string('payment_intent');
             $table->string('payment_link')->nullable();

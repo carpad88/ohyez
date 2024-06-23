@@ -12,6 +12,7 @@ class EventController
     public function preview(Event $event)
     {
         $invitation = null;
+
         return view('templates.'.$event->template->view, compact('event', 'invitation'));
     }
 

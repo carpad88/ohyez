@@ -91,13 +91,8 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('event_type')
-                    ->label('Tipo')
-                    ->badge(EventType::class),
-                Tables\Columns\TextColumn::make('tier')
-                    ->label('Plan')
-                    ->description(fn ($record) => $record->template->name ?? 'Sin plantilla'),
                 Tables\Columns\TextColumn::make('code')
+                    ->width('1%')
                     ->label('ID')
                     ->badge()
                     ->searchable(),
@@ -106,6 +101,19 @@ class EventResource extends Resource
                     ->description(fn ($record) => $record->date?->format('d \d\e M, Y') ?? 'Sin fecha')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('event_type')
+                    ->width('1%')
+                    ->label('Tipo')
+                    ->badge(EventType::class),
+                Tables\Columns\TextColumn::make('payments.product.name')
+                    ->formatStateUsing(fn ($record) => $record->plan()->name)
+                    ->label('Plan')
+                    ->description(fn ($record) => $record->template->name ?? 'Sin plantilla'),
+                Tables\Columns\TextColumn::make('features_count')
+                    ->counts('features')
+                    ->alignCenter()
+                    ->badge()
+                    ->label('Features'),
                 Tables\Columns\TextColumn::make('host.name')
                     ->label('Anfitrión')
                     ->description(fn ($record) => $record->host->email)

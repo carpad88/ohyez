@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(\App\Models\User::class);
             $table->string('code')->unique()->index();
-            $table->string('tier');
             $table->string('title');
             $table->uuid();
             $table->string('password');

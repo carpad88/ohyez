@@ -3,7 +3,7 @@
 namespace App\Filament\App\Resources\EventResource\Pages;
 
 use App\Filament\App\Resources\EventResource;
-use App\Settings\GeneralSettings;
+use App\Models\Product;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -22,7 +22,11 @@ class ListEvents extends ListRecords
                 ->modalHeading('Elige un paquete')
                 ->modalContent(view(
                     'filament.app.tiers',
-                    ['tiers' => app(GeneralSettings::class)->tiers]
+                    [
+                        'tiers' => Product::where('bundle', true)
+                            ->orderBy('default_price_amount')
+                            ->get(),
+                    ]
                 ))
                 ->modalSubmitAction(false)
                 ->modalCancelAction(false),

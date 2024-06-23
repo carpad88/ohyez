@@ -28,12 +28,11 @@ class EventFactory extends Factory
         return [
             'user_id' => User::factory(),
             'code' => str()->random(6),
-            'tier' => fake()->randomElement(['basic', 'medium', 'pro']),
             'title' => $name,
             'uuid' => str()->uuid()->toString(),
             'password' => Hash::make('12345'),
             'template_id' => Template::factory(),
-            'event_type' => fake()->randomElement(['wedding', 'xv', 'birthday']),
+            'event_type' => fake()->randomElement(['wedding', 'xv']),
             'slug' => Str::slug($name),
             'date' => fake()->dateTimeBetween('now', '+6 months')->format('Y-m-d'),
             'time' => fake()->time('H:i'),

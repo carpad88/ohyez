@@ -39,25 +39,6 @@ class ManageGeneralSettings extends SettingsPage
                                     ->required()
                             ),
                     ]),
-                Forms\Components\Section::make('Planes')
-                    ->columnSpan(1)
-                    ->schema([
-                        Forms\Components\Repeater::make('tiers')
-                            ->columns(2)
-                            ->label('')
-                            ->collapsible()
-                            ->collapsed()
-                            ->addActionLabel('Agregar plan')
-                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
-                            ->schema([
-                                Forms\Components\TextInput::make('name')
-                                    ->columnSpan(1)
-                                    ->required(),
-                                Forms\Components\TextInput::make('priceId')
-                                    ->columnSpan(1)
-                                    ->required(),
-                            ]),
-                    ]),
             ]);
     }
 }

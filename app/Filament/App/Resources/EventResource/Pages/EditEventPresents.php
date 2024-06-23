@@ -78,7 +78,6 @@ class EditEventPresents extends EditEventRecord
                                     ->required(),
                             ]),
 
-
                     ]),
 
                 Forms\Components\Section::make('Sección con mensaje para regalo o sobres')

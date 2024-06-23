@@ -13,9 +13,9 @@ Route::view('/', 'welcome')->name('home');
 
 Route::redirect('/admin/login', '/login')->name('login');
 
-Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
 Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout-success');
 Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout-cancel');
+Route::get('/checkout/{product:stripe_id}', [CheckoutController::class, 'checkout'])->name('checkout');
 
 Route::group(['middleware' => 'auth', 'prefix' => '/events'], function () {
     Route::get('/{event}/preview', [EventController::class, 'preview'])->name('event.preview');
