@@ -25,7 +25,7 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\Section::make('General')
                     ->collapsible()
-                    ->columns(5)
+                    ->columns()
                     ->schema([
                         Forms\Components\Toggle::make('active')
                             ->label('Activo')
@@ -39,17 +39,21 @@ class ProductResource extends Resource
                             ])
                             ->default(true)
                             ->grouped(),
-                        Forms\Components\TextInput::make('name')
-                            ->columnSpan(fn ($operation) => $operation == 'edit' ? 2 : 3)
-                            ->label('Nombre')
-                            ->required(),
-                        Forms\Components\TextInput::make('default_price_amount')
-                            ->disabled(fn ($operation) => $operation == 'edit')
-                            ->columnSpan(2)
-                            ->label('Precio')
-                            ->formatStateUsing(fn ($state) => $state / 100)
-                            ->numeric()
-                            ->required(),
+
+                        Forms\Components\Group::make()
+                            ->columnSpan('full')
+                            ->columns()
+                            ->schema([
+                                Forms\Components\TextInput::make('name')
+                                    ->label('Nombre')
+                                    ->required(),
+                                Forms\Components\TextInput::make('default_price_amount')
+                                    ->label('Precio')
+                                    ->formatStateUsing(fn ($state) => $state / 100)
+                                    ->numeric()
+                                    ->required(),
+                            ]),
+
                         Forms\Components\Textarea::make('description')
                             ->columnSpan('full')
                             ->label('Descripción')
