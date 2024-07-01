@@ -86,7 +86,7 @@ class ManageInvitations extends ManageRelatedRecords
 
                         Tables\Columns\TextColumn::make('phone')
                             ->extraAttributes(['class' => 'my-1'])
-                            ->icon('heroicon-o-device-phone-mobile'),
+                            ->icon('phosphor-phone-duotone'),
 
                         Tables\Columns\Layout\Split::make([
                             Tables\Columns\TextColumn::make('guests_count')
@@ -114,7 +114,7 @@ class ManageInvitations extends ManageRelatedRecords
             ->actions([
                 Tables\Actions\Action::make('share')
                     ->hidden(fn ($record) => $record->status === InvitationStatus::Declined)
-                    ->icon('heroicon-o-paper-airplane')
+                    ->icon('phosphor-paper-plane-tilt-duotone')
                     ->label('Compartir')
                     ->url(function (Invitation $record): string {
                         if (app()->environment('local')) {
@@ -140,13 +140,13 @@ class ManageInvitations extends ManageRelatedRecords
                     Tables\Actions\Action::make('confirm')
                         ->visible(fn ($record) => $hasAutoConfirmation && $record->status === InvitationStatus::Pending)
                         ->label('Marcar como confirmada')
-                        ->icon('heroicon-o-check-circle')
+                        ->icon('phosphor-check-circle-duotone')
                         ->requiresConfirmation()
                         ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Confirmed])),
                     Tables\Actions\Action::make('decline')
                         ->visible(fn ($record) => $hasAutoConfirmation && $record->status === InvitationStatus::Pending)
                         ->label('Marcar como declinada')
-                        ->icon('heroicon-o-x-mark')
+                        ->icon('phosphor-x-duotone')
                         ->requiresConfirmation()
                         ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Declined])),
                     Tables\Actions\EditAction::make()
@@ -163,7 +163,6 @@ class ManageInvitations extends ManageRelatedRecords
                     Tables\Actions\ForceDeleteAction::make(),
                     Tables\Actions\RestoreAction::make(),
                 ])
-                    ->icon('heroicon-o-adjustments-horizontal')
                     ->link()
                     ->label('Acciones'),
             ]);

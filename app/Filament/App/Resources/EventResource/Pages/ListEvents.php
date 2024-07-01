@@ -11,7 +11,7 @@ class ListEvents extends ListRecords
 {
     protected static string $resource = EventResource::class;
 
-    protected static string $view = 'filament.admin.resources.event.pages.list-events';
+    protected static string $view = 'filament.app.resources.event.pages.list-events';
 
     protected static ?string $title = 'Mis eventos';
 

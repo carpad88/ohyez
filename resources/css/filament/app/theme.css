@@ -28,3 +28,7 @@
 .template-card input[type="radio"]:checked + div {
     @apply border-indigo-900 border-4;
 }
+
+.fi-section-content, .fi-section-content-ctn {
+    height: 100%;
+}

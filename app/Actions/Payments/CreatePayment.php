@@ -16,12 +16,12 @@ class CreatePayment
             ->create([
                 'event_id' => $event->id,
                 'product_id' => $product->id,
-                'amount' => $session->amount_total,
-                'payment_intent' => $session->payment_intent,
-                'payment_link' => $session->payment_link,
-                'payment_status' => $session->payment_status,
-                'currency' => $session->currency,
-                'customer' => $session->customer,
+                'amount' => $session['amount_total'] ?? 0,
+                'payment_intent' => $session['payment_intent'],
+                'payment_link' => $session['payment_link'] ?? null,
+                'payment_status' => $session['payment_status'],
+                'currency' => $session['currency'] ?? 'mxn',
+                'customer' => $session['customer'],
             ]);
     }
 }
