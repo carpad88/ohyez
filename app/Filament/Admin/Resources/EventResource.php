@@ -4,6 +4,7 @@ namespace App\Filament\Admin\Resources;
 
 use App\Enums\EventType;
 use App\Models\Event;
+use App\Models\Product;
 use App\Settings\GeneralSettings;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -47,10 +48,12 @@ class EventResource extends Resource
                                 ->mapWithKeys(fn ($item) => [$item => __('ohyez.'.$item)])
                             )
                             ->required(),
-                        Forms\Components\Select::make('tier')
+                        Forms\Components\Select::make('product')
                             ->label('Plan')
-                            ->options((collect(app(GeneralSettings::class)->tiers))
-                                ->mapWithKeys(fn ($item) => [$item['key'] => $item['name']])
+                            ->options(Product::where('bundle', true)
+                                ->orderBy('default_price_amount')
+                                ->get()
+                                ->pluck('name', 'stripe_id')
                             )
                             ->required(),
                         Forms\Components\Select::make('user_id')

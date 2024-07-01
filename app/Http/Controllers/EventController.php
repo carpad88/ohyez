@@ -18,14 +18,28 @@ class EventController
 
     public function downloadInvitationsList(Event $event)
     {
-        $tables = Invitation::where('event_id', $event->id)
-            ->where('status', InvitationStatus::Confirmed)
-            ->join('guests', 'invitations.id', '=', 'guests.invitation_id')
-            ->select(['invitations.family', 'guests.name', 'guests.table'])
-            ->orderBy('guests.table')
-            ->orderBy('invitations.family')
-            ->get()
-            ->groupBy('table');
+        $tables = [];
+
+        if (! $event->hasFeaturesWithCode('COM')) {
+            $tables = Invitation::where('event_id', $event->id)
+                ->join('guests', 'invitations.id', '=', 'guests.invitation_id')
+                ->select(['invitations.family', 'guests.name', 'guests.table'])
+                ->orderBy('guests.table')
+                ->orderBy('invitations.family')
+                ->get()
+                ->groupBy('table');
+        }
+
+        if ($event->hasFeaturesWithCode('COA')) {
+            $tables = Invitation::where('event_id', $event->id)
+                ->where('status', InvitationStatus::Confirmed)
+                ->join('guests', 'invitations.id', '=', 'guests.invitation_id')
+                ->select(['invitations.family', 'guests.name', 'guests.table'])
+                ->orderBy('guests.table')
+                ->orderBy('invitations.family')
+                ->get()
+                ->groupBy('table');
+        }
 
         $pdf = Pdf::loadView('event.invitations-list', compact('event', 'tables'))
             ->setOption(['fontDir' => sys_get_temp_dir(), 'isPhpEnabled' => true])

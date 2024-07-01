@@ -27,6 +27,7 @@ class CreateEvent
             'uuid' => $uuid,
             'password' => Hash::make(passwordFromUUID($uuid)),
             'content' => createEmptyEvent(),
+            'template_id' => $params['template_id'] ?? 1,
         ]);
 
         $product = Product::where('stripe_id', $params['product'])

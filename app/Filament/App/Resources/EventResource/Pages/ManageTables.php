@@ -22,6 +22,11 @@ class ManageTables extends EditEventRecord
 
     public array $tables = [];
 
+    public static function canAccess(array $parameters = []): bool
+    {
+        return $parameters['record']->hasFeaturesWithCode('TAB');
+    }
+
     public function mount(int|string $record): void
     {
         $this->record = $this->resolveRecord($record);

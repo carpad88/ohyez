@@ -89,6 +89,7 @@ class EditEventMentions extends EditEventRecord
                     ]),
 
                 Forms\Components\Section::make('Menciones y agradecimientos especiales')
+                    ->visible(fn (Event $record) => $record->hasFeaturesWithCode('MEN'))
                     ->description('Menciona los nombres de alguien a quien quieras agradecer, por ejemplo abuelos, familiares, padrinos de anillos, etcétera.')
                     ->statePath('content.mentions')
                     ->collapsible()

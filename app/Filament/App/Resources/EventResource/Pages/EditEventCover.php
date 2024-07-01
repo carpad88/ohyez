@@ -48,20 +48,24 @@ class EditEventCover extends EditEventRecord
                     ]),
 
                 Forms\Components\Section::make('Archivos multimedia')
+                    ->visible(fn (Event $record) => $record->hasFeaturesWithCode(['LOG', 'MUS']))
                     ->description('Puedes agregar archivos multimedia para personalizar la invitación.')
                     ->columns()
                     ->schema([
                         Forms\Components\FileUpload::make('logo')
+                            ->visible(fn (Event $record) => $record->hasFeaturesWithCode('LOG'))
                             ->disk('events')
                             ->directory(fn (Event $record) => $record->code)
                             ->label('Logotipo')
                             ->image()
                             ->imageEditor(),
                         Forms\Components\FileUpload::make('music')
+                            ->visible(fn (Event $record) => $record->hasFeaturesWithCode('MUS'))
                             ->label('Música'),
                     ]),
 
                 Forms\Components\Section::make('Mensaje de bienvenida')
+                    ->visible(fn (Event $record) => $record->hasFeaturesWithCode(['MES', 'MEP']))
                     ->description('Este mensaje se muestra inmediatamente después de la portada de la invitación.')
                     ->statePath('content')
                     ->columns()
@@ -75,7 +79,7 @@ class EditEventCover extends EditEventRecord
                             ->hintIcon(
                                 'heroicon-m-question-mark-circle',
                                 tooltip: 'Puedes elegir une mensaje del catálogo o escribir uno nuevo.')
-                            ->visible(fn (Forms\Get $get) => $get('welcome.visible'))
+                            ->visible(fn (Forms\Get $get, Event $record) => $get('welcome.visible') && $record->hasFeaturesWithCode('MES'))
                             ->searchable()
                             ->live()
                             ->afterStateUpdated(fn ($state, Forms\Set $set) => $state ? $set('welcome.message', $state) : '')
@@ -87,11 +91,13 @@ class EditEventCover extends EditEventRecord
                             ),
                         Forms\Components\Textarea::make('welcome.message')
                             ->label('Editar mensaje')
-                            ->visible(fn (Forms\Get $get) => $get('welcome.visible'))
+                            ->visible(fn (Forms\Get $get, Event $record) => $get('welcome.visible') && $record->hasFeaturesWithCode('MEP'))
+                            ->disabled(fn (Event $record) => ! $record->hasFeaturesWithCode('MEP'))
                             ->rows(5),
                     ]),
 
                 Forms\Components\Section::make('Cuenta regresiva')
+                    ->visible(fn (Event $record) => $record->hasFeaturesWithCode('COU'))
                     ->description('Está sección muestra el tiempo que falta hasta el día del evento.')
                     ->schema([
                         Forms\Components\Toggle::make('counter')

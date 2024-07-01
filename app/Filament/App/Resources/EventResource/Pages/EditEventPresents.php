@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources\EventResource\Pages;
 
+use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Form;
 
@@ -33,6 +34,9 @@ class EditEventPresents extends EditEventRecord
                             ->columns(3)
                             ->itemLabel(fn (array $state): ?string => str($state['name'])->title() ?? null)
                             ->collapsible()
+                            ->maxItems(fn (Event $record) => $record->features()
+                                ->whereIn('code', ['GI1', 'GI2', 'GI3'])
+                                ->first()->limit ?? 1)
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label('Tienda o lugar')
@@ -49,6 +53,7 @@ class EditEventPresents extends EditEventRecord
                     ]),
 
                 Forms\Components\Section::make('Datos para depósito bancario')
+                    ->visible(fn (Event $record) => $record->hasFeaturesWithCode('BAN'))
                     ->description('Agrega los datos para que tu regalo lo hagan por medio de un depósito.')
                     ->statePath('content.presents.account')
                     ->columns()
@@ -81,6 +86,7 @@ class EditEventPresents extends EditEventRecord
                     ]),
 
                 Forms\Components\Section::make('Sección con mensaje para regalo o sobres')
+                    ->visible(fn (Event $record) => $record->hasFeaturesWithCode('ENV'))
                     ->description('Está sección muestra un mensaje para que tus invitados te dejen un regalo o un sobre el día del evento.')
                     ->statePath('content.presents')
                     ->schema([

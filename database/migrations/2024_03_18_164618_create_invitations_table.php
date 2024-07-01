@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('status', ['pending', 'confirmed', 'declined']);
             $table->string('family');
             $table->string('phone');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->auditFields();
             $table->timestamps();
             $table->softDeletes();

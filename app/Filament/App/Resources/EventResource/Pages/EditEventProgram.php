@@ -13,6 +13,11 @@ class EditEventProgram extends EditEventRecord
 
     protected static ?string $navigationGroup = 'Secciones de la invitación';
 
+    public static function canAccess(array $parameters = []): bool
+    {
+        return $parameters['record']->hasFeaturesWithCode('PRO');
+    }
+
     public function form(Form $form): Form
     {
         return $form

@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources\EventResource\Pages;
 
+use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Form;
 
@@ -32,7 +33,9 @@ class EditEventRecommendations extends EditEventRecord
                             ->addActionLabel('Agregar recomendación')
                             ->columns()
                             ->itemLabel(fn (array $state): ?string => str($state['name'])->title() ?? null)
-                            ->maxItems(3)
+                            ->maxItems(fn (Event $record) => $record->features()
+                                ->whereIn('code', ['RE1', 'RE2', 'RE3'])
+                                ->first()->limit ?? 1)
                             ->collapsible()
                             ->schema([
                                 Forms\Components\TextInput::make('place')

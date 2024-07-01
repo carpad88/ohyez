@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources\EventResource\Pages;
 
+use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Form;
 
@@ -32,7 +33,9 @@ class EditEventFaqs extends EditEventRecord
                             ->addActionLabel('Agregar pregunta')
                             ->columns(1)
                             ->itemLabel(fn (array $state): ?string => str($state['question'])->title() ?? null)
-                            ->maxItems(3)
+                            ->maxItems(fn (Event $record) => $record->features()
+                                ->whereIn('code', ['FA2', 'FA4', 'FAQ'])
+                                ->first()->limit ?? 1)
                             ->collapsible()
                             ->schema([
                                 Forms\Components\TextInput::make('question')

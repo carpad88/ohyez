@@ -2,6 +2,7 @@
 
 namespace App\Filament\App\Resources\EventResource\Pages;
 
+use App\Models\Event;
 use Filament\Forms;
 use Filament\Forms\Form;
 
@@ -30,7 +31,9 @@ class EditEventSocials extends EditEventRecord
                             ->visible(fn (Forms\Get $get) => $get('socials.visible'))
                             ->columns()
                             ->itemLabel(fn (array $state): ?string => str($state['red'])->title() ?? null)
-                            ->maxItems(3)
+                            ->maxItems(fn (Event $record) => $record->features()
+                                ->whereIn('code', ['SO1', 'SO2', 'SO3'])
+                                ->first()->limit ?? 1)
                             ->collapsible()
                             ->schema([
                                 Forms\Components\Select::make('red')

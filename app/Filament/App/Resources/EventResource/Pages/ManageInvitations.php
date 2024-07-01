@@ -55,6 +55,7 @@ class ManageInvitations extends ManageRelatedRecords
                     return $data;
                 }),
             Actions\Action::make('download')
+                ->visible(fn () => $this->record->hasFeaturesWithCode('LIS'))
                 ->label('Descargar lista')
                 ->icon('heroicon-o-document-arrow-down')
                 ->url(fn () => route('event.invitations-list-pdf', [
@@ -66,6 +67,8 @@ class ManageInvitations extends ManageRelatedRecords
 
     public function table(Table $table): Table
     {
+        $hasAutoConfirmation = $this->record->hasFeaturesWithCode('COA');
+
         return $table
             ->recordTitleAttribute('family')
             ->defaultSort('family')
@@ -128,26 +131,27 @@ class ManageInvitations extends ManageRelatedRecords
                     })
                     ->openUrlInNewTab(),
                 Tables\Actions\Action::make('pending')
-                    ->visible(fn ($record) => $record->status === InvitationStatus::Declined)
+                    ->visible(fn ($record) => $hasAutoConfirmation && $record->status === InvitationStatus::Declined)
                     ->label('Reactivar')
                     ->icon('heroicon-o-arrow-path')
                     ->requiresConfirmation()
                     ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Pending])),
                 Tables\Actions\ActionGroup::make([
                     Tables\Actions\Action::make('confirm')
-                        ->visible(fn ($record) => $record->status === InvitationStatus::Pending)
+                        ->visible(fn ($record) => $hasAutoConfirmation && $record->status === InvitationStatus::Pending)
                         ->label('Marcar como confirmada')
                         ->icon('heroicon-o-check-circle')
                         ->requiresConfirmation()
                         ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Confirmed])),
                     Tables\Actions\Action::make('decline')
-                        ->visible(fn ($record) => $record->status === InvitationStatus::Pending)
+                        ->visible(fn ($record) => $hasAutoConfirmation && $record->status === InvitationStatus::Pending)
                         ->label('Marcar como declinada')
                         ->icon('heroicon-o-x-mark')
                         ->requiresConfirmation()
                         ->action(fn (Invitation $record) => $record->update(['status' => InvitationStatus::Declined])),
                     Tables\Actions\EditAction::make()
                         ->modalWidth('xl')
+                        ->form($this->getInvitationsFields())
                         ->closeModalByClickingAway(false)
                         ->slideOver()
                         ->mutateFormDataUsing(function (array $data): array {
@@ -167,7 +171,7 @@ class ManageInvitations extends ManageRelatedRecords
 
     public function getTabs(): array
     {
-        return [
+        return $this->record->hasFeaturesWithCode('COA') ? [
             'pending' => Tab::make(InvitationStatus::Pending->getLabel())
                 ->badge(InvitationResource::getEloquentQuery()
                     ->where('status', InvitationStatus::Pending)
@@ -189,7 +193,7 @@ class ManageInvitations extends ManageRelatedRecords
                     ->count()
                 )
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('status', InvitationStatus::Declined)),
-        ];
+        ] : [];
     }
 
     protected function getInvitationsFields(): array
@@ -241,12 +245,12 @@ class ManageInvitations extends ManageRelatedRecords
                                 ->schema([
                                     Forms\Components\TextInput::make('name')
                                         ->hiddenLabel()
-                                        ->columnSpan(2)
+                                        ->columnSpan(fn () => $this->record->hasFeaturesWithCode('COA') ? 2 : 3)
                                         ->live(onBlur: true)
                                         ->required()
                                         ->maxLength(255),
                                     Forms\Components\ToggleButtons::make('confirmed')
-                                        ->visible(fn ($operation) => $operation == 'edit')
+                                        ->visible(fn ($operation) => $this->record->hasFeaturesWithCode('COA') && $operation == 'edit')
                                         ->hiddenLabel()
                                         ->default(false)
                                         ->boolean()

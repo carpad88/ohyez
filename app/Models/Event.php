@@ -67,6 +67,13 @@ class Event extends Model
             ->product;
     }
 
+    public function hasFeaturesWithCode(array|string $codes): bool
+    {
+        $featuresToCheck = is_array($codes) ? $codes : [$codes];
+
+        return $this->features()->get()->contains(fn ($feature) => in_array($feature->code, $featuresToCheck));
+    }
+
     public function invitationsCount($status = null): int
     {
         if ($status) {

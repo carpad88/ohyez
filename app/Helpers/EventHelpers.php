@@ -106,9 +106,9 @@ function createEmptyEvent(): array
             'visible' => true,
             'items' => [
                 [
-                    'red' => null,
-                    'url' => null,
-                    'hashtag' => null,
+                    'red' => 'facebook',
+                    'url' => 'https://www.facebook.com/',
+                    'hashtag' => 'mis-xv',
                 ],
             ],
         ],
