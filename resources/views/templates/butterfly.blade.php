@@ -1,4 +1,4 @@
-<x-layouts.invitation>
+<x-layouts.invitation :css="$event->template->view">
     @push('meta')
         <meta name="title" content="Mis XV años :: Renata">
         <meta name="description" content="Invitación para la fiesta de XV años de Renata">

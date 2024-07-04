@@ -14,11 +14,11 @@
                     </div>
 
                     <div class="flex-1 grid grid-cols-7 gap-4 items-start">
-                        <div class="col-span-3">
+                        <div class="col-span-3 border rounded-lg">
                             <img
-                                src="https://placehold.co/300x400"
+                                src="{{ $record->template->coverUrl() ?? 'https://placehold.co/300x400'}}"
                                 alt="template cover"
-                                class="rounded-lg w-full h-full transition-transform group-hover:scale-90"
+                                class="rounded-lg w-full transition-transform group-hover:scale-90"
                             >
                         </div>
                         <div class="col-span-4">

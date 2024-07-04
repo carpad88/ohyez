@@ -11,6 +11,7 @@
         "@unocss/cli": "^0.58.5",
         "autoprefixer": "^10.4.19",
         "axios": "^1.6.4",
+        "glob": "^10.4.2",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.38",
         "postcss-nesting": "^12.1.0",

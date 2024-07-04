@@ -19,6 +19,9 @@ export default {
                     'Inter, serif',
                 ],
             },
+            animation: {
+                'spin-slow': 'spin 5s linear infinite',
+            }
         }
     }
 }

@@ -1,0 +1,225 @@
+@import "../uno.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100;
+    src: url('../../fonts/inter-v13-latin-100.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../../fonts/inter-v13-latin-200.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../../fonts/inter-v13-latin-300.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../../fonts/inter-v13-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../../fonts/inter-v13-latin-600.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../../fonts/inter-v13-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../../fonts/inter-v13-latin-800.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../../fonts/inter-v13-latin-900.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../fonts/inter-v13-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../../fonts/bricolage-grotesque-v2-latin-200.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../../fonts/bricolage-grotesque-v2-latin-300.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../../fonts/bricolage-grotesque-v2-latin-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../../fonts/bricolage-grotesque-v2-latin-600.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../../fonts/bricolage-grotesque-v2-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../../fonts/bricolage-grotesque-v2-latin-800.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../fonts/bricolage-grotesque-v2-latin-regular.woff2') format('woff2');
+}
+
+@keyframes logo {
+    0% {
+        transform: scale(200);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.logo {
+    width: 30vw;
+    animation: logo 1s ease-out;
+}
+
+
+.fi-otp-input {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.fi-otp-input-container {
+    gap: 1rem;
+}
+
+.fi-otp-input {
+    @apply px-0 py-1.5;
+}
+
+/****************************************************
+Styles for template 0001
+****************************************************/
+html {
+    font-family: "Inter", sans-serif;
+    text-align: center;
+}
+
+.bg-pattern {
+    @apply bg-center bg-contain bg-repeat;
+    background-image: url('../../../public/img/background.webp');
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes scale {
+    from {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(.98);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+#circles {
+    transform-origin: center;
+    transition: all;
+    animation: rotate 5s ease-in-out infinite;
+}
+
+#type {
+    transform-origin: center;
+    transition: all;
+    animation: scale 3s ease-in-out infinite;
+}
+
+@keyframes orbit {
+    from {
+        transform: rotate(0deg) translateX(10px) rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg) translateX(10px) rotate(360deg);
+    }
+}
+
+.move {
+    transform-origin: center;
+    transition: all;
+    animation: orbit 6s linear infinite;
+}

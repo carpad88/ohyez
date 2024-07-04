@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-display: swap;
+    font-family: 'Josefin Slab';
+    font-style: normal;
+    font-weight: 100;
+    src: url('../../fonts/josefin-slab-v26-latin-100.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Josefin Slab';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../../fonts/josefin-slab-v26-latin-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Josefin Slab';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../fonts/josefin-slab-v26-latin-regular.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Cutive Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../fonts/cutive-mono-v21-latin-regular.woff2') format('woff2');
+}
+
+@layer base {
+    html {
+        font-family: "Josefin Slab", system-ui, serif;
+        color: #592460;
+        text-align: center;
+    }
+}
+
+h2 {
+    @apply font-bold text-4xl mb-6;
+}
+
+p {
+    @apply text-lg;
+}
+
+a, button {
+    @apply bg-[#592460] text-white font-bold py-3 px-6 rounded;
+    @apply space-x-1.5 mt-6 inline-flex  hover:bg-violet-950;
+}
+
+main {
+    @apply h-full bg-white;
+}
+
+section {
+    @apply relative;
+}
+
+#counter > div {
+    @apply flex flex-col justify-center items-center;
+}
+
+#counter > div > h3 {
+    @apply font-mono text-4xl h-12 flex justify-center items-center;
+    color: #e9ab1c;
+    font-family: "Cutive Mono", system-ui, monospace;
+}
+
+#counter > div > img {
+    @apply h-12 size-4 flex justify-center items-center;
+}
+
+.mention > h3 {
+    @apply font-bold text-3xl mb-2 text-left pl-6;
+}
+
+.mention > p {
+    @apply pl-6 text-left;
+}
+
+#places > div > h3 {
+    @apply font-bold mb-2 text-xl leading-normal;
+}
+
+

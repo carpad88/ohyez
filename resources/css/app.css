@@ -1,5 +1,4 @@
 @import "uno.css";
-@import "fonts.css";
 
 @tailwind base;
 @tailwind components;
@@ -55,7 +54,7 @@ Styles for template 0000
 }
 
 #template section {
-    @apply p-8 min-h-[728px] flex flex-col justify-center items-center;
+    @apply p-8 min-h-screen sm:min-h-[728px] flex flex-col justify-center items-center;
 }
 
 #template section:nth-child(even) {
@@ -72,68 +71,4 @@ Styles for template 0000
 
 #template button, #template a {
     @apply border border-black px-6 py-3 mt-3;
-}
-
-/****************************************************
-Styles for template 0001
-****************************************************/
-html {
-    font-family: "Inter", sans-serif;
-    text-align: center;
-}
-
-.bg-pattern {
-    @apply bg-center bg-contain bg-repeat;
-    background-image: url('../../public/img/background.webp');
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes scale {
-    from {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(.98);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}
-
-#circles {
-    transform-origin: center;
-    transition: all;
-    animation: rotate 5s ease-in-out infinite;
-}
-
-#type {
-    transform-origin: center;
-    transition: all;
-    animation: scale 3s ease-in-out infinite;
-}
-
-@keyframes orbit {
-    from {
-        transform: rotate(0deg) translateX(10px) rotate(0deg);
-    }
-
-    to {
-        transform: rotate(-360deg) translateX(10px) rotate(360deg);
-    }
-}
-
-.move {
-    transform-origin: center;
-    transition: all;
-    animation: orbit 6s linear infinite;
 }

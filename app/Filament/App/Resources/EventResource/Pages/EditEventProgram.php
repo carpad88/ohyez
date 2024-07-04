@@ -36,6 +36,7 @@ class EditEventProgram extends EditEventRecord
                             ->columns()
                             ->itemLabel(fn (array $state): ?string => $state['item'] ?? null)
                             ->collapsible()
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? null)
                             ->schema([
                                 Forms\Components\TextInput::make('name')
                                     ->label('Actividad')
