@@ -40,6 +40,6 @@ class Template extends Model
             return null;
         }
 
-        return Storage::disk('templates')->url($this->cover);
+        return Storage::disk('s3-templates')->url($this->cover);
     }
 }

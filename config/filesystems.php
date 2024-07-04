@@ -71,17 +71,17 @@ return [
             'throw' => false,
         ],
 
-        //        's3-templates' => [
-        //            'driver' => 'scoped',
-        //            'disk' => 's3',
-        //            'prefix' => 'templates',
-        //        ],
-        //
-        //        's3-events' => [
-        //            'driver' => 'scoped',
-        //            'disk' => 's3',
-        //            'prefix' => 'events',
-        //        ],
+        's3-templates' => [
+            'driver' => 'scoped',
+            'disk' => 's3',
+            'prefix' => 'templates',
+        ],
+
+        's3-events' => [
+            'driver' => 'scoped',
+            'disk' => 's3',
+            'prefix' => 'events',
+        ],
 
     ],
 
