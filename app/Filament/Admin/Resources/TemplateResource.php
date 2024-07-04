@@ -61,7 +61,7 @@ class TemplateResource extends Resource
                     ]),
                 Forms\Components\FileUpload::make('cover')
                     ->visibleOn('edit')
-                    ->disk('templates')
+                    ->disk('s3-templates')
                     ->directory(fn (Template $record) => $record->id)
                     ->image(),
             ]);
