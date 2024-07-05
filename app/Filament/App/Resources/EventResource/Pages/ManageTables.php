@@ -53,7 +53,10 @@ class ManageTables extends EditEventRecord
 
     protected function groupGuestsByTable($record): void
     {
-        $tables = Invitation::with('guests:id,invitation_id,name,table')
+        $tables = Invitation::query()
+            ->with(['guests' => fn ($query) => $query->whereConfirmed(true)
+                ->select('id', 'invitation_id', 'name', 'table'),
+            ])
             ->where([
                 'event_id' => $record,
                 'status' => InvitationStatus::Confirmed,

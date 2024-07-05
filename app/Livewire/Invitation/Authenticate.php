@@ -11,7 +11,6 @@ use Filament\Notifications\Notification;
 use HasanAhani\FilamentOtpInput\Components\OtpInput;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class Authenticate extends Component implements HasForms
