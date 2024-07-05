@@ -257,7 +257,7 @@
             <!--<editor-fold desc="Gallery">-->
             @if($content->get('gallery.visible'))
                 <section>
-                    <h2>Gallería</h2>
+                    <h2>Galería</h2>
                     <div class="grid gap-4 px-6">
                         @if(count($content->get('gallery.items')) > 0)
                             @foreach($content->get('gallery.items') as $image)
@@ -311,7 +311,7 @@
             <section class="py-24">
                 <h2 class="leading-none">Confirmación <br>de asistencia</h2>
                 <p>Para mi es muy importante <br>contar con tu presencia.</p>
-                <button>Confirmar</button>
+                <button class="button">Confirmar</button>
             </section>
             <!--</editor-fold>-->
 

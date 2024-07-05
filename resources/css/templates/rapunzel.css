@@ -50,9 +50,9 @@ p {
     @apply text-lg;
 }
 
-a, button {
+a, .button {
     @apply bg-[#592460] text-white font-bold py-3 px-6 rounded;
-    @apply space-x-1.5 mt-6 inline-flex  hover:bg-violet-950;
+    @apply space-x-1.5 mt-6 inline-flex hover:bg-violet-950;
 }
 
 main {

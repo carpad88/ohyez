@@ -32,20 +32,6 @@
     animation: logo 1s ease-out;
 }
 
-
-.fi-otp-input {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.fi-otp-input-container {
-    gap: 1rem;
-}
-
-.fi-otp-input {
-    @apply px-0 py-1.5;
-}
-
 /****************************************************
 Styles for template 0000
 ****************************************************/
