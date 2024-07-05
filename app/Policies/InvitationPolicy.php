@@ -23,7 +23,7 @@ class InvitationPolicy
      */
     public function view(User $user, Invitation $invitation): bool
     {
-        return $user->can('view_invitation');
+        return $user->can('view_invitation') && $user->id === $invitation->event->user_id;
     }
 
     /**
@@ -39,7 +39,7 @@ class InvitationPolicy
      */
     public function update(User $user, Invitation $invitation): bool
     {
-        return $user->can('update_invitation');
+        return $user->can('update_invitation') && $user->id === $invitation->event->user_id;
     }
 
     /**
@@ -47,7 +47,7 @@ class InvitationPolicy
      */
     public function delete(User $user, Invitation $invitation): bool
     {
-        return $user->can('delete_invitation');
+        return $user->can('delete_invitation') && $user->id === $invitation->event->user_id;
     }
 
     /**
@@ -63,7 +63,7 @@ class InvitationPolicy
      */
     public function forceDelete(User $user, Invitation $invitation): bool
     {
-        return $user->can('force_delete_invitation');
+        return $user->can('force_delete_invitation') && $user->id === $invitation->event->user_id;
     }
 
     /**
@@ -79,7 +79,7 @@ class InvitationPolicy
      */
     public function restore(User $user, Invitation $invitation): bool
     {
-        return $user->can('restore_invitation');
+        return $user->can('restore_invitation') && $user->id === $invitation->event->user_id;
     }
 
     /**
@@ -95,7 +95,7 @@ class InvitationPolicy
      */
     public function replicate(User $user, Invitation $invitation): bool
     {
-        return $user->can('replicate_invitation');
+        return $user->can('replicate_invitation') && $user->id === $invitation->event->user_id;
     }
 
     /**

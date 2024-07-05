@@ -11,6 +11,7 @@ use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class EventResource extends Resource
 {
@@ -68,6 +69,10 @@ class EventResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => auth()->user()->hasRole('super_admin')
+                ? $query
+                : $query->where('user_id', auth()->id())
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->searchable()

@@ -9,6 +9,7 @@ use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,6 +39,10 @@ class AppServiceProvider extends ServiceProvider
         URL::forceScheme('https');
 
         Model::unguard();
+
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('super_admin') ?: null;
+        });
 
         Forms\Components\Select::configureUsing(function (Forms\Components\Select $entry): void {
             $entry->native(false);
