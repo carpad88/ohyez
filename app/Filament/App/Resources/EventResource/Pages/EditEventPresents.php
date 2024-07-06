@@ -8,7 +8,7 @@ use Filament\Forms\Form;
 
 class EditEventPresents extends EditEventRecord
 {
-    protected static ?string $title = 'Mesas de regalos';
+    protected static ?string $title = 'Regalos';
 
     protected static ?string $navigationIcon = 'phosphor-gift-duotone';
 

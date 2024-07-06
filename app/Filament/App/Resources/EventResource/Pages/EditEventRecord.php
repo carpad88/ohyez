@@ -37,9 +37,13 @@ abstract class EditEventRecord extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('preview')
+                ->outlined()
+                ->label('Previsualizar')
+                ->url(fn ($record) => route('event.preview', $record->id))
+                ->openUrlInNewTab(),
             Actions\Action::make('save')
                 ->label('Guardar cambios')
-                ->button()
                 ->action('save'),
         ];
     }
