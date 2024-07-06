@@ -50,7 +50,8 @@
                             <p>Días</p>
                         </div>
                         <div>
-                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun">
+                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun"
+                                 class="animate-spin-slow">
                             <p>•</p>
                         </div>
                         <div>
@@ -58,7 +59,8 @@
                             <p>Horas</p>
                         </div>
                         <div>
-                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun">
+                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun"
+                                 class="animate-spin-slow">
                             <p>•</p>
                         </div>
                         <div>
@@ -66,7 +68,8 @@
                             <p>Min</p>
                         </div>
                         <div>
-                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun">
+                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun"
+                                 class="animate-spin-slow">
                             <p>•</p>
                         </div>
                         <div>
@@ -241,10 +244,10 @@
                              class="mx-auto w-1/2 my-6">
                     </div>
 
-                    <div class="relative h-[480px]">
+                    <div class="relative h-[500px]">
                         <p class="mt-12 pl-24 pr-16">
-                            El color lila esta reservado para la quinceañera, también están reservados el color azul
-                            cielo y rosa pastel.
+                            Te solicito amablemente que evites vestir de color lila, azul cielo o rosa pastel ya que
+                            esos colores están reservado para hacerme lucir en ese día tan especial.
                         </p>
 
                         <img src="{{ Storage::disk('s3')->url("$templateFolder/dresscode-b.webp") }}" alt="dress-code"
@@ -284,27 +287,47 @@
                  class="w-full my-6 mx-auto scale-x-[-1]">
 
             <!--<editor-fold desc="Gifts">-->
-            <section class="h-[480px] text-left mt-16">
-                <img src="{{ Storage::disk('s3')->url("$templateFolder/gifts.webp") }}" alt="gifts"
-                     class="absolute bottom-0 w-full">
+            @php
+                $tablesVisible = $content->get('presents.tables.visible');
+                $envelopeVisible = $content->get('presents.envelope');
+            @endphp
 
-                <div class="relative pl-8 z-10">
-                    <h2 class="mb-0">Mesa de regalos</h2>
+            @if($tablesVisible || $envelopeVisible)
+                <section class="text-left mt-16">
+                    <div class="px-8 space-y-12">
+                        @if($content->get('presents.tables.visible'))
+                            <div>
+                                <h2 class="mb-0">Mesa de regalos</h2>
+                                @foreach($content->get('presents.tables.items') as $item)
+                                    <a href="{{ $item['url'] }}"
+                                       target="_blank"
+                                    >
+                                        <x-phosphor-gift class="size-5"/>
+                                        <span>{{ $item['name'] }}</span>
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
 
-                    @if($content->get('presents.tables.visible'))
-                        @foreach($content->get('presents.tables.items') as $item)
-                            <a href="{{ $item['url'] }}"
-                               target="_blank"
-                            >
-                                <x-phosphor-gift class="size-5"/>
-                                <span>{{ $item['name'] }}</span>
-                            </a>
-                        @endforeach
-                    @endif
-                </div>
+                        @if($content->get('presents.envelope'))
+                            <div class="">
+                                <h2>Lluvia de sobres</h2>
+                                <p class="font-bold my-2 text-xl">¡Tu compañía es el regalo más especial para mí!</p>
+                                <p> Pero si deseas obsequiarme algo más, el día del evento habrá sobres
+                                    <x-phosphor-envelope-duotone class="size-5 inline"/>
+                                    y un buzón
+                                    <x-phosphor-mailbox-duotone class="size-5 inline"/>
+                                    para depositarlos.
+                                </p>
 
+                            </div>
+                        @endif
+                    </div>
 
-            </section>
+                    <img src="{{ Storage::disk('s3')->url("$templateFolder/gifts.webp") }}" alt="gifts"
+                         class=" w-full">
+                </section>
+            @endif
             <!--</editor-fold>-->
 
             <!--<editor-fold desc="RSVP">-->
