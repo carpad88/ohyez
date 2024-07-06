@@ -11,7 +11,6 @@ use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -33,9 +32,6 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogoHeight('3rem')
             ->defaultThemeMode(ThemeMode::Light)
             ->viteTheme('resources/css/filament/admin/theme.css')
-            ->colors([
-                'primary' => Color::Indigo,
-            ])
             ->navigationGroups([
                 NavigationGroup::make()
                     ->label(fn (): string => trans('ohyez.content')),
