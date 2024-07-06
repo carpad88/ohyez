@@ -27,6 +27,11 @@ class ManageTables extends EditEventRecord
         return $parameters['record']->hasFeaturesWithCode('TAB');
     }
 
+    protected function getHeaderActions(): array
+    {
+        return [];
+    }
+
     public function mount(int|string $record): void
     {
         $this->record = $this->resolveRecord($record);
