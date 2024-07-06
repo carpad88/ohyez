@@ -331,11 +331,27 @@
             <!--</editor-fold>-->
 
             <!--<editor-fold desc="RSVP">-->
-            <section class="py-24">
-                <h2 class="leading-none">Confirmación <br>de asistencia</h2>
-                <p>Para mi es muy importante <br>contar con tu presencia.</p>
-                <button class="button">Confirmar</button>
-            </section>
+            @if($invitation)
+                <livewire:invitation.rsvp :invitation="$invitation" />
+            @else
+                <section class="py-24 px-8">
+                    <h2>Confirmación <br>de asistencia</h2>
+
+                    <p class="text-lg leading-tight">
+                        Para mi es muy importante contar con tu presencia y quiero que formes parte de este gran
+                        día.
+                    </p>
+
+                    <p class="my-4 text-lg leading-tight">
+                        Por favor, confirma tu asistencia cuanto antes.
+                    </p>
+
+                    <button class="button">
+                        <x-phosphor-user-check-duotone class="size-5"/>
+                        <span>Confirmar</span>
+                    </button>
+                </section>
+            @endif
             <!--</editor-fold>-->
 
             <!--<editor-fold desc="Socials">-->

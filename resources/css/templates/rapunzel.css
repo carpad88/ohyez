@@ -43,7 +43,7 @@
 }
 
 h2 {
-    @apply font-bold text-4xl mb-6;
+    @apply font-bold text-4xl mb-6 leading-none;
 }
 
 p {
@@ -53,6 +53,10 @@ p {
 a, .button {
     @apply bg-[#592460] text-white font-bold py-3 px-6 rounded;
     @apply space-x-1.5 mt-6 inline-flex hover:bg-violet-950;
+}
+
+.button {
+    @apply disabled:bg-gray-300 disabled:cursor-not-allowed;
 }
 
 main {

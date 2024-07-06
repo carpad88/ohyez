@@ -34,4 +34,11 @@ class Invitation extends Model
     {
         return $this->hasMany(Guest::class);
     }
+
+    public function allConfirmedGuestsHaveTableAssigned(): bool
+    {
+        $confirmedGuests = $this->guests()->where('confirmed', true);
+
+        return $confirmedGuests->count() === $confirmedGuests->where('table', '>', 0)->count();
+    }
 }

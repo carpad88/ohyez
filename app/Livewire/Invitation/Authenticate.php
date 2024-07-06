@@ -75,7 +75,7 @@ class Authenticate extends Component implements HasForms
 
     public function render()
     {
-        return view('livewire.invitation.login', ['event' => $this->invitation->event])
+        return view('livewire.invitation.auth', ['event' => $this->invitation->event])
             ->layout('components.layouts.invitation', [
                 'css' => $this->invitation->event->template->view,
             ]);

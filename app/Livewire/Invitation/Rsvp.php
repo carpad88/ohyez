@@ -12,31 +12,42 @@ use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
+use Livewire\Attributes\On;
 use Livewire\Component;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class Confirm extends Component implements HasActions, HasForms
+class Rsvp extends Component implements HasActions, HasForms
 {
     use InteractsWithActions;
     use InteractsWithForms;
 
     public Invitation $invitation;
 
-    public function render()
+    public $status;
+
+    public function mount(Invitation $invitation): void
     {
-        return view('livewire.invitation.confirm');
+        $this->invitation = $invitation;
+        $this->status = $invitation->status->value;
     }
 
-    public function confirm(): Action
+    #[On('status-updated')]
+    public function updateStatus($status): void
     {
-        return Action::make('confirm')
-            ->outlined()
-            ->size('xl')
-            ->icon('heroicon-o-user-group')
-            ->extraAttributes(['class' => 'py-4 px-6 mt-8'])
+        $this->status = $status;
+    }
+
+    public function render()
+    {
+        return view('livewire.invitation.rsvp');
+    }
+
+    public function confirmAttendance(): Action
+    {
+        return Action::make('confirmAttendance')
             ->visible($this->invitation->status === InvitationStatus::Pending)
             ->modalHeading('Confirmar asistencia')
             ->modalWidth('sm')
-            ->label('Confirmar asistencia')
             ->modalSubmitActionLabel('Confirmar')
             ->form(
                 fn () => [
@@ -51,6 +62,14 @@ class Confirm extends Component implements HasActions, HasForms
                             'confirmed' => 'Sí podre asistir',
                             'declined' => 'No podre asistir',
                         ])
+                        ->colors([
+                            'declined' => 'warning',
+                            'confirmed' => 'success',
+                        ])
+                        ->icons([
+                            'declined' => 'phosphor-smiley-sad-duotone',
+                            'confirmed' => 'phosphor-smiley-duotone',
+                        ])
                         ->live()
                         ->grouped(),
                     Forms\Components\Fieldset::make()
@@ -60,6 +79,9 @@ class Confirm extends Component implements HasActions, HasForms
                         ->schema(fn () => collect($this->invitation->guests)
                             ->map(fn ($guest) => Forms\Components\Toggle::make('guests.'.$guest->id)
                                 ->label($guest->name)
+                                ->onIcon('phosphor-check-bold')
+                                ->offIcon('phosphor-question-mark-bold')
+                                ->onColor('success')
                                 ->default($guest->confirmed ?? true)
                             )
                             ->toArray()
@@ -87,7 +109,34 @@ class Confirm extends Component implements HasActions, HasForms
                         ->send();
                 }
 
-                $this->dispatch('invitationConfirmed');
+                $this->dispatch('status-updated', status: $data['status']);
             });
+    }
+
+    public function showQrCode(): Action
+    {
+        return Action::make('showQrCode')
+            ->modalWidth('sm')
+            ->disabled(fn () => ! $this->invitation->allConfirmedGuestsHaveTableAssigned())
+            ->modalHeading(false)
+            ->modalSubmitAction(fn () => Action::make('download')
+                ->extraAttributes(['class' => 'mt-0'])
+                ->label('Descargar')
+                ->url(fn () => route('event.download', ['invitation' => $this->invitation->uuid]))
+                ->openUrlInNewTab()
+            )
+            ->modalContent(fn ($action) => view('livewire.invitation.qr-code-modal', [
+                'qr' => QrCode::size(240)
+                    ->eye('circle')
+                    ->style('dot', 0.99)
+                    ->generate($this->invitation->uuid),
+                'invitation' => $this->invitation->load([
+                    'guests' => fn ($query) => $query->where([
+                        ['confirmed', '=', true],
+                        ['table', '>', 0],
+                    ]),
+                ]),
+                'action' => $action,
+            ]));
     }
 }
