@@ -67,6 +67,12 @@ section {
     @apply relative;
 }
 
+#player {
+    @apply fixed bottom-4 right-4 z-50 size-12 text-[#592460];
+    @apply border bg-amber-200 border-[#592460] rounded-full;
+    @apply flex justify-center items-center;
+}
+
 #counter > div {
     @apply flex flex-col justify-center items-center;
 }

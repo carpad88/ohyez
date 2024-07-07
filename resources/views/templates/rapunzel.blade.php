@@ -8,6 +8,10 @@
 
     <x-templates.wrapper class="bg-[#7c4985]">
         <main>
+            @if($event->hasFeaturesWithCode('MUS') && $event->music)
+                <x-templates.music-player song="{{$event->music}}"/>
+            @endif
+
             <!--<editor-fold desc="Cover">-->
             <section class="min-h-screen sm:min-h-[728px] flex flex-col justify-center items-center">
                 <img src="{{ Storage::disk('s3')->url("$templateFolder/cover-tl.webp") }}" alt="cover-top-left"
@@ -332,7 +336,7 @@
 
             <!--<editor-fold desc="RSVP">-->
             @if($invitation)
-                <livewire:invitation.rsvp :invitation="$invitation" />
+                <livewire:invitation.rsvp :invitation="$invitation"/>
             @else
                 <section class="py-24 px-8">
                     <h2>Confirmación <br>de asistencia</h2>
