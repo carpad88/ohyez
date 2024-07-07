@@ -18,11 +18,11 @@
                 <span>Confirmar</span>
             </button>
 
-            <p class="my-4 text-base leading-tight">
-                Por favor, confirma tu asistencia antes del
-                <b>{{ $dateFormatter->format($invitation->event->date->subWeek()) }}</b>. Al no responder
-                para antes de esa fecha lo tomaré como un NO.
-            </p>
+            <div class="space-y-2">
+                <p class="text-base leading-tight">Por favor confirma tu asistencia antes del</p>
+                <p class="font-bold text-base">{{ $dateFormatter->format($invitation->event->date->subWeek()) }}</p>
+                <p class="text-base leading-tight">Si no respondes antes de esa fecha<br> lo tomaré como un NO.</p>
+            </div>
         @else
             <p class="text-lg leading-tight px-4">
                 La fecha límite para confirmar tu asistencia ya pasó, pero si aun quieres confirmar puedes comunicarte
@@ -34,16 +34,18 @@
     @if($status == 'confirmed')
         <h2>Asistencia confirmada</h2>
 
-        <h3 class="font-bold mb-8 text-lg">¡Gracias por confirmar tu asistencia!</h3>
+        <h3 class="font-bold mb-8 text-xl">¡Gracias por confirmar tu asistencia!</h3>
 
         @if(now() < $invitation->event->date->subDays(3))
             <div class="space-y-2">
-                <p>Los boletos estarán disponibles el<br></p>
+                <p class="leading-tight">Los boletos estarán disponibles<br> a partir del</p>
                 <p class="font-bold">{{ $dateFormatter->format($invitation->event->date->subDays(3)) }}</p>
-                <p>No olvides descargarlos y presentarlos en la entrada el día<br>del evento.</p>
+                <p class="leading-tight">No olvides descargarlos y presentarlos en la entrada el día del evento.</p>
             </div>
         @else
-            <p>No olvides descargar tus boletos y presentarlos en la entrada el día del evento.</p>
+            <p class="leading-tight">
+                No olvides descargar tus boletos y presentarlos en la entrada el día del evento.
+            </p>
 
             <button wire:click="mountAction('showQrCode')" class="button"
                 @disabled(!$this->invitation->allConfirmedGuestsHaveTableAssigned())
