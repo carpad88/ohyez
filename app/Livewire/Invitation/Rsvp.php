@@ -89,6 +89,15 @@ class Rsvp extends Component implements HasActions, HasForms
                 ]
             )
             ->action(function (array $data) {
+                if (count(array_filter($data['guests'])) === 0) {
+                    Notification::make()
+                        ->title('Error al confirmar asistencia. Selecciona al menos un invitado.')
+                        ->danger()
+                        ->send();
+
+                    return;
+                }
+
                 $this->invitation->update(['status' => $data['status']]);
 
                 if (isset($data['guests'])) {
