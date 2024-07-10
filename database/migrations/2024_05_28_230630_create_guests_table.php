@@ -14,9 +14,11 @@ return new class extends Migration
     {
         Schema::create('guests', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Invitation::class);
+            $table->foreignIdFor(Invitation::class)
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('name');
-            $table->boolean('confirmed')->default(false);
+            $table->boolean('confirmed')->nullable();
             $table->unsignedSmallInteger('table')->default(0);
             $table->timestamp('checkedIn')->nullable();
             $table->auditFields();
