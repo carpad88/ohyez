@@ -82,7 +82,7 @@ class Rsvp extends Component implements HasActions, HasForms
                                 ->onIcon('phosphor-check-bold')
                                 ->offIcon('phosphor-question-mark-bold')
                                 ->onColor('success')
-                                ->default($guest->confirmed ?? true)
+                                ->default(true)
                             )
                             ->toArray()
                         ),
@@ -121,8 +121,8 @@ class Rsvp extends Component implements HasActions, HasForms
             ->modalHeading(false)
             ->modalSubmitAction(fn () => Action::make('download')
                 ->extraAttributes(['class' => 'mt-0'])
-                ->label('Descargar')
-                ->url(fn () => route('event.download', ['invitation' => $this->invitation->uuid]))
+                ->label('Descargar boletos')
+                ->url(fn () => route('download-tickets', ['invitation' => $this->invitation->uuid]))
                 ->openUrlInNewTab()
             )
             ->modalContent(fn ($action) => view('livewire.invitation.qr-code-modal', [
