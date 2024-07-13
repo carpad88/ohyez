@@ -44,7 +44,7 @@ class AppPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
             ])
-            ->navigation(false)
+            ->topNavigation()
             ->breadcrumbs(false)
             ->middleware([
                 EncryptCookies::class,

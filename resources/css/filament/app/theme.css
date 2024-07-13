@@ -21,6 +21,14 @@
     @apply bg-indigo-900;
 }
 
+.fi-topbar-item .fi-topbar-item-button {
+    @apply bg-indigo-900 hover:bg-indigo-800 transition-all hover:!text-red-500;
+}
+
+.fi-topbar-item-label, .fi-topbar-item-icon {
+    @apply text-white;
+}
+
 .fi-page-sub-navigation-sidebar {
     @apply bg-white p-3 rounded-lg self-start;
 }
