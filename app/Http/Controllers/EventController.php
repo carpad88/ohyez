@@ -33,7 +33,10 @@ class EventController
         if ($event->hasFeaturesWithCode('COA')) {
             $tables = Invitation::where('event_id', $event->id)
                 ->where('status', InvitationStatus::Confirmed)
-                ->join('guests', 'invitations.id', '=', 'guests.invitation_id')
+                ->join('guests', fn ($join) => $join->on('invitations.id', '=', 'guests.invitation_id')
+                    ->whereNull('guests.deleted_at')
+                    ->where('guests.confirmed', true)
+                )
                 ->select(['invitations.family', 'guests.name', 'guests.table'])
                 ->orderBy('guests.table')
                 ->orderBy('invitations.family')
