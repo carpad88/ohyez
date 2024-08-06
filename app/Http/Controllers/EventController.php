@@ -6,6 +6,7 @@ use App\Enums\InvitationStatus;
 use App\Models\Event;
 use App\Models\Invitation;
 use Barryvdh\DomPDF\Facade\Pdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class EventController
 {
@@ -14,6 +15,17 @@ class EventController
         $invitation = null;
 
         return view('templates.'.$event->template->view, compact('event', 'invitation'));
+    }
+
+    public function previewTicket(Event $event)
+    {
+        $qr = base64_encode(QrCode::backgroundColor(0, 0, 0, 0)->generate($event->uuid));
+        $invitation = null;
+
+        $pdf = Pdf::loadView('invitation.tickets', compact('event', 'invitation', 'qr'))
+            ->setPaper([0, 0, 198, 612], 'landscape');
+
+        return $pdf->stream('tickets.pdf');
     }
 
     public function downloadInvitationsList(Event $event)

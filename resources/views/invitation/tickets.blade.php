@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <title>Ticket -{{ $invitation->uuid }} </title>
+    <title>Ticket -{{ $invitation->uuid ?? $event->title }} </title>
 
     <style>
         @page {
@@ -58,7 +58,7 @@
             </div>
         </td>
         <td style="width: 248pt; padding: 15pt;">
-            <h1 style="height: 68pt;">{{ $invitation->family }}</h1>
+            <h1 style="height: 68pt;">{{ $invitation->family ?? 'Nombre del invitado' }}</h1>
 
             <table cellspacing="0" cellpadding="0">
                 <tr>
@@ -77,15 +77,15 @@
         </td>
         <td style="width: auto; padding: 15pt; position: relative;">
             <p class="rotate">
-                {{ passwordFromUUID($invitation->uuid) }}
+                {{ passwordFromUUID($invitation->uuid ?? '8687a222-b572-475A-b9cF-d7d977607466') }}
             </p>
             <div style="height: 68pt">
                 <p style="font-size: 18pt; font-weight: bold">
-                    MESA {{ $invitation->guests[0]['table'] }}
+                    MESA {{ $invitation->guests[0]['table'] ?? 1 }}
                 </p>
 
                 <p style="font-size: 16pt; margin-top: 10pt">
-                    {{ count($invitation->guests) }} personas
+                    {{ count($invitation->guests ?? [1,2]) }} personas
                 </p>
             </div>
 

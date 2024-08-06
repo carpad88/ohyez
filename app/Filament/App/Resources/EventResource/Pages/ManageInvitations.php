@@ -62,6 +62,15 @@ class ManageInvitations extends ManageRelatedRecords
                     'event' => $this->record->id,
                 ]))
                 ->openUrlInNewTab(),
+            Actions\Action::make('download')
+                ->visible(fn () => $this->record->hasFeaturesWithCode('LIS'))
+                ->label('Ver boleto')
+                ->icon('phosphor-ticket-duotone')
+                ->outlined()
+                ->url(fn () => route('event.preview-tickets', [
+                    'event' => $this->record->id,
+                ]))
+                ->openUrlInNewTab(),
         ];
     }
 

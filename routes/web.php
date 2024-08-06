@@ -21,6 +21,8 @@ Route::group(['middleware' => ['auth', 'can:update,event'], 'prefix' => '/events
     Route::get('/{event}/preview', [EventController::class, 'preview'])->name('event.preview');
     Route::get('/{event}/invitations-list/download', [EventController::class, 'downloadInvitationsList'])
         ->name('event.invitations-list-pdf');
+    Route::get('/{event}/tickets', [EventController::class, 'previewTicket'])
+        ->name('event.preview-tickets');
 
     // check assistance
     //    Route::get('/{event:code}/login', AuthEvent::class)->name('event.login');
