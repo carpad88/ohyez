@@ -18,10 +18,10 @@ class InvitationController
     public function downloadTickets(Invitation $invitation)
     {
         $event = $invitation->event;
-        $qr = base64_encode(QrCode::size(200)->generate($invitation->uuid));
+        $qr = base64_encode(QrCode::backgroundColor(0, 0, 0, 0)->generate($invitation->uuid));
 
         $pdf = Pdf::loadView('invitation.tickets', compact('event', 'invitation', 'qr'))
-            ->setPaper([0, 0, 375, 590]);
+            ->setPaper([0, 0, 198, 612], 'landscape');
 
         return $pdf->stream('tickets.pdf');
     }

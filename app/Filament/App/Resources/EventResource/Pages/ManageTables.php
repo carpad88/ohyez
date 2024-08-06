@@ -6,6 +6,7 @@ use App\Enums\InvitationStatus;
 use App\Filament\App\Resources\EventResource;
 use App\Models\Guest;
 use App\Models\Invitation;
+use Filament\Actions;
 use Filament\Notifications\Notification;
 
 class ManageTables extends EditEventRecord
@@ -29,7 +30,17 @@ class ManageTables extends EditEventRecord
 
     protected function getHeaderActions(): array
     {
-        return [];
+        return [
+            Actions\Action::make('download')
+                ->visible(fn () => $this->record->hasFeaturesWithCode('LIS'))
+                ->label('Descargar lista')
+                ->icon('heroicon-o-document-arrow-down')
+                ->url(fn () => route('event.invitations-list-pdf', [
+                    'event' => $this->record->id,
+                ]))
+                ->outlined()
+                ->openUrlInNewTab(),
+        ];
     }
 
     public function mount(int|string $record): void
