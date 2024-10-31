@@ -10,6 +10,6 @@
     </button>
 
     <audio x-ref="song" autoplay>
-        <source src="{{ Storage::disk('s3-events')->url($song) }}" type="audio/mpeg"/>
+        <source src="{{ Storage::disk('events')->url($song) }}" type="audio/mpeg"/>
     </audio>
 </div>

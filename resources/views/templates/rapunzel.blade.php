@@ -14,23 +14,23 @@
 
             <!--<editor-fold desc="Cover">-->
             <section class="min-h-screen sm:min-h-[728px] flex flex-col justify-center items-center">
-                <img src="{{ Storage::disk('s3')->url("$templateFolder/cover-tl.webp") }}" alt="cover-top-left"
+                <img src="{{ Storage::url("$templateFolder/cover-tl.webp") }}" alt="cover-top-left"
                      class="w-1/4 absolute top-0 left-0">
-                <img src="{{ Storage::disk('s3')->url("$templateFolder/cover-tr.webp") }}" alt="cover-top-right"
+                <img src="{{ Storage::url("$templateFolder/cover-tr.webp") }}" alt="cover-top-right"
                      class="w-full absolute top-0">
 
                 @if($event->logo)
                     <div class="w-2/3 overflow-hidden mt-20 pr-4">
-                        <img src="{{ Storage::disk('s3-events')->url($event->logo) }}" alt="Logo Image">
+                        <img src="{{ Storage::disk('events')->url($event->logo) }}" alt="Logo Image">
                     </div>
                 @else
                     <h1 class="text-5xl font-bold z-10">{{ $content->get('cover.fifteen') }}</h1>
                 @endif
 
                 <p class="mt-6 z-10 text-xl font-mono text-[#e9ab1c]">{{ $event->date->format('d • m • Y') }}</p>
-                <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun"
+                <img src="{{ Storage::url("$templateFolder/sun.svg") }}" alt="sun"
                      class="size-10 mx-auto mt-2 animate-spin-slow">
-                <img src="{{ Storage::disk('s3')->url("$templateFolder/cover-b.webp") }}" alt="cover-bottom"
+                <img src="{{ Storage::url("$templateFolder/cover-b.webp") }}" alt="cover-bottom"
                      class="w-full absolute bottom-0">
             </section>
             <!--</editor-fold>-->
@@ -38,7 +38,7 @@
             <!--<editor-fold desc="Counter">-->
             @if($event->counter)
                 <section class="-translate-y-7">
-                    <img src="{{ Storage::disk('s3')->url("$templateFolder/counter.webp") }}" alt="counter-top"
+                    <img src="{{ Storage::url("$templateFolder/counter.webp") }}" alt="counter-top"
                          class="w-full">
 
                     <h2 class="mt-6">Faltan</h2>
@@ -54,7 +54,7 @@
                             <p>Días</p>
                         </div>
                         <div>
-                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun"
+                            <img src="{{ Storage::url("$templateFolder/sun.svg") }}" alt="sun"
                                  class="animate-spin-slow">
                             <p>•</p>
                         </div>
@@ -63,7 +63,7 @@
                             <p>Horas</p>
                         </div>
                         <div>
-                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun"
+                            <img src="{{ Storage::url("$templateFolder/sun.svg") }}" alt="sun"
                                  class="animate-spin-slow">
                             <p>•</p>
                         </div>
@@ -72,7 +72,7 @@
                             <p>Min</p>
                         </div>
                         <div>
-                            <img src="{{ Storage::disk('s3')->url("$templateFolder/sun.svg") }}" alt="sun"
+                            <img src="{{ Storage::url("$templateFolder/sun.svg") }}" alt="sun"
                                  class="animate-spin-slow">
                             <p>•</p>
                         </div>
@@ -82,7 +82,7 @@
                         </div>
                     </div>
 
-                    <img src="{{ Storage::disk('s3')->url("$templateFolder/counter-b.webp") }}" alt="counter-bottom"
+                    <img src="{{ Storage::url("$templateFolder/counter-b.webp") }}" alt="counter-bottom"
                          class="mx-auto w-2/3 mt-8">
                 </section>
             @endif
@@ -93,11 +93,11 @@
                 <section class="h-[450px]">
                     <div>
                         <p class="mx-auto w-3/4 px-4">{{ $content->get('welcome.message') }}</p>
-                        <img src="{{ Storage::disk('s3')->url("$templateFolder/sun-outlined.svg") }}" alt="sun"
+                        <img src="{{ Storage::url("$templateFolder/sun-outlined.svg") }}" alt="sun"
                              class="size-14 mx-auto mt-4">
                     </div>
 
-                    <img src="{{ Storage::disk('s3')->url("$templateFolder/message.webp") }}" alt="message-bottom"
+                    <img src="{{ Storage::url("$templateFolder/message.webp") }}" alt="message-bottom"
                          class="w-full absolute bottom-0">
                 </section>
             @endif
@@ -127,14 +127,14 @@
                     </div>
                 @endif
 
-                <img src="{{ Storage::disk('s3')->url("$templateFolder/mentions.webp") }}" alt="mentions"
+                <img src="{{ Storage::url("$templateFolder/mentions.webp") }}" alt="mentions"
                      class="w-full absolute bottom-0">
             </section>
             <!--</editor-fold>-->
 
             <!--<editor-fold desc="Special Mentions">-->
             <section class="pt-24 pb-32 bg-[#e5deec]">
-                <img src="{{ Storage::disk('s3')->url("$templateFolder/counter-b.webp") }}" alt="special-mentions"
+                <img src="{{ Storage::url("$templateFolder/counter-b.webp") }}" alt="special-mentions"
                      class="w-2/3 absolute top-0 mx-auto inset-x-0 -translate-y-12">
 
                 <p>Quiero agradecerle de todo corazón a</p>
@@ -151,7 +151,7 @@
             <!--<editor-fold desc="Places">-->
             <section class="h-[740px]">
                 <div class="-translate-y-20">
-                    <img src="{{ Storage::disk('s3')->url("$templateFolder/mentions-b.webp") }}" alt="mentions-b"
+                    <img src="{{ Storage::url("$templateFolder/mentions-b.webp") }}" alt="mentions-b"
                          class="w-full">
 
                     <div id="places" class="px-10">
@@ -193,7 +193,7 @@
             </section>
             <!--</editor-fold>-->
 
-            <img src="{{ Storage::disk('s3')->url("$templateFolder/divider-1.webp") }}" alt="divider"
+            <img src="{{ Storage::url("$templateFolder/divider-1.webp") }}" alt="divider"
                  class="w-full">
 
             <!--<editor-fold desc="Program">-->
@@ -214,7 +214,7 @@
                                     <div
                                         class="absolute size-32 rounded-full border-[2.5px] border-[#a5a77f] -left-2 -top-2">
                                         <img
-                                            src="{{ Storage::disk('s3')->url("$templateFolder/{$icons[$loop->index]}.svg") }}"
+                                            src="{{ Storage::url("$templateFolder/{$icons[$loop->index]}.svg") }}"
                                             alt="icon"
                                             class="w-full h-full">
                                     </div>
@@ -223,7 +223,7 @@
                             </li>
                             @if(!$loop->last)
                                 <div class="h-2 relative {{$loop->even ? 'scale-x-[-1]' : ''}}">
-                                    <img src="{{ Storage::disk('s3')->url("$templateFolder/program-divider.webp") }}"
+                                    <img src="{{ Storage::url("$templateFolder/program-divider.webp") }}"
                                          alt="divider"
                                          class="mx-auto w-5/6 inset-y-0 -translate-y-[14px] rotate-[2deg]">
                                 </div>
@@ -234,7 +234,7 @@
             @endif
             <!--</editor-fold>-->
 
-            <img src="{{ Storage::disk('s3')->url("$templateFolder/divider-2.webp") }}" alt="divider"
+            <img src="{{ Storage::url("$templateFolder/divider-2.webp") }}" alt="divider"
                  class="w-full my-6 px-4">
 
             <!--<editor-fold desc="Dress code">-->
@@ -244,7 +244,7 @@
 
                     <div>
                         <h3 class="text-5xl font-light">{{ $content->get('dressCode.code') }}</h3>
-                        <img src="{{ Storage::disk('s3')->url("$templateFolder/dresscode.webp") }}" alt="dress-code"
+                        <img src="{{ Storage::url("$templateFolder/dresscode.webp") }}" alt="dress-code"
                              class="mx-auto w-1/2 my-6">
                     </div>
 
@@ -254,7 +254,7 @@
                             esos colores están reservado para hacerme lucir en ese día tan especial.
                         </p>
 
-                        <img src="{{ Storage::disk('s3')->url("$templateFolder/dresscode-b.webp") }}" alt="dress-code"
+                        <img src="{{ Storage::url("$templateFolder/dresscode-b.webp") }}" alt="dress-code"
                              class="absolute bottom-0 w-full my-6">
                     </div>
                 </section>
@@ -268,7 +268,7 @@
                     <div class="grid gap-4 px-6">
                         @if(count($content->get('gallery.items')) > 0)
                             @foreach($content->get('gallery.items') as $image)
-                                <img src="{{ Storage::disk('s3-events')->url($image) }}"
+                                <img src="{{ Storage::disk('events')->url($image) }}"
                                      alt="Gallery Image"
                                      class="w-full h-full object-cover border border-gray-400"
                                 >
@@ -287,7 +287,7 @@
             @endif
             <!--</editor-fold>-->
 
-            <img src="{{ Storage::disk('s3')->url($templateFolder.'/divider-1.webp') }}" alt="divider"
+            <img src="{{ Storage::url($templateFolder.'/divider-1.webp') }}" alt="divider"
                  class="w-full my-6 mx-auto scale-x-[-1]">
 
             <!--<editor-fold desc="Gifts">-->
@@ -328,7 +328,7 @@
                         @endif
                     </div>
 
-                    <img src="{{ Storage::disk('s3')->url("$templateFolder/gifts.webp") }}" alt="gifts"
+                    <img src="{{ Storage::url("$templateFolder/gifts.webp") }}" alt="gifts"
                          class=" w-full">
                 </section>
             @endif
@@ -419,7 +419,7 @@
             @endif
             <!--</editor-fold>-->
 
-            <img src="{{ Storage::disk('s3')->url("$templateFolder/end.webp") }}" alt="end"
+            <img src="{{ Storage::url("$templateFolder/end.webp") }}" alt="end"
                  class="w-full">
         </main>
     </x-templates.wrapper>

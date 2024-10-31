@@ -44,18 +44,10 @@ return [
             'throw' => false,
         ],
 
-        'templates' => [
+        'local-ohyez' => [
             'driver' => 'local',
-            'root' => storage_path('app/templates'),
-            'url' => env('APP_URL').'/templates',
-            'throw' => false,
-        ],
-
-        'events' => [
-            'driver' => 'local',
-            'root' => storage_path('app/events'),
-            'url' => env('APP_URL').'/gallery',
-            'visibility' => 'public',
+            'root' => storage_path('app'),
+            'url' => env('APP_URL'),
             'throw' => false,
         ],
 
@@ -71,15 +63,15 @@ return [
             'throw' => false,
         ],
 
-        's3-templates' => [
+        'templates' => [
             'driver' => 'scoped',
-            'disk' => 's3',
+            'disk' => env('FILESYSTEM_DISK', 'local'),
             'prefix' => 'templates',
         ],
 
-        's3-events' => [
+        'events' => [
             'driver' => 'scoped',
-            'disk' => 's3',
+            'disk' => env('FILESYSTEM_DISK', 'local'),
             'prefix' => 'events',
         ],
 

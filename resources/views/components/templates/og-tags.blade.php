@@ -15,10 +15,10 @@
     <meta name="description" content="Invitación para la {{ $title }}">
     <meta property="og:title" content="{{ $title }}">
     <meta property="og:description" content="Invitación para la {{ $title }}">
-    <meta property="og:image" content="{{ Storage::disk('s3-events')->url($ogImage) }}">
+    <meta property="og:image" content="{{ Storage::disk('events')->url($ogImage) }}">
     <meta property="og:url" content="{{ config('app.url') }}">
     <meta name="twitter:title" content="Invitación para la {{ $title }}">
     <meta name="twitter:description" content="Invitación para la Invitación para la {{ $title }}">
-    <meta name="twitter:image" content="{{ Storage::disk('s3-events')->url($ogImage) }}">
+    <meta name="twitter:image" content="{{ Storage::disk('events')->url($ogImage) }}">
     <meta name="twitter:card" content="summary">
 @endpush

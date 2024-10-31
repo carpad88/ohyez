@@ -25,7 +25,7 @@
         <div class="w-full">
             <div class="flex justify-center items-center">
                 @if($event->logo)
-                    <img src="{{ Storage::disk('s3-events')->url($event->logo) }}" alt="Event logo">
+                    <img src="{{ Storage::disk('events')->url($event->logo) }}" alt="Event logo">
                 @else
                     <h1 class="text-6xl font-bold">{{ $event->content['cover']['fifteen'] }}</h1>
                 @endif

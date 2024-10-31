@@ -51,7 +51,7 @@
         <td style="width: 204pt; overflow: hidden">
             <div>
                 <img
-                    src="{{Storage::disk('s3-templates')->temporaryUrl($event->template->id.'/ticket.jpg', now()->addMinutes(5))}}"
+                    src="{{Storage::disk('templates')->temporaryUrl($event->template->id.'/ticket.jpg', now()->addMinutes(5))}}"
                     alt="bg"
                     style="height: 100%; width: 100%;"
                 />

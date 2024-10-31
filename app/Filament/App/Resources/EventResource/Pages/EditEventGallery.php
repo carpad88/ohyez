@@ -33,7 +33,7 @@ class EditEventGallery extends EditEventRecord
                             ->live(),
 
                         Forms\Components\FileUpload::make('items')
-                            ->disk('s3-events')
+                            ->disk('events')
                             ->directory(fn (Event $record) => $record->code)
                             ->hiddenLabel()
                             ->visible(fn (Forms\Get $get) => $get('visible'))

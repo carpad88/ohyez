@@ -54,14 +54,14 @@ class EditEventCover extends EditEventRecord
                     ->schema([
                         Forms\Components\FileUpload::make('logo')
                             ->visible(fn (Event $record) => $record->hasFeaturesWithCode('LOG'))
-                            ->disk('s3-events')
+                            ->disk('events')
                             ->directory(fn (Event $record) => $record->code)
                             ->label('Logotipo')
                             ->image()
                             ->imageEditor(),
                         Forms\Components\FileUpload::make('music')
                             ->visible(fn (Event $record) => $record->hasFeaturesWithCode('MUS'))
-                            ->disk('s3-events')
+                            ->disk('events')
                             ->directory(fn (Event $record) => $record->code)
                             ->acceptedFileTypes(['audio/*'])
                             ->label('Música'),
