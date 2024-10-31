@@ -31,30 +31,3 @@
     width: 30vw;
     animation: logo 1s ease-out;
 }
-
-/****************************************************
-Styles for template 0000
-****************************************************/
-#template {
-    @apply h-full bg-white;
-}
-
-#template section {
-    @apply p-8 min-h-screen sm:min-h-[728px] flex flex-col justify-center items-center;
-}
-
-#template section:nth-child(even) {
-    @apply bg-gray-200;
-}
-
-#template h2 {
-    @apply font-bold text-3xl mb-8 text-red-500;
-}
-
-#template h3 {
-    @apply font-bold text-xl mb-2;
-}
-
-#template button, #template a {
-    @apply border border-black px-6 py-3 mt-3;
-}

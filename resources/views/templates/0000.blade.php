@@ -1,4 +1,4 @@
-<x-layouts.invitation>
+<x-layouts.invitation :css="$event->template->view">
     <x-templates.og-tags :$event/>
 
     @php
