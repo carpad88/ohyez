@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
                 'content' => 'Hay instantes en la vida que imaginamos, anhelamos y esperamos, uno de esos momentos esta por llegar y lo quiero compartir contigo. ',
             ]);
 
-        (new SyncProducts())->handle();
+        (new SyncProducts)->handle();
 
         collect([
             ['Agregar logotipo', 'LOG'],

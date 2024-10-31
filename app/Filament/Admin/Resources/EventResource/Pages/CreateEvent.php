@@ -15,7 +15,7 @@ class CreateEvent extends CreateRecord
     {
         $data['slug'] = str()->slug($data['title']);
 
-        $event = (new CreateEventAction())->handle($data);
+        $event = (new CreateEventAction)->handle($data);
 
         $session = [
             'payment_intent' => 'pi_ohyez',
@@ -23,7 +23,7 @@ class CreateEvent extends CreateRecord
             'customer' => $data['user_id'],
         ];
 
-        (new CreatePayment())->handle($session, $event, $data['product']);
+        (new CreatePayment)->handle($session, $event, $data['product']);
 
         return $event;
     }

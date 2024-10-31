@@ -18,7 +18,7 @@ class ListProducts extends ListRecords
             Actions\Action::make('sync')
                 ->label('Sync Products')
                 ->outlined()
-                ->action(fn () => (new SyncProducts())->handle()),
+                ->action(fn () => (new SyncProducts)->handle()),
         ];
     }
 }
