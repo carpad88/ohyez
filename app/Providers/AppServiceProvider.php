@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Filament\Forms;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
+use Filament\Http\Responses\Auth\Contracts\LogoutResponse;
 use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentAsset;
@@ -22,10 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(
-            LoginResponse::class,
-            \App\Http\Responses\LoginResponse::class
-        );
+        $this->app->bind(LoginResponse::class, \App\Http\Responses\LoginResponse::class);
+        $this->app->bind(LogoutResponse::class, \App\Http\Responses\LogoutResponse::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
