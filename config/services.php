@@ -31,4 +31,11 @@ return [
         ],
     ],
 
+    'logto' => [
+        'endpoint' => env('LOGTO_ENDPOINT'),
+        'app_id' => env('LOGTO_APP_ID'),
+        'app_secret' => env('LOGTO_APP_SECRET'),
+        'scopes' => explode(',', env('LOGTO_SCOPES', 'openid,profile,email')),
+    ],
+
 ];

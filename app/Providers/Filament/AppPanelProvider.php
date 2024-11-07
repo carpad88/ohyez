@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\Authenticate;
 use Filament\Enums\ThemeMode;
-use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
@@ -21,14 +21,16 @@ class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
+        $filamentAuth = config('ohyez.auth_provider') == 'local';
+
         return $panel
             ->default()
             ->id('app')
             ->path('')
-            ->login()
-            ->registration()
-            ->emailVerification()
-            ->passwordReset()
+            ->when($filamentAuth, fn (Panel $panel) => $panel->login())
+            ->when($filamentAuth, fn (Panel $panel) => $panel->registration())
+            ->when($filamentAuth, fn (Panel $panel) => $panel->emailVerification())
+            ->when($filamentAuth, fn (Panel $panel) => $panel->passwordReset())
             ->profile(isSimple: false)
             ->brandLogo(asset('img/ohyez-logo.svg'))
             ->brandLogoHeight('3rem')

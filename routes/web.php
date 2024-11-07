@@ -9,7 +9,13 @@ use App\Http\Middleware\RedirectIfInvitationAuthenticated;
 use App\Livewire\Invitation\Authenticate;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/auth.php';
+
 Route::view('/', 'welcome')->name('home');
+
+if (config('ohyez.auth_provider') == 'logto') {
+    Route::redirect('/login', '/auth/sign-in');
+}
 
 Route::redirect('/admin/login', '/login')->name('login');
 
@@ -25,7 +31,7 @@ Route::group(['middleware' => ['auth', 'can:update,event'], 'prefix' => '/events
         ->name('event.preview-tickets');
 
     // check assistance
-    //    Route::get('/{event:code}/login', AuthEvent::class)->name('event.login');
+    // Route::get('/{event:code}/login', AuthEvent::class)->name('event.login');
 });
 
 Route::group(['middleware' => EventHasExpired::class], function () {

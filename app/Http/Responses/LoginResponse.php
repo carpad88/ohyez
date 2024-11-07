@@ -13,11 +13,11 @@ class LoginResponse extends \Filament\Http\Responses\Auth\LoginResponse
         $user = auth()->user();
 
         if ($user->hasRole('customer')) {
-            return redirect()->to(EventResource::getUrl());
+            return redirect(EventResource::getUrl());
         }
 
         if ($user->hasRole('super_admin')) {
-            return redirect()->to('admin');
+            return redirect('/admin');
         }
 
         return parent::toResponse($request);
